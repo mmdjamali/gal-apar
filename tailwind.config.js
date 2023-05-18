@@ -10,7 +10,25 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        common : { black : "#212121", white : "#FFFFFF" },
+        lt : {
+          primary : {
 
+          },
+          secondary : {
+            
+          }
+        },
+        dt : {
+          primary : {
+
+          },
+          secondary : {
+
+          }
+        }
+      }
     },
   },
   plugins: [],

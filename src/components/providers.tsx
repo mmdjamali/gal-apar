@@ -1,7 +1,6 @@
 "use client"
 
-import { theme } from "@/lib/mui-theme"
-import { ThemeProvider } from "@mui/material/"
+import ThemeWrapper from "@/themes/theme-wrapper"
 
 interface props {
   children : React.ReactNode
@@ -11,9 +10,9 @@ function Providers({
   children
 } : props ) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeWrapper>
       {children}
-    </ThemeProvider>
+    </ThemeWrapper>
   )
 }
 
