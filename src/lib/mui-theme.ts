@@ -5,10 +5,19 @@ export const baseTheme : ThemeOptions = {
         borderRadius : 6
     },
     components : {
-        // MuiButton : {
-        //     styleOverrides : {
-            
-        //     }
-        // }
+        MuiIconButton : {
+            defaultProps : {
+                disableRipple : true,
+                
+            },
+            styleOverrides : {
+                root : {
+
+                }
+            }
+        }
+    },
+    typography : {
+        fontFamily : "inherit"
     }
 } 

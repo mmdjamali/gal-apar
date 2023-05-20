@@ -1,16 +1,9 @@
-"use client"
-import { Button } from "@mui/material";
+import MobileApplicationBar from "@/components/layout/mobile-application-bar";
 
 export default function Home() {
   return (
     <main>
-      <Button
-      color="primary"
-      disableElevation
-      variant="outlined"
-      >
-        Hello
-      </Button>
+      <MobileApplicationBar/>
 
     </main>
   )
