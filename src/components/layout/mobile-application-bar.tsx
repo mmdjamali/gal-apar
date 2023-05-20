@@ -5,6 +5,7 @@ import { AppBar, Badge, Divider, IconButton, InputBase, Toolbar, Typography, use
 import { Icons } from '../icons'
 import MobileSearch from './mobile-search'
 import MobileLocation from './mobile-location'
+import MobileMenu from './mobile-menu'
 
 function MobileApplicationBar() {  
   return (
@@ -17,9 +18,7 @@ function MobileApplicationBar() {
       <Toolbar variant='dense' className='flex flex-col items-start'>
         <div 
         className='flex items-center justify-between w-full py-1'>
-          <IconButton>
-            <Icons.Menu className="text-[21px]"/>
-          </IconButton>
+          <MobileMenu/>
 
           <IconButton>
             <Icons.Question className='text-[21px]'/>
@@ -29,22 +28,15 @@ function MobileApplicationBar() {
         <Divider variant='fullWidth' className="w-full border-neutral-200/75"/>
         
         <div className='flex w-full items-center justify-between gap-4 py-2'>
-          {/* <div
-          className='flex items-center bg-neutral-100 px-4 py-1 w-full gap-1 rounded-lg text-neutral-500'>
-            <Icons.Search className='text-[21px] text-inherit flex-shrink-0'/>
-            <InputBase
-            placeholder='Search...' 
-            className='text-[14px] w-full flex-shrink text-inherit'/>
-          </div> */}
 
           <MobileSearch/>
 
           <div
           className='flex items-center gap-2 h-full'
           >
-            <IconButton className="flex gap-1">
+            <IconButton className="flex gap-1 font-[inherit]">
                 <Icons.LoginOutline className='text-[21px]'/>
-                <Typography component="p" className="text-[14px] text-neutral-500 font-medium">Login</Typography>
+                <Typography component="p" className="text-[14px] font-[inherit] text-neutral-500 font-medium">Login</Typography>
             </IconButton>
 
             <Divider variant='middle' orientation='vertical' className='h-[21px]'/>
