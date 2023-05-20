@@ -4,6 +4,7 @@ import React from 'react'
 import { AppBar, Badge, Divider, IconButton, InputBase, Toolbar, Typography, useMediaQuery } from '@mui/material'
 import { Icons } from '../icons'
 import MobileSearch from './mobile-search'
+import MobileLocation from './mobile-location'
 
 function MobileApplicationBar() {  
   return (
@@ -58,18 +59,8 @@ function MobileApplicationBar() {
 
         <Divider variant='fullWidth' className="w-full border-neutral-200/75"/>
 
-        <div className='flex w-full items-center justify-between py-2 cursor-pointer'>
-          <div className="flex items-center gap-2">
-            <Icons.Map className="text-[21px] text-yellow-500"/>
-
-            <Typography className="text-neutral-600 text-[12px] select-none">
-              Choose your location
-            </Typography>
-          </div>
-
-          <Icons.ChevronRight className='text-[21px] text-neutral-500'/>
-
-        </div>
+        <MobileLocation/>
+        
       </Toolbar>
     </AppBar>
   )

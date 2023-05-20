@@ -33,7 +33,7 @@ function MobileSearch() {
                 <div
                 className='min-h-screen'>
                     <div
-                    className='flex mx-4 py-2 gap-2 border-[0px] border-b border-red-500 border-solid'>
+                    className='flex mx-4 mt-1 py-2 gap-2 border-[0px] border-b border-red-500 border-solid'>
 
                             <IconButton 
                             onClick={() => {

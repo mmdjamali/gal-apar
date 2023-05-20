@@ -1,4 +1,4 @@
-import { RiShoppingCartLine, RiShoppingCartFill, RiArrowLeftLine } from "react-icons/ri"
+import { RiShoppingCartLine, RiShoppingCartFill, RiArrowLeftLine, RiCloseLine } from "react-icons/ri"
 import { FiLogIn, FiChevronRight, FiChevronLeft } from "react-icons/fi"
 import { TbSearch } from "react-icons/tb"
 import { BiMap } from "react-icons/bi"
@@ -17,5 +17,6 @@ export const Icons = {
     ChevronLeft : FiChevronLeft,
     Menu : RxHamburgerMenu,
     Question : TbQuestionCircle,
-    ArrowLeft : RiArrowLeftLine
+    ArrowLeft : RiArrowLeftLine,
+    Close : RiCloseLine
 }
