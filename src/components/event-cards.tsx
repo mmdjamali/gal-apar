@@ -12,6 +12,23 @@ SwiperCore.use([Pagination,Autoplay])
 function EventCards() {
     const slider = React.useRef<null | SwiperRef>(null)
 
+    const buttons = [
+        {
+            onClick(){
+                if(!slider.current) return
+                slider.current.swiper.slidePrev()
+            },
+            Icon : Icons.ChevronLeft
+        },
+        {
+            onClick(){
+                if(!slider.current) return
+                slider.current.swiper.slideNext()
+            },
+            Icon : Icons.ChevronRight
+        },
+    ]
+
     return (
         <Swiper
         className="group"
@@ -43,23 +60,16 @@ function EventCards() {
             
             <div
             className="flex gap-2 opacity-0 z-[15] group-hover:opacity-100 transition-opacity absolute bottom-5 right-10">
-                <IconButton
-                className="bg-white border border-solid !border-neutral-300"
-                onClick={() => {
-                    if(!slider.current) return
-                    slider.current.swiper.slidePrev()
-                }}>
-                    <Icons.ChevronLeft/>
-                </IconButton>
-
-                <IconButton
-                className="bg-white border border-solid !border-neutral-300"
-                onClick={() => {
-                    if(!slider.current) return
-                    slider.current.swiper.slideNext()
-                }}>
-                    <Icons.ChevronRight/>
-                </IconButton>
+                {buttons.map(({ onClick, Icon },idx) => (
+                    <IconButton
+                    key={idx}
+                    className="bg-white border border-solid !border-neutral-300"
+                    onClick={() => {
+                        onClick()
+                    }}>
+                        <Icon/>
+                    </IconButton>
+                ))}
             </div>
 
             <div className="bullet-container flex items-center justify-center gap-1.5 absolute z-[15] !bottom-2 inset-x-0"/>
