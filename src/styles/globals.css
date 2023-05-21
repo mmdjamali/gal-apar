@@ -14,3 +14,14 @@ html,
 body {
     height: 100%;
 }
+
+@layer components {
+    .swiper-bullet
+    {
+        @apply inline-block cursor-pointer rounded-full h-1.5 aspect-square bg-neutral-800/25 transition-all;
+    }
+    .swiper-bullet-active
+    {
+        @apply bg-white aspect-[3/1] h-1.5;
+    }
+}
