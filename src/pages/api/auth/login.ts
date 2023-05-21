@@ -14,7 +14,7 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
             const account = await AccountModel.findOne({ phone : body.phone })
 
             const code = {
-                digit : "444444",
+                digits : "444444",
                 expires_at : Date.now() + (10 * 60 * 1000)
             }
 

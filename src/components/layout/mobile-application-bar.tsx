@@ -1,13 +1,17 @@
 "use client"
 
 import React from 'react'
-import { AppBar, Badge, Divider, IconButton, InputBase, Toolbar, Typography, useMediaQuery } from '@mui/material'
+import { AppBar, Avatar, Badge, Divider, IconButton, InputBase, Toolbar, Typography, useMediaQuery } from '@mui/material'
 import { Icons } from '../icons'
 import MobileSearch from './mobile-search'
 import MobileLocation from './mobile-location'
 import MobileMenu from './mobile-menu'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 function MobileApplicationBar() {  
+  const { data, status, update } = useSession()
+
   return (
     <AppBar
     elevation={0}
@@ -34,10 +38,16 @@ function MobileApplicationBar() {
           <div
           className='flex items-center gap-2 h-full'
           >
-            <IconButton className="flex gap-1 font-[inherit]">
-                <Icons.LoginOutline className='text-[21px]'/>
-                <Typography component="p" className="text-[14px] font-[inherit] text-neutral-500 font-medium">Login</Typography>
-            </IconButton>
+            { status === "unauthenticated" ?
+            <Link href="/login" className="no-underline">
+              <IconButton className="flex gap-1 font-[inherit]">
+                  <Icons.LoginOutline className='text-[21px]'/>
+                  <Typography component="p" className="text-[14px] font-[inherit] text-neutral-500 font-medium">Login</Typography>
+              </IconButton>
+            </Link>
+            :
+            <Avatar className='w-[30px] h-[30px] flex-shrink-0' alt={data?.user?.name ?? ""} src={data?.user?.image ?? ""}/>
+            }
 
             <Divider variant='middle' orientation='vertical' className='h-[21px]'/>
 

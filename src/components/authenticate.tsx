@@ -1,16 +1,20 @@
 "use client"
 import React from 'react'
 import { Icons } from './icons'
-import { Button, Fade, Input, InputBase, OutlinedInput, Typography } from '@mui/material'
+import { Button, Fade, OutlinedInput, Typography } from '@mui/material';
+import { signIn } from "next-auth/react"
+import { useRouter } from 'next/navigation';
 
 function Authenticate() {
+  const router = useRouter()
+
   const [phoneNumber, setPhoneNumber] = React.useState("")
   const [loading, setLoading] = React.useState(false)
   const [errors, setErrors] = React.useState({
     field : "",
     otp : ""
   })
-  const [sended, setSended] = React.useState(true)
+  const [sended, setSended] = React.useState(false)
   const [digits, setDigits] = React.useState(Array(6).fill(""))
   const [currentIndex, setCurrentIndex] = React.useState(0)
 
@@ -73,50 +77,6 @@ function Authenticate() {
           className='text-[12px] text-neutral-800/60 mt-1'>
             Please enter your phone number
           </Typography>
-
-          {digits.map((value, idx) => (
-            <OutlinedInput
-            key={idx}
-            value={value}
-            onChange={(e) => {
-              setDigits(prev => {
-                let clone = [...prev]
-                clone[idx] = e.target.value
-                return clone
-              })
-            }}
-            onBlur={() => {
-              if(!phoneNumber) {
-                setErrors(prev => ({
-                  ...prev,
-                  field : "Please fill this field"
-                }))
-                return
-              }
-
-              if(!/^(\+98|0)?9\d{9}$/.test(phoneNumber)){
-                setErrors(prev => ({
-                  ...prev,
-                  field : "Please enter a valid phone number"
-                }))
-                return
-              }
-              
-              setErrors(prev => ({
-                ...prev,
-                field : ""
-              }))
-            }}
-            error={!!errors.field}
-            sx={{
-              "& input" : {
-                paddingBlock : "12px",
-                width : "30px"
-              }
-            }}
-            className='mt-4 text-[12px] py-0'
-            />
-          ))}
 
           <OutlinedInput
           value={phoneNumber}
@@ -188,20 +148,32 @@ function Authenticate() {
         e.preventDefault()
         const otp = digits.join("")
 
-        if(!!errors.otp || !otp) return
+        if(!otp) return
 
         try{
           setLoading(true)
 
-          const res = await fetch("http://localhost:3000/api/auth/validate-otp",{
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify({
-              phone : phoneNumber
-            })
+          const res = await signIn("credentials",{
+            code : otp,
+            phone : phoneNumber,
+            redirect : false
           })
 
-          console.log(res)
+          if(!res?.ok){
+            setErrors(prev => ({
+              ...prev,
+              otp : "Something went wrong!"
+            }))
+          } else {
+            setErrors(prev => ({
+              ...prev,
+              otp : ""
+            }))
+
+            setTimeout(() => {
+              router.push("/")
+            },1000)
+          }
 
           setLoading(false)
         }

@@ -33,7 +33,7 @@ export default async function ValidateOtp(req : NextApiRequest, res : NextApiRes
                 user = await UserModel.create({
                     phone : body.phone,
                     name : "Unknown",
-                    picture : ""
+                    image : ""
                 })
 
                 update.profile = user._id
