@@ -3,12 +3,15 @@ import mongoose from "mongoose"
 const Schema = mongoose.Schema
 
 const CodeSchema = new Schema({
-    code : String,
+    digits : String,
     expires_at : Number
 })
 
 const AccountSchema = new Schema({
-    profile : Schema.Types.ObjectId,
+    profile :{ 
+        type : Schema.Types.ObjectId,
+        default : null
+    },
     phone : String,
     code : {
         type : CodeSchema,
