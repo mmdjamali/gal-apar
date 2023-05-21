@@ -1,7 +1,10 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialProvider from "next-auth/providers/credentials"
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from './db-client'
 
 export const AuthOptions : NextAuthOptions = {
+    adapter : MongoDBAdapter(clientPromise),
     session : {
         strategy : "jwt"
     },
