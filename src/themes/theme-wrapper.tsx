@@ -1,6 +1,6 @@
 "use client"
 
-import { ThemeProvider as Provider, createTheme } from "@mui/material"
+import { ThemeProvider as Provider, StyledEngineProvider, createTheme } from "@mui/material"
 import { useMemo, useState } from "react"
 import { lightTheme } from "./light-theme/light-theme"
 import { darkTheme } from "./dark-theme/dark-theme"
@@ -28,11 +28,13 @@ function ThemeWrapper({
     },[mode])
 
     return (
-        <ThemeContext.Provider value={contextValue}>
-            <Provider theme={theme}>
-                {children}
-            </Provider>
-        </ThemeContext.Provider>
+        <StyledEngineProvider injectFirst>
+            <ThemeContext.Provider value={contextValue} >
+                <Provider theme={theme}>
+                    {children}
+                </Provider>
+            </ThemeContext.Provider>
+        </StyledEngineProvider>
     )
 }
 

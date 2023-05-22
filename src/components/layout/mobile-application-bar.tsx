@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { AppBar, Avatar, Badge, Divider, IconButton, InputBase, Toolbar, Typography, useMediaQuery } from '@mui/material'
+import { AppBar, Avatar, Badge, Divider, IconButton, InputBase, Skeleton, Toolbar, Typography, useMediaQuery } from '@mui/material'
 import { Icons } from '../icons'
 import MobileSearch from './mobile-search'
 import MobileLocation from './mobile-location'
@@ -44,9 +44,10 @@ function MobileApplicationBar() {
                   <Icons.LoginOutline className='text-[21px]'/>
                   <Typography component="p" className="text-[14px] font-[inherit] text-neutral-500 font-medium">Login</Typography>
               </IconButton>
-            </Link>
-            :
-            <Avatar className='w-[30px] h-[30px] flex-shrink-0' alt={data?.user?.name ?? ""} src={data?.user?.image ?? ""}/>
+            </Link> : 
+            status === "loading" ? 
+              <Skeleton variant='circular' className="w-[30px] h-[30px]" /> :
+              <Avatar className='w-[30px] h-[30px] flex-shrink-0' alt={data?.user?.name ?? ""} src={data?.user?.image ?? ""}/>
             }
 
             <Divider variant='middle' orientation='vertical' className='h-[21px]'/>

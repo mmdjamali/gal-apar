@@ -1,6 +1,7 @@
 import Providers from '@/components/providers'
 import '../styles/globals.css'
 import { Inter, Roboto , Vazirmatn} from 'next/font/google'
+import Loader from '@/components/loader'
 
 const inter = Inter({ subsets: ['latin'], weight : ["100","200","300","400","500","600","700","900"]})
 const roboto = Roboto({subsets : ["latin"],weight : ["100","300","400","500","700","900"]})
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${roboto.className} ${vazirmatn.className} font-medium`}>
-        <Providers>
-            {children}
-        </Providers>
+        <Loader>
+          <Providers>
+              {children}
+          </Providers>
+        </Loader>
       </body>
     </html>
   )
