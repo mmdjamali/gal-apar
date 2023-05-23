@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.css";
 import { Icons } from "./icons";
 import Image from "next/image";
+import SpecialProduct from "./special-product";
 
 function SpecialProductGroup({
     className
@@ -13,13 +14,14 @@ function SpecialProductGroup({
   return (
     <div
     className={cn(
-        'flex items-center justify-center bg-red-500 px-2 py-3 relative',
+        'flex items-center justify-center bg-blue-500 px-2 py-3 relative',
         className
     )}>
         <Swiper
-        className="w-full relative h-[250px]"
+        grabCursor
+        className="w-full relative h-[210px]"
         spaceBetween={8}
-        width={180}>
+        width={154}>
             <SwiperSlide>
                 <div
                 className="flex flex-col items-center h-full justify-between gap-2">
@@ -48,7 +50,7 @@ function SpecialProductGroup({
 
             {Array(10).fill("").map((_,idx,list) => (
                 <SwiperSlide key={idx}>
-                    <div className={cn(
+                    <SpecialProduct className={cn(
                         "inline-flex w-full h-full bg-white",
                         idx === 0 ? "rounded-l-md" : "",
                         idx === list.length - 1 ? "rounded-r-md" : ""

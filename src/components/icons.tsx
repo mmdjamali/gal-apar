@@ -6,6 +6,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import { TbQuestionCircle } from "react-icons/tb"
 import { IoLogoUsd } from "react-icons/io"
 import { CgSpinner } from "react-icons/cg"
+import { HiOutlinePlusSmall } from "react-icons/hi2"
 
 import { IconType, IconBaseProps} from "react-icons"
 
@@ -22,5 +23,7 @@ export const Icons = {
     ArrowLeft : RiArrowLeftLine,
     Close : RiCloseLine,
     Logo : IoLogoUsd,
-    Spinner : CgSpinner
+    Dollar : IoLogoUsd,
+    Spinner : CgSpinner,
+    Plus : HiOutlinePlusSmall
 }
