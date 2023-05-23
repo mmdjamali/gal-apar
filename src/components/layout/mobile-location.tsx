@@ -1,4 +1,4 @@
-import { IconButton, SwipeableDrawer, Typography } from '@mui/material'
+import { Drawer, IconButton, Typography } from '@mui/material'
 import React from 'react'
 import { Icons } from '../icons'
 
@@ -24,9 +24,8 @@ function MobileLocation() {
 
             </div>
 
-            <SwipeableDrawer
+            <Drawer
             anchor='bottom'
-            onOpen={() => {}}
             onClose={() => {}}
             open={open}>
                 <div
@@ -45,7 +44,7 @@ function MobileLocation() {
                         </IconButton>
                     </div>
                 </div>
-            </SwipeableDrawer>
+            </Drawer>
         </>
     )
 }

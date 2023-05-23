@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Icons } from '../icons'
-import { IconButton, InputBase, SwipeableDrawer } from '@mui/material'
+import { Drawer, IconButton, InputBase } from '@mui/material'
 
 function MobileSearch() {
     const [open, setOpen] = React.useState(false) 
@@ -21,11 +21,9 @@ function MobileSearch() {
                 </span>
             </div>
 
-            <SwipeableDrawer
+            <Drawer
             anchor='bottom'
             open={open}
-            onOpen={(e) => {
-            }}
             onClose={() => {
 
             }}
@@ -53,7 +51,7 @@ function MobileSearch() {
                         className='w-full text-[12px] caret-red-500'/>
                     </div>
                 </div>
-            </SwipeableDrawer>
+            </Drawer>
         </>
     )
 }
