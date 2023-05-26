@@ -24,6 +24,8 @@ function MobileApplicationBar() {
         className='flex items-center justify-between w-full py-1'>
           <MobileMenu/>
 
+          <Icons.Logo className="text-orange-500 w-[21px]"/>
+
           <IconButton>
             <Icons.Question className='text-[21px]'/>
           </IconButton>

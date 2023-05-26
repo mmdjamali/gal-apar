@@ -14,7 +14,7 @@ function Authenticate() {
     field : "",
     otp : ""
   })
-  const [sended, setSended] = React.useState(false)
+  const [sended, setSended] = React.useState(true)
   const [digits, setDigits] = React.useState(Array(6).fill(""))
   const [currentIndex, setCurrentIndex] = React.useState(0)
 
@@ -268,3 +268,4 @@ function Authenticate() {
 }
 
 export default Authenticate
+
