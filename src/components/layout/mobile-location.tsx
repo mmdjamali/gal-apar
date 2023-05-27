@@ -11,17 +11,14 @@ function MobileLocation() {
             onClick={() => {
                 setOpen(true)
             }}
-            className='flex w-full items-center justify-between py-2 cursor-pointer'>
-                <div className="flex items-center gap-2">
-                    <Icons.Map className="text-[21px] text-yellow-500"/>
+            className='flex w-fit items-center gap-1 justify-between py-2 cursor-pointer'>
+                <Icons.Map className="text-[21px] text-lt-accent-main/75"/>
 
-                    <Typography className="text-neutral-600 text-[12px] select-none">
-                    Choose your location
-                    </Typography>
-                </div>
+                <Typography className="text-lt-accent-main/75 text-[12px] select-none font-medium">
+                Choose your location
+                </Typography>
 
-                <Icons.ChevronRight className='text-[21px] text-neutral-500'/>
-
+                <Icons.ChevronRight className='text-[21px] text-lt-accent-main/75'/>
             </div>
 
             <Drawer

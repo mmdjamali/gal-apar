@@ -14,10 +14,16 @@ module.exports = {
         common : { black : "#212121", white : "#FFFFFF" },
         lt : {
           primary : {
-
+            main : "#ff3e15",
+            dark : "#6b1a09"
           },
           secondary : {
-            
+            main : "#f1f1f1",
+            dark : "#676767"
+          },
+          accent : {
+            main : "#00143b",
+            dark : "#000819"
           }
         },
         dt : {
@@ -25,6 +31,9 @@ module.exports = {
 
           },
           secondary : {
+
+          },
+          accent : {
 
           }
         }

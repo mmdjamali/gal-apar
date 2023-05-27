@@ -32,10 +32,10 @@ body {
 @layer components {
     .swiper-bullet
     {
-        @apply inline-block cursor-pointer rounded-full h-1.5 aspect-square bg-neutral-800/25 transition-all;
+        @apply inline-block cursor-pointer rounded-full h-1.5 aspect-square bg-lt-accent-main/25 transition-all;
     }
     .swiper-bullet-active
     {
-        @apply bg-white aspect-[3/1] h-1.5;
+        @apply bg-lt-accent-main aspect-[3/1] h-1.5;
     }
 }

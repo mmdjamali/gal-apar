@@ -16,35 +16,32 @@ function MobileApplicationBar() {
     <AppBar
     elevation={0}
     position='sticky'
-    className='border-[0px] border-b border-neutral-200/75 top-0 bg-white font-[inherit]'
+    className='border-[0px] border-neutral-200/75 top-0 bg-white font-[inherit]'
     variant='outlined'
     >
-      <Toolbar variant='dense' className='flex flex-col items-start'>
+      <Toolbar variant='dense' className='flex flex-col items-start p-0'>
         <div 
-        className='flex items-center justify-between w-full py-1'>
+        className='flex items-center justify-between w-full py-1 px-4'>
           <MobileMenu/>
 
-          <Icons.Logo className="text-orange-500 w-[21px]"/>
-
-          <IconButton>
-            <Icons.Question className='text-[21px]'/>
-          </IconButton>
+          <Icons.Logo className="text-lt-primary-main h-[21px]"/>
+          
+          <MobileSearch/>
         </div>
         
-        <Divider variant='fullWidth' className="w-full border-neutral-200/75"/>
+        <Divider variant='fullWidth' className="w-full border-lt-secondary-main px-4"/>
         
-        <div className='flex w-full items-center justify-between gap-4 py-2'>
-
-          <MobileSearch/>
+        <div className='flex w-full items-center justify-between gap-4 bg-lt-secondary-main px-4'>
+          <MobileLocation/>
 
           <div
-          className='flex items-center gap-2 h-full'
+          className='flex items-center gap-2 h-full text-lt-primary-main'
           >
             { status === "unauthenticated" ?
-            <Link href="/login" className="no-underline">
-              <IconButton className="flex gap-1 font-[inherit]">
+            <Link href="/login" className="no-underline text-[inherit]">
+              <IconButton className="flex gap-1 font-[inherit] text-[inherit]">
                   <Icons.LoginOutline className='text-[21px]'/>
-                  <Typography component="p" className="text-[14px] font-[inherit] text-neutral-500 font-medium">Login</Typography>
+                  <Typography component="p" className="text-[12px] font-[inherit] font-medium">Login</Typography>
               </IconButton>
             </Link> : 
             status === "loading" ? 
@@ -52,20 +49,16 @@ function MobileApplicationBar() {
               <Avatar className='w-[30px] h-[30px] flex-shrink-0' alt={data?.user?.name ?? ""} src={data?.user?.image ?? ""}/>
             }
 
-            <Divider variant='middle' orientation='vertical' className='h-[21px]'/>
+            <Divider variant='middle' orientation='vertical' className='h-[21px] border-orange-500/25'/>
 
-            <IconButton>
+            <IconButton className="text-[inherit]">
               <Badge badgeContent={0} color='primary'>
                 <Icons.CartOutline className='text-[21px]'/>
               </Badge>
             </IconButton>
           </div>
         </div>
-
-        <Divider variant='fullWidth' className="w-full border-neutral-200/75"/>
-
-        <MobileLocation/>
-        
+        {/* <Divider variant='fullWidth' className="w-full border-neutral-200/75"/> */}
       </Toolbar>
     </AppBar>
   )

@@ -29,7 +29,7 @@ function Authenticate() {
       className='flex flex-col items-center justify-center relative w-[min(100%,320px)] px-4 border sm:border-solid border-neutral-200/75 py-5 rounded-lg'>
         <div
         className='w-full flex items-center justify-center'>
-          <Icons.Logo className='text-blue-500 text-[30px]'/>
+          <Icons.Logo className='text-lt-primary-main h-[50px]'/>
         </div>
 
         <form
@@ -140,7 +140,7 @@ function Authenticate() {
     className='flex flex-col items-center justify-center relative w-[min(100%,320px)] px-4 border sm:border-solid border-neutral-200/75 py-5 rounded-lg'>
       <div
       className='w-full flex items-center justify-center'>
-        <Icons.Logo className='text-blue-500 text-[30px]'/>
+        <Icons.Logo className='text-lt-primary-main h-[50px]'/>
       </div>
 
       <form

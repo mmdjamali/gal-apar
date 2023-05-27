@@ -8,6 +8,7 @@ function MobileMenu() {
     return (
         <>
             <IconButton
+            className='text-lt-accent-main'
             onClick={() => {
                 setOpen(true)
             }}>

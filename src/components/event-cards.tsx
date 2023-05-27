@@ -6,6 +6,7 @@ import SwiperCore , { Pagination, Autoplay } from "swiper"
 import React from 'react'
 import { IconButton } from "@mui/material"
 import { Icons } from "./icons"
+import { cn } from "@/lib/utils"
 
 SwiperCore.use([Pagination,Autoplay])
 
@@ -18,14 +19,16 @@ function EventCards() {
                 if(!slider.current) return
                 slider.current.swiper.slidePrev()
             },
-            Icon : Icons.ChevronLeft
+            Icon : Icons.ChevronLeft,
+            style : "left-2"
         },
         {
             onClick(){
                 if(!slider.current) return
                 slider.current.swiper.slideNext()
             },
-            Icon : Icons.ChevronRight
+            Icon : Icons.ChevronRight,
+            style : "right-2"
         },
     ]
 
@@ -58,19 +61,24 @@ function EventCards() {
                 </SwiperSlide>
             )) }
             
-            <div
-            className="flex gap-2 opacity-0 z-[15] group-hover:opacity-100 transition-opacity absolute bottom-5 right-10">
-                {buttons.map(({ onClick, Icon },idx) => (
+            {buttons.map(({ onClick, Icon, style},idx) => (
+                <div
+                className={cn(
+                    "hidden md:inline-block opacity-0 group-hover:opacity-100 transition-all absolute top-[50%] -translate-y-[50%] z-[15]",
+                    style
+                )}
+                key={idx}>
                     <IconButton
-                    key={idx}
-                    className="bg-white border border-solid !border-neutral-300"
+                    className={cn(
+                        "bg-transparent border border-solid !border-lt-accent-main text-lt-accent-main",
+                    )}
                     onClick={() => {
                         onClick()
                     }}>
                         <Icon/>
                     </IconButton>
-                ))}
-            </div>
+                </div>
+            ))}
 
             <div className="bullet-container flex items-center justify-center gap-1.5 absolute z-[15] !bottom-2 inset-x-0"/>
 
