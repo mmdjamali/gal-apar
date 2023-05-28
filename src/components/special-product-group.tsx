@@ -36,8 +36,11 @@ function SpecialProductGroup({
                         />
                     </div>
 
-                    <Link href="" className="text-white no-underline text-[14px] flex items-center justify-center">
-                        See All <Icons.ChevronRight className="text-[14px]"/>
+                    <Link href="" className="text-white no-underline text-[14px] font-light gap-1 flex items-center justify-center">
+                        <p>
+                            See All 
+                        </p>
+                        <Icons.ChevronRight className="text-[18px]"/>
                     </Link>
                 </div>
             </SwiperSlide>

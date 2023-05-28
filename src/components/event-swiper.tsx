@@ -61,7 +61,7 @@ function EventSwiper({
                 <SwiperSlide
                 key={idx}>
                     <div
-                    className={"block w-full h-[200px] lg:h-[250px] " + item}>
+                    className={"block w-full h-[220px] lg:h-[250px] " + item}>
                     </div>
                 </SwiperSlide>
             )) }
