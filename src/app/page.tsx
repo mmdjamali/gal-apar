@@ -8,7 +8,7 @@ export default function Home() {
     <main>
         <MobileApplicationBar/>
         <EventSwiper className=""/>
-        <SpecialProductGroup className="m-4"/>
+        <SpecialProductGroup className="my-8"/>
         <EventCards/>
     </main>
   )

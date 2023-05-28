@@ -59,7 +59,7 @@ function MobileMenu() {
                         </h3>
 
                         {categories.map(({title}, idx) => (
-                            <div key={idx} className='flex items-center justify-start gap-1  text-lt-accent-main/90'>
+                            <div key={idx} className='flex items-center justify-start gap-1 cursor-pointer text-lt-accent-main/90'>
                                 <p className='text-[12px]'>
                                     {title}
                                 </p>

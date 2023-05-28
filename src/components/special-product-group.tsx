@@ -14,7 +14,7 @@ function SpecialProductGroup({
   return (
     <div
     className={cn(
-        'flex items-center justify-center bg-lt-accent-main px-2 py-3 relative rounded-lg',
+        'flex items-center justify-center bg-lt-accent-main px-2 py-3 relative lg:rounded-lg',
         className
     )}>
         <Swiper
