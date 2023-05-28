@@ -10,7 +10,9 @@ import { cn } from "@/lib/utils"
 
 SwiperCore.use([Pagination,Autoplay])
 
-function EventSwiper() {
+function EventSwiper({
+    className
+} : { className ?: string }) {
     const slider = React.useRef<null | SwiperRef>(null)
 
     const buttons = [
@@ -34,7 +36,10 @@ function EventSwiper() {
 
     return (
         <Swiper
-        className="group"
+        className={cn(
+            "group",
+            className
+        )}
         slidesPerView={1}
         ref={slider}
         loop

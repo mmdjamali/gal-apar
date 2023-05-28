@@ -8,18 +8,49 @@ import MobileLocation from './mobile-location'
 import MobileMenu from './mobile-menu'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 function MobileApplicationBar() {  
   const { data, status, update } = useSession()
+  const [ show, setShow ] = React.useState<boolean>(true)
+
+  React.useEffect(() => {
+    let lastY = 0;
+
+    const handleScroll = (e : Event) => {
+      const w = window.document.scrollingElement
+      const scrollTop = w?.scrollTop ?? 0
+
+      if(scrollTop > (lastY + 50)) {
+        setShow(false)
+        lastY = scrollTop
+        return
+      }
+
+      if(scrollTop < (lastY - 50)){
+        setShow(true)
+        lastY = scrollTop
+        return
+      }
+
+    }
+
+    window.addEventListener("scroll",handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll",handleScroll)
+    }
+  },[])
 
   return (
     <AppBar
     elevation={0}
     position='sticky'
-    className='border-[0px] border-neutral-200/75 top-0 bg-white font-[inherit]'
+    className='border-[0px] border-neutral-200/75 top-0 bg-white/95 backdrop-blur-md font-[inherit]'
+
     variant='outlined'
     >
-      <Toolbar variant='dense' className='flex flex-col items-start p-0'>
+      <Toolbar className='flex flex-col items-start p-0 min-h-[0px]'>
         <div 
         className='flex items-center justify-between w-full py-1 px-4'>
           <MobileMenu/>
@@ -31,7 +62,10 @@ function MobileApplicationBar() {
         
         <Divider variant='fullWidth' className="w-full border-lt-secondary-main px-4"/>
         
-        <div className='flex w-full items-center justify-between gap-4 bg-lt-secondary-main px-4'>
+        <div className={cn(
+          'flex w-full items-center justify-between transition-[max-height] gap-4 overflow-hidden bg-lt-secondary-main px-4',
+          show ? "max-h-[100vh]" : "max-h-[0] gap-0"
+        )}>
           <MobileLocation/>
 
           <div
