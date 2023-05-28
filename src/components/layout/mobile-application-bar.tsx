@@ -35,7 +35,7 @@ function MobileApplicationBar() {
           <MobileLocation/>
 
           <div
-          className='flex items-center gap-2 h-full text-lt-primary-main'
+          className='flex flex-shrink-0 items-center gap-2 h-full text-lt-primary-main'
           >
             { status === "unauthenticated" ?
             <Link href="/login" className="no-underline text-[inherit]">

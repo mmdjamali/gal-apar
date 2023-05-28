@@ -29,11 +29,14 @@ function SpecialProduct({
 
         <div className='pt-1 flex flex-col'>
             <div
-            className='flex items-center justify-between'>
+            className='flex gap-2 items-center justify-between'>
+
+                <Icons.Tooman className='flex-shrink-0 w-[16px]'/>
+
                 <div
-                className='flex items-center gap-1 justify-center'>
-                    <Icons.Dollar />
+                className='flex flex-col w-full items-start justify-center'>
                     <Typography variant='body2' className="font-semibold">3.240</Typography>
+                    <Typography className='text-[12px] line-through text-neutral-300'>3.600</Typography>
                 </div>
 
                 <Chip
@@ -43,18 +46,12 @@ function SpecialProduct({
                     }
                 }}
                 color="primary" label="10%" size="small" 
-                className='text-[11px] px-0 py-[2px] h-[20px] w-[34px]'/>
+                className='text-[11px] px-0 py-[2px] h-[20px] w-[34px] flex-shrink-0'/>
             </div>
 
-            <div
+            {/* <div
             className='pl-5 relative mr-auto'>
-                <Typography className='text-[12px] line-through text-neutral-300'>3.600</Typography>
-            </div>
-        </div>
-
-        <div 
-        className='relative w-full h-1 rounded-full bg-neutral-200 overflow-hidden mt-auto'>
-            <span className='inline-block absolute left-0 top-0 bg-blue-500 rounded-full h-full w-[50%]'/>
+            </div> */}
         </div>
 
     </div>

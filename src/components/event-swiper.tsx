@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 
 SwiperCore.use([Pagination,Autoplay])
 
-function EventCards() {
+function EventSwiper() {
     const slider = React.useRef<null | SwiperRef>(null)
 
     const buttons = [
@@ -20,7 +20,7 @@ function EventCards() {
                 slider.current.swiper.slidePrev()
             },
             Icon : Icons.ChevronLeft,
-            style : "left-2"
+            style : "left-3"
         },
         {
             onClick(){
@@ -28,7 +28,7 @@ function EventCards() {
                 slider.current.swiper.slideNext()
             },
             Icon : Icons.ChevronRight,
-            style : "right-2"
+            style : "right-3"
         },
     ]
 
@@ -86,7 +86,7 @@ function EventCards() {
     )
 }
 
-export default EventCards
+export default EventSwiper
 
 const list = [
     "bg-red-500",

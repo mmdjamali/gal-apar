@@ -1,11 +1,14 @@
+"use client"
 import Providers from '@/components/providers'
 import '../styles/globals.css'
-import { Inter, Roboto , Vazirmatn} from 'next/font/google'
+// import { Inter, Roboto , Vazirmatn} from 'next/font/google'
 import Loader from '@/components/loader'
 
-const inter = Inter({ subsets: ['latin'], weight : ["100","200","300","400","500","600","700","900"]})
-const roboto = Roboto({subsets : ["latin"],weight : ["100","300","400","500","700","900"]})
-const vazirmatn = Vazirmatn({subsets : ["latin"],weight : ["100",'200',"300","400","500",'600',"700",'800',"900"]})
+// const inter = Inter({ subsets: ['latin'], weight : ["100","200","300","400","500","600","700","900"]})
+// const roboto = Roboto({subsets : ["latin"],weight : ["100","300","400","500","700","900"]})
+// const vazirmatn = Vazirmatn({subsets : ["latin"],weight : ["100",'200',"300","400","500",'600',"700",'800',"900"]})
+
+// ${inter.className} ${roboto.className} ${vazirmatn.className}
 
 export const metadata = {
   title: 'Create Next App',
@@ -19,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${roboto.className} ${vazirmatn.className} font-medium`}>
+      <body className={`font-medium`}>
         <Loader>
           <Providers>
               {children}
