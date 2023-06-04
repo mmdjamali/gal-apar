@@ -22,12 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr">
       <body className={`font-medium`}>
-        <Loader>
-          <Providers>
-              {children}
-          </Providers>
-        </Loader>
+        <Providers>{children}</Providers>
       </body>
     </html>
-  )
+  );
 }

@@ -16,8 +16,7 @@ function MobileSearch() {
 
     },[searchQuery])
 
-    const searched = searchValues.filter(v => v.search(searchQuery) >= 0)
-    
+    const searched = searchQuery ? searchValues.filter(v => v.search(searchQuery) >= 0) : []
 
     return (
         <>
