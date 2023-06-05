@@ -8,13 +8,13 @@ import SpecialProductGroup from "@/components/special-product-group";
 export default function Home() {
   return (
     <main>
-        <MobileApplicationBar/>
-        <EventSwiper className=""/>
-        <SpecialProductGroup className="my-8"/>
-        <EventCards/>
-        <Categories className="mt-4"/>
+      <MobileApplicationBar />
+      <EventSwiper className="" />
+      <SpecialProductGroup className="my-8" />
+      <EventCards />
+      <Categories className="mt-4" />
 
-        <FooterMobile className="mt-8"/>
+      <FooterMobile className="mt-8" />
     </main>
-  )
+  );
 }
