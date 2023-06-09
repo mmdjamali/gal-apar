@@ -14,9 +14,14 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
             const account = await AccountModel.findOne({ phone : body.phone })
 
             const code = {
-                digits : (Date.now() * (Math.random() * 1000)).toString().slice(0,6),
-                expires_at : Date.now() + (10 * 60 * 1000)
-            }
+              digits:
+                process.env.NODE_ENV === "development"
+                  ? "444444"
+                  : (Date.now() * (Math.random() * 1000))
+                      .toString()
+                      .slice(0, 6),
+              expires_at: Date.now() + 10 * 60 * 1000,
+            };
 
             if(account){
                 await AccountModel.findByIdAndUpdate(account._id , {
