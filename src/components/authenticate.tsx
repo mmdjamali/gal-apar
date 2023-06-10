@@ -82,13 +82,33 @@ function Authenticate() {
           <OutlinedInput
             value={phoneNumber}
             onChange={(e) => {
-              setPhoneNumber(e.target.value);
+              const value = e.target.value;
+
+              setPhoneNumber(value);
+
+              if (!value) {
+                setErrors((prev) => ({
+                  ...prev,
+                  field: "Please don't leave this field empty",
+                }));
+                return;
+              }
+
+              if (!/^(\+98|0)?9\d{9}$/.test(value)) {
+                setErrors((prev) => ({
+                  ...prev,
+                  field: "Please enter a valid phone number",
+                }));
+                return;
+              }
+
+              setErrors((prev) => ({ ...prev, field: "" }));
             }}
             onBlur={() => {
               if (!phoneNumber) {
                 setErrors((prev) => ({
                   ...prev,
-                  field: "Please fill this field",
+                  field: "Please don't leave this field empty",
                 }));
                 return;
               }
@@ -106,7 +126,6 @@ function Authenticate() {
                 field: "",
               }));
             }}
-            error={!!errors.field}
             sx={{
               "& input": {
                 paddingBlock: "12px",

@@ -1,4 +1,14 @@
-import { RiShoppingCartLine, RiShoppingCartFill, RiArrowLeftLine, RiCloseLine, RiMenuLine, RiEyeLine, RiEyeFill } from "react-icons/ri"
+import {
+  RiShoppingCartLine,
+  RiShoppingCartFill,
+  RiArrowLeftLine,
+  RiCloseLine,
+  RiMenuLine,
+  RiEyeLine,
+  RiEyeFill,
+  RiDeleteBin5Line,
+  RiTimeLine,
+} from "react-icons/ri";
 import {
   FiLogIn,
   FiChevronRight,
@@ -110,4 +120,6 @@ export const Icons = {
   Plus: HiOutlinePlusSmall,
   EyeLine: RiEyeLine,
   EyeFill: RiEyeFill,
+  Trash: RiDeleteBin5Line,
+  Time : RiTimeLine
 };
