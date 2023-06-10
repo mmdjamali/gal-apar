@@ -21,9 +21,12 @@ interface ActionType {
 function MobileLocation() {
   const [open, setOpen] = React.useState<boolean>(false);
   const [current, setCurrent] = React.useState(0);
+  const [storedLocation, setStoredLocation] = React.useState<{}>({});
 
-  const storedLocation = React.useMemo(() => {
-    return JSON.parse(localStorage.getItem("galapar-location") ?? "{}");
+  React.useEffect(() => {
+    setStoredLocation(
+      JSON.parse(localStorage?.getItem("galapar-location") ?? "{}")
+    );
   }, [open]);
 
   const [location, changeLocation] = useReducer(
