@@ -14,9 +14,9 @@ function Authenticate() {
     field : "",
     otp : ""
   })
-  const [sended, setSended] = React.useState(false);
-  const [digits, setDigits] = React.useState(Array(6).fill(""))
-  const [currentIndex, setCurrentIndex] = React.useState(0)
+  const [sended, setSended] = React.useState(true);
+  const [digits, setDigits] = React.useState(Array(6).fill(""));
+  const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const input = React.useRef<HTMLInputElement | null>(null);
 
@@ -246,6 +246,11 @@ function Authenticate() {
                   idx > 0
                 ) {
                   setCurrentIndex((prev) => prev - 1);
+                  setDigits((prev) => {
+                    let clone = [...prev];
+                    clone[idx - 1] = "";
+                    return clone;
+                  });
                   e.preventDefault();
                 }
               }}

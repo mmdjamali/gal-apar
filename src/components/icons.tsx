@@ -8,6 +8,7 @@ import {
   RiEyeFill,
   RiDeleteBin5Line,
   RiTimeLine,
+  RiFireLine,
 } from "react-icons/ri";
 import {
   FiLogIn,
@@ -121,5 +122,6 @@ export const Icons = {
   EyeLine: RiEyeLine,
   EyeFill: RiEyeFill,
   Trash: RiDeleteBin5Line,
-  Time : RiTimeLine
+  Time: RiTimeLine,
+  FireLine: RiFireLine,
 };

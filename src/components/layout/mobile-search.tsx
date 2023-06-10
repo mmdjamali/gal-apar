@@ -71,19 +71,40 @@ function MobileSearch() {
               ))}
             </div>
           ) : (
-            <div className="flex w-full relative flex-col py-4">
+            <div className="flex w-full relative flex-col py-4 gap-4">
               <div className="flex flex-col w-full">
                 <div className="flex w-full justify-between items-center px-4">
                   <div className="flex items-center justify-center gap-3">
-                    <Icons.Time className="text-[24px] text-lt-secondary-dark/75" />
+                    <Icons.Time className="text-[24px] text-lt-accent-main/60" />
+
                     <p className="text-[13px] text-lt-accent-main/90 font-medium">
                       Recent searches
                     </p>
                   </div>
 
                   <IconButton>
-                    <Icons.Trash className="text-[24px] text-lt-secondary-dark/75" />
+                    <Icons.Trash className="text-[24px] text-lt-accent-main/60" />
                   </IconButton>
+                </div>
+
+                <div className="flex items-center justify-start gap-4 w-full max-w-full overflow-x-auto px-4">
+                  {Array(2)
+                    .fill("")
+                    .map((_, idx) => (
+                      <Chip key={idx} label="hello" />
+                    ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col w-full">
+                <div className="flex w-full justify-between items-center px-4  h-[40px]">
+                  <div className="flex items-center justify-center gap-3">
+                    <Icons.FireLine className="text-[24px] text-lt-accent-main/60" />
+
+                    <p className="text-[13px] text-lt-accent-main/90 font-medium">
+                      Hot topics
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-start gap-4 w-full max-w-full overflow-x-auto px-4">
