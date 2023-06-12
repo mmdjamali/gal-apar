@@ -73,7 +73,7 @@ function MobileSearch() {
           ) : (
             <div className="flex w-full relative flex-col py-4 gap-4">
               <div className="flex flex-col w-full">
-                <div className="flex w-full justify-between items-center px-4">
+                <div className="flex w-full justify-between items-center px-4 h-[40px]">
                   <div className="flex items-center justify-center gap-3">
                     <Icons.Time className="text-[24px] text-lt-accent-main/60" />
 
@@ -83,7 +83,7 @@ function MobileSearch() {
                   </div>
 
                   <IconButton>
-                    <Icons.Trash className="text-[24px] text-lt-accent-main/60" />
+                    <Icons.Trash className="text-[21px] text-lt-accent-main/60" />
                   </IconButton>
                 </div>
 

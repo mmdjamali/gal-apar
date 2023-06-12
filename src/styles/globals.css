@@ -39,4 +39,8 @@ body,
     {
         @apply bg-lt-accent-main aspect-[3/1] h-1.5;
     }
+    .border-pre-flight
+    {
+        @apply border-0 border-solid;
+    }
 }

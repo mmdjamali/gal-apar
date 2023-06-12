@@ -31,7 +31,7 @@ function MobileMenu() {
       >
         <div className="flex flex-col w-full relative">
           <div className="py-1 flex items-center justify-between mx-4">
-            <Icons.Logo className="h-[21px] text-lt-primary-main" />
+            <Icons.LogoEn className="h-[21px] text-lt-primary-main" />
 
             <IconButton
               className="text-lt-accent-main"
