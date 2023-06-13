@@ -65,7 +65,7 @@ function MobileApplicationBar() {
             <MobileMenu />
           </Suspense>
 
-          <Icons.Logo className="text-lt-primary-main h-[21px]" />
+          <Icons.LogoEn className="text-lt-primary-main h-[21px]" />
 
           <Suspense fallback={<h1>Loading...</h1>}>
             <MobileSearch />

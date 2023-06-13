@@ -205,8 +205,8 @@ function MobileLocation() {
 
         <Typography className="text-lt-accent-main/75 flex-shrink text-[12px] select-none font-medium overflow-hidden text-ellipsis whitespace-nowrap">
           {Object.keys(storedLocation)[0]
-            ? `Send to ${Object.values(storedLocation)
-                .splice(1)
+            ? `${Object.values(storedLocation)
+                .splice(2)
                 .filter((item) => item)
                 .join(", ")}`
             : "Choose your location"}

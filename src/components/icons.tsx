@@ -10,6 +10,9 @@ import {
   RiTimeLine,
   RiFireLine,
   RiFileCopyLine,
+  RiStarSFill,
+  RiStarSLine,
+  RiStarLine,
 } from "react-icons/ri";
 import {
   FiLogIn,
@@ -139,4 +142,5 @@ export const Icons = {
     </svg>
   ),
   Copy: RiFileCopyLine,
+  Star: RiStarLine,
 };

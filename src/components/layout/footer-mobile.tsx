@@ -12,7 +12,7 @@ function FooterMobile({
         className
     )}>
         <div className='flex items-center justify-start gap-[10px]'>
-            <Icons.Logo className='text-lt-primary-main h-[30px]'/>
+            <Icons.LogoEn className='text-lt-primary-main h-[30px]'/>
 
             <p className='text-lt-accent-main center text-[14px]'>
                 an open source marketplace project powered with Next js

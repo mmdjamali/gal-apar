@@ -11,7 +11,7 @@ function DashboardNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col items-start h-full overflow-y-auto w-[180px] border-0 border-r border-solid border-lt-secondary-main p-4">
+    <nav className="flex flex-col flex-shrink-0 items-start h-full overflow-y-auto min-w-[180px] border-0 border-r border-solid border-lt-secondary-main p-4">
       <Icons.LogoEn className="h-[24px] text-lt-primary-main" />
 
       <Divider
@@ -27,11 +27,11 @@ function DashboardNav() {
             className={cn(
               "flex items-center justify-start  no-underline gap-2 p-2 w-full rounded-md capitalize",
               pathname === href
-                ? "text-lt-accent-main/90 bg-lt-accent-main/5 font-medium"
+                ? "text-white bg-lt-primary-main/90 font-medium"
                 : "text-lt-accent-main/60 hover:bg-lt-accent-main/5"
             )}
           >
-            <Icon className="text-[21px] h-[21px]" />
+            <Icon className="text-[21px] h-[21px] flex-shrink-0" />
 
             <p className="text-[13px] leading-none">{title}</p>
           </Link>
@@ -53,5 +53,10 @@ const sections = [
     title: "orders",
     href: "/dashboard/orders",
     Icon: Icons.Package,
+  },
+  {
+    title: "products",
+    href: "/dashboard/products",
+    Icon: Icons.Star,
   },
 ];
