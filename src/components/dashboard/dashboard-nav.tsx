@@ -11,13 +11,13 @@ function DashboardNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col flex-shrink-0 items-start h-full overflow-y-auto min-w-[180px] border-0 border-r border-solid border-lt-secondary-main p-4">
-      <Icons.LogoEn className="h-[24px] text-lt-primary-main" />
-
-      <Divider
-        variant="fullWidth"
-        className="w-full border-lt-secondary-main my-4"
-      />
+    <nav className="flex flex-col flex-shrink-0 items-start h-full overflow-y-auto min-w-[220px] border-0 border-r border-solid border-lt-secondary-main px-4">
+      <div
+        className="flex w-full items-center h-[56px] border-pre-flight border-b border-lt-secondary-main mb-3
+      "
+      >
+        <Icons.LogoEn className="h-[24px] text-lt-primary-main" />
+      </div>
 
       <div className="flex flex-col gap-2 w-full">
         {sections.map(({ Icon, title, href }, idx) => (
@@ -25,10 +25,10 @@ function DashboardNav() {
             href={href}
             key={idx}
             className={cn(
-              "flex items-center justify-start  no-underline gap-2 p-2 w-full rounded-md capitalize",
+              "flex items-center justify-start  no-underline gap-2 py-2 px-3 w-full rounded-[8px] capitalize",
               pathname === href
                 ? "text-white bg-lt-primary-main/90 font-medium"
-                : "text-lt-accent-main/60 hover:bg-lt-accent-main/5"
+                : "text-lt-accent-main/75 hover:bg-lt-accent-main/5"
             )}
           >
             <Icon className="text-[21px] h-[21px] flex-shrink-0" />

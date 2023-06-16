@@ -13,6 +13,7 @@ import {
   RiStarSFill,
   RiStarSLine,
   RiStarLine,
+  RiSearchLine,
 } from "react-icons/ri";
 import {
   FiLogIn,
@@ -21,7 +22,6 @@ import {
   FiChevronDown,
   FiChevronUp,
 } from "react-icons/fi";
-import { TbFidgetSpinner, TbSearch } from "react-icons/tb";
 import { BiMap } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TbQuestionCircle } from "react-icons/tb";
@@ -35,7 +35,7 @@ export const Icons = {
   CartOutline: RiShoppingCartLine,
   CartFill: RiShoppingCartFill,
   LoginOutline: FiLogIn,
-  Search: TbSearch,
+  Search: RiSearchLine,
   Map: BiMap,
   ChevronRight: FiChevronRight,
   ChevronLeft: FiChevronLeft,

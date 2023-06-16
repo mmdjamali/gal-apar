@@ -1,22 +1,18 @@
-"use client"
+"use client";
 
-import ThemeWrapper from "@/themes/theme-wrapper"
-import { SessionProvider } from "next-auth/react"
+import ThemeWrapper from "@/themes/theme-wrapper";
+import { SessionProvider } from "next-auth/react";
 
 interface props {
-  children : React.ReactNode
+  children: React.ReactNode;
 }
 
-function Providers({
-  children
-} : props ) {
+function Providers({ children }: props) {
   return (
     <ThemeWrapper>
-      <SessionProvider>
-        {children}
-      </SessionProvider>
+      <SessionProvider>{children}</SessionProvider>
     </ThemeWrapper>
-  )
+  );
 }
 
-export default Providers
+export default Providers;

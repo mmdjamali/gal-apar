@@ -1,20 +1,20 @@
-"use client"
-import React from 'react'
-import { Icons } from './icons'
-import { Button, Fade, OutlinedInput, Typography } from '@mui/material';
-import { signIn } from "next-auth/react"
-import { useRouter } from 'next/navigation';
+"use client";
+import React from "react";
+import { Icons } from "./icons";
+import { Button, Fade, OutlinedInput, Typography } from "@mui/material";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function Authenticate() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [phoneNumber, setPhoneNumber] = React.useState("")
-  const [loading, setLoading] = React.useState(false)
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState({
-    field : "",
-    otp : ""
-  })
-  const [sended, setSended] = React.useState(true);
+    field: "",
+    otp: "",
+  });
+  const [sended, setSended] = React.useState(false);
   const [digits, setDigits] = React.useState(Array(6).fill(""));
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -28,7 +28,7 @@ function Authenticate() {
     return (
       <div className="flex flex-col items-center justify-center relative w-[min(100%,320px)] px-4 border sm:border-solid border-neutral-200/75 py-5 rounded-lg">
         <div className="w-full flex items-center justify-center">
-          <Icons.Logo className="text-lt-primary-main h-[50px]" />
+          <Icons.LogoEn className="text-lt-primary-main h-[50px]" />
         </div>
 
         <form
@@ -126,12 +126,7 @@ function Authenticate() {
                 field: "",
               }));
             }}
-            sx={{
-              "& input": {
-                paddingBlock: "12px",
-              },
-            }}
-            className="mt-4 text-[12px] py-0"
+            className="mt-4 text-[12px] py-3 px-4"
           />
 
           <Fade in={!!errors.field}>
@@ -160,7 +155,7 @@ function Authenticate() {
   return (
     <div className="flex flex-col items-center justify-center relative w-[min(100%,320px)] px-4 border sm:border-solid border-neutral-200/75 py-5 rounded-lg">
       <div className="w-full flex items-center justify-center">
-        <Icons.Logo className="text-lt-primary-main h-[50px]" />
+        <Icons.LogoEn className="text-lt-primary-main h-[50px]" />
       </div>
 
       <form
@@ -295,5 +290,4 @@ function Authenticate() {
   );
 }
 
-export default Authenticate
-
+export default Authenticate;

@@ -1,23 +1,38 @@
 import { type ThemeOptions } from "@mui/material";
 
-export const baseTheme : ThemeOptions = {
-    shape : {
-        borderRadius : 6
+export const baseTheme: ThemeOptions = {
+  shape: {
+    borderRadius: 8,
+  },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
     },
-    components : {
-        MuiIconButton : {
-            defaultProps : {
-                disableRipple : true,
-                
-            },
-            styleOverrides : {
-                root : {
-
-                }
-            }
-        }
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: "0px",
+        },
+      },
     },
-    typography : {
-        fontFamily : "inherit"
-    }
-} 
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: 0,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: "inherit",
+  },
+};
