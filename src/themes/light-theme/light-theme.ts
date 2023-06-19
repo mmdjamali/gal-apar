@@ -8,10 +8,10 @@ export const lightTheme: ThemeOptions = {
   palette: {
     mode: "light",
     primary: {
-      main: TailwindConfig.theme?.colors?.lt?.primary?.main,
+      main: TailwindConfig.theme?.colors?.primary as string,
     },
     accent: {
-      main: TailwindConfig.theme?.colors?.lt?.accent?.main,
+      main: TailwindConfig.theme?.colors?.accent as string,
     },
     grey: {
       "400": "#000",

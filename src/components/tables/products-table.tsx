@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import CopyCell from "./copy-cell";
 import ImagesCell from "./images-cell";
 import UserCell from "./user-cell";
+import BooleanCell from "./boolean-cell";
 
 const Row = ({ noBorder = false }: { noBorder?: boolean }) => {
   const [open, setOpen] = React.useState(false);
@@ -29,7 +30,7 @@ const Row = ({ noBorder = false }: { noBorder?: boolean }) => {
   return (
     <>
       <TableRow>
-        <TableCell className="w-[20px] border-none px-0">
+        <TableCell className="w-[20px] border-none">
           <IconButton
             onClick={() => {
               setOpen((prev) => !prev);
@@ -46,6 +47,7 @@ const Row = ({ noBorder = false }: { noBorder?: boolean }) => {
           if (key === "_id") return <CopyCell key={key} />;
           if (key === "images") return <ImagesCell key={key} />;
           if (key === "seller") return <UserCell key={key} />;
+          if (key === "available") return <BooleanCell key={key} />;
           return (
             <TableCell
               className={cn("border-none", key === "_id" ? "w-[20px]" : "")}
@@ -81,10 +83,6 @@ function ProductsTable() {
         <SearchInput />
 
         <Select
-          MenuProps={{
-            className:
-              "[&>.MuiPaper-root]:p-1  [&>.MuiPaper-root]:border  [&>.MuiPaper-root]:border-solid [&>.MuiPaper-root]:border-lt-secondary-main",
-          }}
           sx={{
             "&": {},
           }}
@@ -115,35 +113,43 @@ function ProductsTable() {
         </div>
       </div>
 
-      <TableContainer className="overflow-x-auto h-fit">
-        <Table size="small" className="overflow-auto w-full h-fit">
-          <TableHead>
-            <TableRow>
-              <TableCell className="border-none" />
-              {properties.map(({ key }) => (
-                <TableCell className="border-none" key={key}>
-                  {key}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Array(10)
-              .fill("")
-              .map((item, idx, list) => (
-                <Row key={idx} noBorder={idx === list.length - 1} />
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="flex flex-col border border-solid border-border my-4 rounded-[8px]">
+        <div className="relative ">
+          <TableContainer className="overflow-x-auto">
+            <Table size="small" className="overflow-auto w-full h-fit">
+              <TableHead>
+                <TableRow>
+                  <TableCell className="" />
 
-      <div className="flex items-center h-[40px] w-full border-0 border-t border-solid border-lt-secondary-main mt-auto">
-        <Pagination
-          size="medium"
-          count={2}
-          siblingCount={0}
-          boundaryCount={1}
-        />
+                  {properties.map(({ key }) => (
+                    <TableCell className="" key={key}>
+                      <Button color="accent" className="lowercase">
+                        {key}
+                      </Button>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Array(10)
+                  .fill("")
+                  .map((item, idx, list) => (
+                    <Row key={idx} noBorder={idx === list.length - 1} />
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* <div className="sticky h-2 bottom-0 bg-slate-500" /> */}
+        </div>
+
+        <div className="flex items-center h-[40px] w-full mt-auto">
+          <Pagination
+            size="medium"
+            count={2}
+            siblingCount={0}
+            boundaryCount={1}
+          />
+        </div>
       </div>
     </>
   );

@@ -11,26 +11,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        common: { black: "#212121", white: "#FFFFFF" },
-        lt: {
-          primary: {
-            main: "#ff3e15",
-            dark: "#6b1a09",
-          },
-          secondary: {
-            main: "#f1f1f1",
-            dark: "#676767",
-          },
-          accent: {
-            main: "#00143b",
-            dark: "#000819",
-          },
-        },
-        dt: {
-          primary: {},
-          secondary: {},
-          accent: {},
-        },
+        primary: "#FF3E15",
+        background: "#ffffff",
+        foreground: "",
+        "foreground-muted": "",
+        secondary: "#f1f1f1",
+        accent: "#00143b",
+        border: "rgba(0,0,0,.23)",
       },
     },
   },

@@ -12,7 +12,7 @@ function CopyCell() {
             setCopied(true);
             // navigator.clipboard.writeText("Hello");
           }}
-          className="flex items-center justify-center cursor-pointer bg-lt-primary-main border-none rounded-[8px] h-[34px] aspect-square"
+          className="flex items-center justify-center cursor-pointer bg-primary border-none rounded-[8px] h-[34px] aspect-square"
         >
           {(() => {
             const Icon = Icons[copied ? "Map" : "Copy"];
@@ -29,7 +29,7 @@ function CopyCell() {
               };
             }, [copied]);
 
-            return <Icon className="text-white text-[18px]" />;
+            return <Icon className="text-background text-[18px]" />;
           })()}
         </button>
       </Tooltip>

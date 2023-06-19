@@ -31,6 +31,14 @@ export const baseTheme: ThemeOptions = {
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          padding: "8px",
+          border: "1px solid",
+        },
+      },
+    },
   },
   typography: {
     fontFamily: "inherit",

@@ -31,19 +31,19 @@ body,
 }
 
 .MuiTableContainer-root::-webkit-scrollbar {
-  @apply w-[6px] h-[6px] bg-lt-primary-main/10 rounded-md;
+  @apply w-[8px] h-[8px] rounded-[8px];
 }
 
 .MuiTableContainer-root::-webkit-scrollbar-thumb {
-  @apply bg-lt-primary-main/75 rounded-[8px];
+  @apply bg-primary rounded-[8px];
 }
 
 @layer components {
   .swiper-bullet {
-    @apply inline-block cursor-pointer rounded-full h-1.5 aspect-square bg-lt-accent-main/25 transition-all;
+    @apply inline-block cursor-pointer rounded-full h-1.5 aspect-square bg-accent/25 transition-all;
   }
   .swiper-bullet-active {
-    @apply bg-lt-accent-main aspect-[3/1] h-1.5;
+    @apply bg-accent aspect-[3/1] h-1.5;
   }
   .border-pre-flight {
     @apply border-0 border-solid;
