@@ -1,28 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        primary: "#FF3E15",
-        background: "#ffffff",
-        foreground: "",
-        "foreground-muted": "",
-        secondary: "#f1f1f1",
-        accent: "#00143b",
-        border: "rgba(0,0,0,.23)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        background: "rgb(var(--background) / <alpha-value>)",
+        border: "rgb(var(--border) / <alpha-value>)",
+        primary: {
+          DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+        },
+        success: {
+          DEFAULT: "rgb(var(--success) / <alpha-value>)",
+        },
+        fail: {
+          DEFAULT: "rgb(var(--fail) / <alpha-value>)",
+        },
+        warning: {
+          DEFAULT: "rgb(var(--warning) / <alpha-value>)",
+        },
+        // yellow: "rgb(255 255 0 / <alpha-value>)",
+      },
+      fontSize: {},
+      borderRadius: {
+        DEFAULT: "8px",
       },
     },
   },
   plugins: [],
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
 };
