@@ -10,15 +10,16 @@ const DropdownMenu = ({
   ...props
 }: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root>) => (
   <DropdownMenuPrimitive.Root
-    onOpenChange={
-      onOpenChange
-        ? onOpenChange
-        : (open) => {
-            open
-              ? document.body.classList.add("mr-[17px]")
-              : document.body.classList.remove("mr-[17px]");
-          }
-    }
+    onOpenChange={(open) => {
+      console.log();
+      open
+        ? document.body.scrollHeight > document.body.clientHeight
+          ? document.body.classList.add("mr-[17px]")
+          : null
+        : document.body.classList.remove("mr-[17px]");
+
+      onOpenChange ? onOpenChange(open) : null;
+    }}
     {...props}
   />
 );
