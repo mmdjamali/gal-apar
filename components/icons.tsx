@@ -1,12 +1,17 @@
 import { IconBaseProps } from "react-icons";
 import {
+  RiArrowLeftLine,
   RiBookmarkFill,
   RiBookmarkLine,
+  RiBox3Line,
   RiCheckLine,
   RiCloseLine,
+  RiDashboardLine,
   RiDiscordFill,
   RiEqualizerLine,
+  RiFileList2Line,
   RiGithubFill,
+  RiLineChartLine,
   RiLoader5Line,
   RiLogoutBoxLine,
   RiMacbookLine,
@@ -15,6 +20,7 @@ import {
   RiSearchLine,
   RiSettingsLine,
   RiShakeHandsLine,
+  RiShoppingCartLine,
   RiSparkling2Line,
   RiStarLine,
   RiSunFoggyLine,
@@ -40,6 +46,12 @@ export const Icons = {
   Sun: RiSunFoggyLine,
   Moon: RiMoonFoggyLine,
   Macbook: RiMacbookLine,
+  Cart: RiShoppingCartLine,
+  Dashboard: RiDashboardLine,
+  ArrowLeft: RiArrowLeftLine,
+  LineChart: RiLineChartLine,
+  Box: RiBox3Line,
+  FileList: RiFileList2Line,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}
