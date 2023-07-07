@@ -8,38 +8,43 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 interface MainNavProps {
-  roots: {
+  roots?: {
     title: string;
     url: string;
   }[];
+  className?: string;
 }
 
-function MainNav({ roots }: MainNavProps) {
+function MainNav({ roots, className }: MainNavProps) {
   const pathname = usePathname();
   return (
-    <div className="flex items-center justify-center gap-8">
+    <div className={cn("flex items-center justify-center gap-8", className)}>
       <div className="flex items-center justify-center gap-1 text-primary">
         <Icons.Logo className="text-[28px] h-[28px]" />
 
         <Icons.LogoPr className="text-[21px] h-[21px]" />
       </div>
 
-      <div className="flex items-center justify-center gap-4">
-        {roots?.map(({ title, url }, idx) => (
-          <Link
-            className={cn(
-              "text-[14px] hover:text-foreground/90 transition-all font-medium",
-              pathname?.startsWith(url + "/") || pathname === url
-                ? "text-foreground"
-                : " text-foreground/75"
-            )}
-            key={idx}
-            href={url}
-          >
-            {title}
-          </Link>
-        ))}
-      </div>
+      {roots ? (
+        <div className="flex items-center justify-center gap-4">
+          {roots?.map(({ title, url }, idx) => (
+            <Link
+              className={cn(
+                "text-[14px] hover:text-foreground/90 transition-all font-medium",
+                pathname?.startsWith(url + "/") || pathname === url
+                  ? "text-foreground"
+                  : " text-foreground/75"
+              )}
+              key={idx}
+              href={url}
+            >
+              {title}
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

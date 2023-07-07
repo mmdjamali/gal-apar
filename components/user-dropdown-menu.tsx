@@ -9,6 +9,8 @@ import {
 } from "./ui/dropdown-menu";
 import UserAvatar from "./user-avatar";
 import { Icons } from "./icons";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface UserDropdownMenuProps {
   user: {
@@ -33,19 +35,19 @@ function UserDropdownMenu({ user }: UserDropdownMenuProps) {
 
         <span className="bg-border w-full h-[1px] my-1" />
 
-        {links.map(({ Icon, title }, idx) => (
-          <DropdownMenuItem
-            disabled={title === "Upgrade"}
-            key={idx}
-            className="
-            data-[disabled]:!text-foreground/50 data-[disabled]:!bg-background data-[disabled]:!cursor-pointer data-[disabled]:!pointer-events-none 
-            text-[14px] font-medium text-foreground hover:bg-foreground/10 gap-2 
-            transition-all cursor-pointer
-            "
-          >
-            <Icon className="text-[16px]" />
-            {title}
-          </DropdownMenuItem>
+        {links.map(({ Icon, title, disabled, className, url }, idx) => (
+          <Link href={url} key={idx}>
+            <DropdownMenuItem
+              disabled={disabled}
+              className={cn(
+                "data-[disabled]:!text-foreground/50 data-[disabled]:!bg-background data-[disabled]:!cursor-pointer data-[disabled]:!pointer-events-none text-[14px] font-medium text-foreground hover:bg-foreground/10 gap-2 transition-all cursor-pointer",
+                className
+              )}
+            >
+              <Icon className="text-[16px]" />
+              {title}
+            </DropdownMenuItem>
+          </Link>
         ))}
 
         <span className="bg-border w-full h-[1px] my-1" />
@@ -63,18 +65,35 @@ export default UserDropdownMenu;
 
 const links = [
   {
+    type: "button",
     title: "Profile",
     Icon: Icons.User,
     url: "/me",
+    className: "",
+    disabled: false,
   },
   {
+    type: "button",
     title: "Settings",
     Icon: Icons.Setting,
     url: "/setting",
+    className: "",
+    disabled: false,
   },
   {
+    type: "button",
     title: "Upgrade",
     Icon: Icons.Sparking,
     url: "/upgrade",
+    className: "",
+    disabled: true,
+  },
+  {
+    type: "button",
+    title: "Dashboard",
+    Icon: Icons.Dashboard,
+    url: "/dashboard/overview",
+    className: "hover:bg-warning/10 hover:text-warning",
+    disabled: false,
   },
 ];
