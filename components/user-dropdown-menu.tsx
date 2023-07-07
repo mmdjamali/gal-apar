@@ -36,7 +36,11 @@ function UserDropdownMenu({ user }: UserDropdownMenuProps) {
         <span className="bg-border w-full h-[1px] my-1" />
 
         {links.map(({ Icon, title, disabled, className, url }, idx) => (
-          <Link href={url} key={idx}>
+          <Link
+            href={disabled ? "" : url}
+            key={idx}
+            className={cn(disabled ? "pointer-events-none" : "")}
+          >
             <DropdownMenuItem
               disabled={disabled}
               className={cn(

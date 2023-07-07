@@ -1,4 +1,5 @@
 import { IconBaseProps } from "react-icons";
+import { IconType } from "react-icons/lib";
 import {
   RiArrowLeftLine,
   RiBookmarkFill,
@@ -27,7 +28,9 @@ import {
   RiUserLine,
 } from "react-icons/ri";
 
-export const Icons = {
+export const Icons: {
+  [name: string]: IconType;
+} = {
   Discord: RiDiscordFill,
   Github: RiGithubFill,
   Spinner: RiLoader5Line,
