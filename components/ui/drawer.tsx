@@ -28,16 +28,34 @@ const DrawerPortal = DialogPrimitives.Portal;
 
 const DrawerClose = DialogPrimitives.Close;
 
+interface DrawerContentProps
+  extends React.ComponentPropsWithoutRef<typeof DialogPrimitives.Content> {
+  side: "top" | "bottom" | "left" | "right";
+}
+
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitives.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitives.Content>
->(({ className, ...props }, ref) => (
-  <DialogPrimitives.Content
-    ref={ref}
-    className={cn("", className)}
-    {...props}
-  />
-));
+  DrawerContentProps
+>(({ side, className, ...props }, ref) => {
+  const variant = {
+    top: "top-0 animate-slideInDown",
+    right: "right-0 animate-slideInLeft",
+    bottom: "bottom-0 animate-slideInUp",
+    left: "left-0 animate-slideInRight",
+  };
+
+  return (
+    <DialogPrimitives.Content
+      ref={ref}
+      className={cn(
+        "fixed w-full h-full overflow-auto z-[999] bg-background animate-duration-200 animate-ease-linear	",
+        variant[side],
+        className
+      )}
+      {...props}
+    />
+  );
+});
 
 DrawerContent.displayName = "@1stmmd/drawer-content";
 
