@@ -29,7 +29,7 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
       contained: {
         shared: "",
         primary: "bg-primary text-white",
-        foreground: "bg-foreground text-white",
+        foreground: "bg-foreground text-background",
       },
       outlined: {
         shared: "border",

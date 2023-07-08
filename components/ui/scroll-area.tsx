@@ -39,7 +39,7 @@ const ScrollAreaScrollbar = React.forwardRef<
   <ScrollAreaPrimitives.Scrollbar
     ref={ref}
     className={cn(
-      "flex select-none touch-none transition-colors duration-[160ms] ease-out data-[orientation=vertical]:w-2 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2",
+      "flex select-none touch-none transition-colors duration-[160ms] ease-out data-[orientation=vertical]:w-1.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-1.5",
       className
     )}
     {...props}
