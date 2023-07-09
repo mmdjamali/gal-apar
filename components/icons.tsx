@@ -1,15 +1,22 @@
 import { IconBaseProps } from "react-icons";
 import { IconType } from "react-icons/lib";
 import {
+  RiAddLine,
   RiArrowLeftLine,
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
+  RiBankCardLine,
   RiBookmarkFill,
   RiBookmarkLine,
   RiBox3Line,
+  RiCalendarLine,
   RiCheckLine,
+  RiCheckboxBlankCircleLine,
   RiCloseLine,
   RiDashboardLine,
   RiDiscordFill,
   RiEqualizerLine,
+  RiEyeLine,
   RiFileList2Line,
   RiGithubFill,
   RiLineChartLine,
@@ -55,6 +62,13 @@ export const Icons: {
   LineChart: RiLineChartLine,
   Box: RiBox3Line,
   FileList: RiFileList2Line,
+  BankCard: RiBankCardLine,
+  Add: RiAddLine,
+  Circle: RiCheckboxBlankCircleLine,
+  Eye: RiEyeLine,
+  Calender: RiCalendarLine,
+  RightArrow: RiArrowRightSLine,
+  LeftArrow: RiArrowLeftSLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}
@@ -100,14 +114,14 @@ export const Icons: {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M23.5685 27.3751H37.6368C38.486 27.3751 39.0953 27.0979 39.4646 26.5435C39.8707 25.9521 40.0738 25.1943 40.0738 24.2703V16.231C40.0738 15.8614 40.1846 15.5657 40.4061 15.3439C40.6277 15.0852 40.9046 14.9558 41.2369 14.9558H44.2832C44.6525 14.9558 44.9479 15.0852 45.1694 15.3439C45.391 15.5657 45.5017 15.8614 45.5017 16.231V24.2703C45.5017 26.8946 44.7817 28.983 43.3416 30.5354C41.9385 32.0878 40.0369 32.864 37.6368 32.864H26.8995H24.6848C24.3034 32.8206 23.9312 32.7519 23.5685 32.6577V27.3751Z"
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M26.8995 32.864H24.6848C24.3034 32.8206 23.9312 32.7519 23.5685 32.6577C22.8924 32.4821 22.2488 32.2182 21.6377 31.866C20.4192 31.1268 19.4591 30.1473 18.7576 28.9275C18.056 27.7078 17.7052 26.3956 17.7052 24.991V7.2492C17.7052 6.9535 17.8345 6.69477 18.0929 6.473C18.3514 6.21426 18.6468 6.08489 18.9791 6.08489H22.0808C22.3762 6.08489 22.6531 6.21426 22.9116 6.473C23.1701 6.69477 23.2993 6.9535 23.2993 7.2492V24.991C23.2993 26.5804 24.0932 27.3751 25.681 27.3751H26.8995V32.864Z"
         fill="currentColor"
       />

@@ -13,16 +13,13 @@ import {
 import { cn } from "@/lib/utils";
 
 interface MonthPickerProps {
-  value: Date;
+  value: Date | null;
   onChange: (date: null | Date) => void;
 }
 
-function MonthPicker({}: MonthPickerProps) {
+function MonthPicker({ onChange, value }: MonthPickerProps) {
   const date = new Date();
-  const [value, setValue] = useState<Date | null>(new Date());
   const [year, setYear] = useState<number>(date.getFullYear());
-
-  const onChange = (d: Date | null) => setValue(d);
 
   return (
     <Popover>
@@ -32,7 +29,7 @@ function MonthPicker({}: MonthPickerProps) {
           color="foreground"
           className="relative gap-2 border-border"
         >
-          <Icons.Calender className="text-[21px] flex-shrink-0" />
+          <Icons.Calender className="text-[16px] flex-shrink-0" />
           <div className="flex items-center justify-center gap-2 w-full relative h-[16px] text-[12px]">
             {value ? (
               (() => {
