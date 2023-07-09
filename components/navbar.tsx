@@ -21,13 +21,19 @@ interface NavbarProps {
     url: string;
     className: string;
   }[];
+  className?: string;
 }
 
-const Navbar = ({ routes }: NavbarProps) => {
+const Navbar = ({ routes, className }: NavbarProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex-col bg-background block w-[200px]">
+    <nav
+      className={cn(
+        "flex-col bg-background block w-[200px] flex-shrink-0",
+        className
+      )}
+    >
       <div className="flex sticky top-[53px] gap-2 flex-col w-full">
         <ScrollArea className="w-full h-[calc(100vh_-_53px)] overflow-hidden">
           <ScrollAreaViewport className="w-full h-full py-6 pr-2">
