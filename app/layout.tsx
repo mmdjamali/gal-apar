@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gal Apar | online-marketplace",
+  title: "Gal apar | online-marketplace",
   description:
     "Gal apar is an open source marketplace, built with next js app router",
   publisher: "1stMmD",
