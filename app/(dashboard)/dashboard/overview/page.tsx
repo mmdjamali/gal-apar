@@ -14,7 +14,7 @@ function page() {
 
       <Cards />
 
-      <Charts className="my-4" />
+      <Charts className="my-6" />
     </div>
   );
 }
