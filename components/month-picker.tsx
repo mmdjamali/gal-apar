@@ -30,7 +30,7 @@ function MonthPicker({ onChange, value }: MonthPickerProps) {
           className="relative gap-2 border-border"
         >
           <Icons.Calender className="text-[16px] flex-shrink-0" />
-          <div className="flex items-center justify-center gap-2 w-full relative h-[16px] text-[12px]">
+          <div className="flex items-center justify-center gap-2 w-full relative h-[21px] text-[12px]">
             {value ? (
               (() => {
                 let newMonth = value.getMonth() - 6;

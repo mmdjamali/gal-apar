@@ -14,9 +14,12 @@ import {
   RiCheckboxBlankCircleLine,
   RiCloseLine,
   RiDashboardLine,
+  RiDeleteBinLine,
   RiDiscordFill,
+  RiEditLine,
   RiEqualizerLine,
   RiEyeLine,
+  RiFileCopyLine,
   RiFileList2Line,
   RiGithubFill,
   RiLineChartLine,
@@ -24,6 +27,7 @@ import {
   RiLogoutBoxLine,
   RiMacbookLine,
   RiMoonFoggyLine,
+  RiMoreLine,
   RiNotification3Line,
   RiSearchLine,
   RiSettingsLine,
@@ -69,6 +73,10 @@ export const Icons: {
   Calender: RiCalendarLine,
   RightArrow: RiArrowRightSLine,
   LeftArrow: RiArrowLeftSLine,
+  FileCopy: RiFileCopyLine,
+  More: RiMoreLine,
+  DeleteBin: RiDeleteBinLine,
+  Edit: RiEditLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}

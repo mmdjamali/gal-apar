@@ -41,13 +41,7 @@ function UserDropdownMenu({ user }: UserDropdownMenuProps) {
             key={idx}
             className={cn(disabled ? "pointer-events-none" : "")}
           >
-            <DropdownMenuItem
-              disabled={disabled}
-              className={cn(
-                "data-[disabled]:!text-foreground/50 data-[disabled]:!bg-background data-[disabled]:!cursor-pointer data-[disabled]:!pointer-events-none text-[14px] font-medium text-foreground hover:bg-foreground/10 gap-2 transition-all cursor-pointer",
-                className
-              )}
-            >
+            <DropdownMenuItem disabled={disabled} className={cn(className)}>
               <Icon className="text-[16px]" />
               {title}
             </DropdownMenuItem>
@@ -56,7 +50,7 @@ function UserDropdownMenu({ user }: UserDropdownMenuProps) {
 
         <span className="bg-border w-full h-[1px] my-1" />
 
-        <DropdownMenuItem className="text-[14px] font-medium text-foreground hover:text-fail hover:bg-fail/10 gap-2 transition-all cursor-pointer">
+        <DropdownMenuItem className="hover:text-fail hover:bg-fail/10">
           <Icons.Logout className="text-[16px]" />
           {"Logout"}
         </DropdownMenuItem>

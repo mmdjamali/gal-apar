@@ -50,7 +50,7 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
         ref={ref}
         className={cn(
           "flex items-center justify-center rounded transition-all",
-          "py-2 px-5 text-[14px]",
+          "py-2 px-4 text-[14px]",
           block ? "w-full" : "",
           loading ? "opacity-75 pointer-events-none" : "",
           variants[variant]["shared"],
