@@ -7,7 +7,6 @@ import {
   RiArrowRightSLine,
   RiBankCardLine,
   RiBookmarkFill,
-  RiBookmarkLine,
   RiBox3Line,
   RiCalendarLine,
   RiCheckLine,
@@ -18,10 +17,13 @@ import {
   RiDiscordFill,
   RiEditLine,
   RiEqualizerLine,
+  RiExpandUpDownLine,
   RiEyeLine,
   RiFileCopyLine,
   RiFileList2Line,
   RiGithubFill,
+  RiImageAddLine,
+  RiImageLine,
   RiLineChartLine,
   RiLoader5Line,
   RiLogoutBoxLine,
@@ -77,6 +79,9 @@ export const Icons: {
   More: RiMoreLine,
   DeleteBin: RiDeleteBinLine,
   Edit: RiEditLine,
+  ImageAdd: RiImageAddLine,
+  Image: RiImageLine,
+  ExpandY: RiExpandUpDownLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}

@@ -20,7 +20,7 @@ function ProductImageInput({}) {
     <div className="flex flex-wrap gap-2">
       <label
         htmlFor={id}
-        className="flex items-center justify-center transition-all w-32 aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 rounded"
+        className="flex items-center justify-center transition-all w-32 aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 hover:border-foreground/50 rounded"
       >
         <input
           onChange={async (e) => {

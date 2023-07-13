@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   DropdownMenu,
@@ -16,6 +16,13 @@ import { Icons } from "./icons";
 
 function ThemeChanger() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return "";
 
   return (
     <DropdownMenu>
@@ -25,7 +32,13 @@ function ThemeChanger() {
           variant="outlined"
           color="foreground"
         >
-          {theme === "light" ? <Icons.Sun /> : <Icons.Moon />}
+          {(() => {
+            const Icon =
+              themes.filter(({ name }) => name === theme)[0]?.Icon ??
+              Icons.Circle;
+
+            return <Icon />;
+          })()}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuPortal>
