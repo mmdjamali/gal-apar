@@ -5,7 +5,28 @@ import React from "react";
 import * as DialogPrimitives from "@radix-ui/react-dialog";
 import { cn } from "../../lib/utils";
 
-const Dialog = DialogPrimitives.Root;
+const Dialog = ({
+  onOpenChange,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitives.Root>) => (
+  <DialogPrimitives.Root
+    onOpenChange={(open) => {
+      const bool =
+        document.body.scrollHeight > document.body.clientHeight &&
+        !/Mobi/i.test(navigator.userAgent);
+
+      open
+        ? bool
+          ? document.body.classList.add("mr-[17px]")
+          : null
+        : document.body.classList.remove("mr-[17px]");
+
+      onOpenChange ? onOpenChange(open) : null;
+    }}
+    {...props}
+  />
+);
+
 const DialogTrigger = DialogPrimitives.Trigger;
 const DialogPortal = DialogPrimitives.Portal;
 
@@ -15,7 +36,10 @@ const DialogContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitives.Content
     ref={ref}
-    className={cn("rounded border border-border p-2", className)}
+    className={cn(
+      "fixed inset-0 m-auto rounded border border-border p-2 z-[51]",
+      className
+    )}
     {...props}
   />
 ));
@@ -28,11 +52,23 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitives.Overlay
     ref={ref}
-    className={cn("w-full h-full bg-foreground/50", className)}
+    className={cn(
+      "fixed inset-0 z-[50] w-full h-full bg-foreground/50",
+      className
+    )}
     {...props}
   />
 ));
 
 DialogOverlay.displayName = "@1stmmd/dialog-overlay";
 
-export { Dialog, DialogContent, DialogOverlay, DialogTrigger, DialogPortal };
+const DialogClose = DialogPrimitives.Close;
+
+export {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTrigger,
+  DialogPortal,
+  DialogClose,
+};

@@ -9,6 +9,7 @@ interface props extends React.ComponentPropsWithoutRef<"input"> {
   block?: boolean;
   error?: boolean;
   success?: boolean;
+  actions?: React.ReactNode[];
 }
 
 const Input = React.forwardRef<React.ElementRef<"input">, props>(
@@ -21,6 +22,7 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
       block = false,
       error = false,
       success = false,
+      actions,
       ...props
     },
     ref
@@ -40,7 +42,7 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
     return (
       <div
         className={cn(
-          "relative flex hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
+          "relative flex items-center hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
           block ? "w-full" : "",
           variants[variant]["shared"],
           variants[variant][color],
@@ -57,6 +59,11 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
           )}
           {...props}
         />
+        {actions
+          ? actions.map((action, idx) => (
+              <React.Fragment key={idx}>{action}</React.Fragment>
+            ))
+          : ""}
       </div>
     );
   }
