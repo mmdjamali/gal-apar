@@ -5,8 +5,12 @@ import React, { useEffect, useId, useState } from "react";
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
 
-function ProductImageInput({}) {
-  const [images, setImages] = useState<string[]>([]);
+interface ProductImageInputProps {
+  images: string[];
+  setImages: (v: string) => void;
+}
+
+function ProductImageInput({ images, setImages }: ProductImageInputProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -17,10 +21,10 @@ function ProductImageInput({}) {
 
   const id = useId();
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-2">
       <label
         htmlFor={id}
-        className="flex items-center justify-center transition-all w-32 aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 hover:border-foreground/50 rounded"
+        className="flex items-center justify-center transition-all full aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 hover:border-foreground/50 rounded"
       >
         <input
           onChange={async (e) => {
@@ -36,7 +40,7 @@ function ProductImageInput({}) {
             });
 
             const url = URL.createObjectURL(file);
-            setImages((prev) => [...prev.slice(0, 4), url]);
+            setImages(url);
             setLoading(false);
           }}
           className="hidden"
@@ -56,7 +60,7 @@ function ProductImageInput({}) {
         })()}
       </label>
 
-      <div className="grid relative place-items-center border border-border w-32 aspect-square rounded overflow-hidden">
+      <div className="grid relative place-items-center border border-border w-full aspect-square rounded overflow-hidden">
         {(() => {
           if (images[0])
             return (
@@ -70,7 +74,7 @@ function ProductImageInput({}) {
         })()}
       </div>
 
-      <div className="grid grid-cols-2 grid-rows-2 gap-1 w-32 aspect-square">
+      <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full aspect-square">
         {images.map((image, idx) => {
           if (idx === 0) return "";
 
