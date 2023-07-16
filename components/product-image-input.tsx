@@ -4,13 +4,19 @@ import React, { useEffect, useId, useState } from "react";
 
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
+import ProductImage from "./add-product/product-image";
 
 interface ProductImageInputProps {
   images: string[];
   setImages: (v: string) => void;
+  removeImage: (v: number) => void;
 }
 
-function ProductImageInput({ images, setImages }: ProductImageInputProps) {
+function ProductImageInput({
+  images,
+  setImages,
+  removeImage,
+}: ProductImageInputProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,21 +33,31 @@ function ProductImageInput({ images, setImages }: ProductImageInputProps) {
         className="flex items-center justify-center transition-all full aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 hover:border-foreground/50 rounded"
       >
         <input
+          disabled={loading}
           onChange={async (e) => {
             if (!e.target.files) return;
             setLoading(true);
 
-            const file = e.target.files[0];
+            try {
+              const file = e.target.files[0];
 
-            if (!file) return setLoading(false);
+              if (!file) return setLoading(false);
 
-            await new Promise((resolve) => {
-              setTimeout(() => resolve("hello"), 1000);
-            });
+              const formData = new FormData();
+              formData.append("image", file);
 
-            const url = URL.createObjectURL(file);
-            setImages(url);
-            setLoading(false);
+              const res = await fetch("http://localhost:3001/upload", {
+                method: "POST",
+                body: formData,
+              });
+
+              const { url } = await res.json();
+
+              setImages("http://localhost:3001/" + url);
+              setLoading(false);
+            } catch (err) {
+              setLoading(false);
+            }
           }}
           className="hidden"
           id={id}
@@ -60,34 +76,25 @@ function ProductImageInput({ images, setImages }: ProductImageInputProps) {
         })()}
       </label>
 
-      <div className="grid relative place-items-center border border-border w-full aspect-square rounded overflow-hidden">
-        {(() => {
-          if (images[0])
-            return (
-              <img
-                className="w-full transition-all aspect-square hover:scale-110 object-cover"
-                src={images[0]}
-              />
-            );
+      {(() => {
+        if (images[0])
+          return (
+            <ProductImage removeImage={() => removeImage(0)} src={images[0]} />
+          );
 
-          return <Icons.Image className="text-foreground text-[21px]" />;
-        })()}
-      </div>
+        return (
+          <div className="grid place-items-center border border-border w-full aspect-square rounded overflow-hidden">
+            <Icons.Image className="text-[16px]" />
+          </div>
+        );
+      })()}
 
       <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full aspect-square">
         {images.map((image, idx) => {
           if (idx === 0) return "";
 
           return (
-            <div
-              key={image}
-              className="gird place-items-center border border-border w-full aspect-square rounded overflow-hidden cursor-pointer"
-            >
-              <img
-                className="w-full transition-all aspect-square hover:scale-110 object-cover"
-                src={image}
-              />
-            </div>
+            <ProductImage removeImage={() => removeImage(idx)} src={image} />
           );
         })}
         {(() => {

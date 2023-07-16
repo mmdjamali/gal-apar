@@ -42,7 +42,8 @@ function ProductPrice({
           trigger={
             <Button className="p-2" variant="outlined" color="foreground">
               {(() => {
-                const Icon = Icons[CurrencyIcons[currency]] ?? Icons.Circle;
+                const Icon =
+                  Icons[CurrencyIcons[currency]] ?? Icons.QuestionMark;
                 return <Icon className="aspect-square h-[21px] text-[21px]" />;
               })()}
             </Button>
@@ -51,6 +52,7 @@ function ProductPrice({
           inputPlaceholder="select-currency"
           render={({ name, icon }, idx) => (
             <button
+              key={idx}
               onClick={() => {
                 setCurrency(name);
               }}
@@ -77,6 +79,8 @@ function ProductPrice({
             return formatted_value;
           })()}
           onChange={(e) => {
+            if (!currency) return;
+
             const v = e.target.value.replaceAll(/\D/g, "");
             setValue(v);
           }}

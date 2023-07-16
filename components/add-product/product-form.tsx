@@ -119,6 +119,15 @@ function ProductForm() {
                   images: [...prev.images.slice(0, 4), v],
                 }));
               }}
+              removeImage={(idx) => {
+                setProduct((prev) => {
+                  const images = [...prev.images].filter((_, i) => idx !== i);
+                  return {
+                    ...prev,
+                    images,
+                  };
+                });
+              }}
             />
           </div>
         </div>
