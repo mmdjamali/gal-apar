@@ -32,8 +32,6 @@ function Login() {
             body: JSON.stringify({ email }),
           });
 
-          console.log(await res.json());
-
           if (res.ok) setSent(true);
 
           setLoading(false);

@@ -36,6 +36,22 @@ export const nextAuthConfig: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    jwt({ user, token }) {
+      if (user) {
+        (token.email = user.email), (token._id = user._id);
+      }
+
+      return token;
+    },
+    async session({ token, session }) {
+      if (session.user) {
+        session.user._id = token._id;
+        session.user.email = token.email;
+      }
+      return session;
+    },
+  },
   secret: process.env.JWT_SECRET,
   session: {
     strategy: "jwt",
