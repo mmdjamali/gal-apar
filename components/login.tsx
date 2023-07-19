@@ -41,11 +41,11 @@ function Login() {
         }
       }}
     >
-      <h1 className="text-foreground text-[24px] font-semibold text-center">
-        Welcome to Rokim!
+      <h1 className="text-foreground text-[24px] font-semibold text-center mb-1">
+        Welcome to Gal apar!
       </h1>
 
-      <p className="text-foreground/75 text-[14px] mb-4 text-center">
+      <p className="text-foreground/75 text-[14px] mb-6 text-center">
         Please login/register with your email to continue.
       </p>
 

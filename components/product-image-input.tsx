@@ -4,7 +4,15 @@ import React, { useEffect, useId, useState } from "react";
 
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
-import ProductImage from "./add-product/product-image";
+import Button from "./ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  DialogTrigger,
+} from "./ui/dialog";
 
 interface ProductImageInputProps {
   images: string[];
@@ -27,10 +35,10 @@ function ProductImageInput({
 
   const id = useId();
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-2">
+    <div className="flex flex-col w-full relative gap-4">
       <label
         htmlFor={id}
-        className="flex items-center justify-center transition-all full aspect-square border border-dashed border-border cursor-pointer hover:bg-foreground/10 hover:border-foreground/50 rounded"
+        className="flex items-center justify-center transition-all full aspect-video border border-dashed border-primary/50 cursor-pointer hover:bg-primary/5 hover:border-primary/50 hover:text-primary rounded"
       >
         <input
           disabled={loading}
@@ -76,41 +84,48 @@ function ProductImageInput({
         })()}
       </label>
 
-      {(() => {
-        if (images[0])
-          return (
-            <ProductImage removeImage={() => removeImage(0)} src={images[0]} />
-          );
+      <div className="flex flex-col gap-4 w-full">
+        {images.map((image, idx) => (
+          <div
+            key={image}
+            className="flex items-center p-2 justify-between w-full h-16 rounded border border-border "
+          >
+            <img className="rounded h-full aspect-square" src={image} />
 
-        return (
-          <div className="grid place-items-center border border-border w-full aspect-square rounded overflow-hidden">
-            <Icons.Image className="text-[16px]" />
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button type="button" className="p-2" variant="text">
+                  <Icons.DeleteBin className="text-[21px]" />
+                </Button>
+              </DialogTrigger>
+              <DialogPortal>
+                <DialogOverlay />
+                <DialogContent className="flex p-6 flex-col bg-background h-fit gap-4 animate-slideInUp animate-duration-75">
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[18px] font-bold text-foreground">
+                      Removing image!
+                    </p>
+
+                    <p className="text-[14px] text-foreground/75">
+                      Are your sure about removing this image? This action
+                      cannot be undone.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-end  gap-2">
+                    <DialogClose asChild>
+                      <Button variant="outlined" color="foreground">
+                        Cancel
+                      </Button>
+                    </DialogClose>
+
+                    <Button onClick={() => removeImage(idx)}>Remove</Button>
+                  </div>
+                </DialogContent>
+              </DialogPortal>
+            </Dialog>
           </div>
-        );
-      })()}
-
-      <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full aspect-square">
-        {images.map((image, idx) => {
-          if (idx === 0) return "";
-
-          return (
-            <ProductImage removeImage={() => removeImage(idx)} src={image} />
-          );
-        })}
-        {(() => {
-          const remaining = 5 - (images.length || 1);
-
-          return Array(remaining)
-            .fill(" ")
-            .map((_, idx) => (
-              <div
-                key={idx}
-                className="grid place-items-center border border-border w-full aspect-square rounded overflow-hidden"
-              >
-                <Icons.Image className="text-[16px]" />
-              </div>
-            ));
-        })()}
+        ))}
       </div>
     </div>
   );

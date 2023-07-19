@@ -46,7 +46,7 @@ function Cards() {
           <p className=" justify-start text-[12px] text-foreground/75 whitespace-nowrap">
             <span
               className={cn(
-                growthPercentage[0] === "+" ? "text-success" : "text-fail"
+                growthPercentage[0] === "+" ? "text-success" : "text-error"
               )}
             >
               {growthPercentage + "%"}

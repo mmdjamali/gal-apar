@@ -7,6 +7,8 @@ import ProductCategory from "./product-category";
 import ProductImageInput from "../product-image-input";
 import Button from "../ui/button";
 import ProductPrice from "./product-price";
+import axios from "axios";
+import { useToast } from "../ui/use-toast";
 
 interface ProductType {
   name: string;
@@ -21,6 +23,8 @@ interface ProductType {
 }
 
 function ProductForm() {
+  const [loading, setLoading] = useState(false);
+
   const [product, setProduct] = useState<ProductType>({
     name: "",
     description: "",
@@ -33,10 +37,38 @@ function ProductForm() {
     quantity: null,
   });
 
+  const { toast } = useToast();
+
   return (
-    <>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 relative gap-4">
-        <div className="flex flex-col gap-4">
+    <form
+      className="flex flex-col relative w-full gap-6"
+      onSubmit={async (e) => {
+        e.preventDefault();
+
+        try {
+          setLoading(true);
+
+          if (Object.values(product).some((v) => !v)) {
+            throw new Error("All fields must be filled");
+          }
+
+          const req = await axios.post("/api/product", product);
+
+          console.log(req.data);
+
+          setLoading(false);
+        } catch (err: any) {
+          setLoading(false);
+          toast({
+            title: "Something went wront!",
+            description: `${err?.message}`,
+            variant: "error",
+          });
+        }
+      }}
+    >
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 relative gap-6">
+        <div className="flex flex-col gap-6 h-fit">
           <div className="flex flex-col gap-2">
             <p className="font-medium">Name</p>
             <Input
@@ -95,7 +127,7 @@ function ProductForm() {
             <p className="font-medium">Quantity</p>
 
             <Input
-              value={product.quantity?.toString()}
+              value={product.quantity ? product.quantity.toString() : ""}
               onChange={(e) => {
                 const v = e.target.value.replaceAll(/\D/g, "");
                 setProduct((prev) => ({
@@ -107,7 +139,7 @@ function ProductForm() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6 h-fit">
           <div className="flex flex-col gap-2">
             <p className="font-medium">Product Images</p>
 
@@ -133,10 +165,12 @@ function ProductForm() {
         </div>
       </div>
 
-      <div className="flex w-full items-center mt-auto">
-        <Button>Add Product</Button>
+      <div className="flex w-full items-center justify-end gap-2 mt-auto">
+        <Button loading={loading} type="submit">
+          Add Product
+        </Button>
       </div>
-    </>
+    </form>
   );
 }
 

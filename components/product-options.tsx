@@ -18,7 +18,7 @@ const ProductOptions = () => {
     {
       title: "delete",
       Icon: Icons.DeleteBin,
-      className: "hover:bg-fail/10 hover:text-fail",
+      className: "hover:bg-error/10 hover:text-error",
     },
     {
       title: "view",

@@ -46,7 +46,7 @@ const DropdownMenuContent = React.forwardRef<
   <DropdownMenuPrimitive.Content
     ref={ref}
     className={cn(
-      "relative z-[999] flex flex-col border bg-background border-border rounded min-w-[200px] p-1 my-1",
+      "relative z-[999] slide-in-from-top-1 animate-in flex flex-col border bg-background border-border rounded min-w-[200px] p-1 my-1",
       className
     )}
     {...props}

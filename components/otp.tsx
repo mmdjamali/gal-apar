@@ -53,15 +53,15 @@ function Otp({ email }: props) {
         }, 1000);
       }}
     >
-      <h1 className="text-foreground text-[24px] font-semibold text-center">
+      <h1 className="text-foreground text-[24px] font-semibold text-center mb-1">
         Just one more step!
       </h1>
 
-      <p className="text-foreground/75 text-[14px] text-center">
+      <p className="text-foreground/75 text-[14px] text-center mb-6">
         We have sent your email a one time password, enter it to continue.
       </p>
 
-      <div className="flex flex-wrap w-full items-center justify-evenly gap-2 my-4">
+      <div className="flex flex-wrap w-full items-center justify-evenly gap-2 mb-4">
         {otp.map((value, idx, list) => (
           <Input
             success={success}
@@ -92,8 +92,8 @@ function Otp({ email }: props) {
             }}
             ref={idx === index ? inputRef : undefined}
             key={idx}
-            className="w-[36px] px-0"
-            inputClassName="text-center"
+            className="w-[42px] px-0"
+            inputClassName="text-center text-[16px]"
           />
         ))}
       </div>
