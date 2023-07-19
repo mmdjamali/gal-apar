@@ -27,8 +27,8 @@ module.exports = withAnimations({
         success: {
           DEFAULT: "rgb(var(--success) / <alpha-value>)",
         },
-        fail: {
-          DEFAULT: "rgb(var(--fail) / <alpha-value>)",
+        error: {
+          DEFAULT: "rgb(var(--error) / <alpha-value>)",
         },
         warning: {
           DEFAULT: "rgb(var(--warning) / <alpha-value>)",
@@ -41,5 +41,5 @@ module.exports = withAnimations({
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 });

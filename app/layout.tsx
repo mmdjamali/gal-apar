@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { Inter } from "next/font/google";
 import Providers from "@/components/providers";
 import { cn } from "@/lib/utils";
+import Toaster from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-background", inter.className)}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
