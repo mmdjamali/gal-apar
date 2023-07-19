@@ -3,21 +3,21 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-  seller: Schema.Types.ObjectId,
+  seller_id: Schema.Types.ObjectId,
   name: String,
-  information: [String],
   description: String,
   category: {
     type: String,
     require: true,
   },
+  quantity: {
+    type: Number,
+    require: true,
+  },
   images: {
     type: [String],
     require: true,
-  },
-  variants: {
-    type: [Object],
-    require: true,
+    default: [],
   },
   discount: {
     type: Object,
@@ -26,6 +26,17 @@ const ProductSchema = new Schema({
   available: {
     type: Boolean,
     default: true,
+  },
+  created_at: {
+    type: Date,
+    default: new Date(),
+  },
+  price: {
+    type: {
+      currency: String,
+      value: Number,
+    },
+    require: true,
   },
 });
 
