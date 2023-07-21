@@ -61,7 +61,7 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
         {...props}
       >
         {loading ? (
-          <Icons.Spinner className="text-[21px] animate-twSpin" />
+          <Icons.Spinner className="text-[21px] animate-twSpin repeat-infinite" />
         ) : (
           children
         )}

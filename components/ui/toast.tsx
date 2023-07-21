@@ -25,13 +25,13 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const ToastVarinats = cva(
-  "flex relative items-start justify-between border rounded animate-in slide-in-from-top-1 space-x-4 bg-background p-4 w-full",
+  "flex relative items-start justify-between border border-border rounded animate-in slide-in-from-top-1 space-x-4 bg-background p-4 w-full",
   {
     variants: {
       variant: {
-        success: ["text-success", "border-success"],
-        error: ["text-error", "border-error"],
-        default: ["text-foreground", "border-border"],
+        success: ["text-success"],
+        error: ["text-error"],
+        default: ["text-foreground"],
       },
     },
     defaultVariants: {
