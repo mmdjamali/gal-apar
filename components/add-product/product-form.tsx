@@ -1,24 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
+import axios from "axios";
+
+// ui
 import Input from "../ui/input";
 import Textarea from "../ui/textare";
+import Button from "../ui/button";
+import { useToast } from "../ui/use-toast";
+import { Icons } from "../icons";
+
+// logic components
 import ProductCategory from "./product-category";
 import ProductImageInput from "../product-image-input";
-import Button from "../ui/button";
 import ProductPrice from "./product-price";
-import axios from "axios";
-import { useToast } from "../ui/use-toast";
+import ProductCurrency from "./product-currency";
+
+// types
+import { type VariantType } from "@/types/product";
+import ProductVarinatForm from "./product-varinat-form";
+import {} from "crypto";
 
 interface ProductType {
   name: string;
   description: string;
   category: string;
   images: string[];
-  price: {
-    currency: string;
-    value: string | number | null;
-  };
+  currency: string;
+  price: string | number | null;
   quantity: null | string | number;
 }
 
@@ -30,12 +39,12 @@ function ProductForm() {
     description: "",
     category: "",
     images: [],
-    price: {
-      currency: "",
-      value: null,
-    },
+    currency: "",
+    price: null,
     quantity: null,
   });
+
+  const [variants, setVariants] = useState<VariantType[]>([]);
 
   const { toast } = useToast();
 
@@ -48,19 +57,21 @@ function ProductForm() {
         try {
           setLoading(true);
 
-          if (Object.values(product).some((v) => !v)) {
-            throw new Error("All fields must be filled");
-          }
-
-          const req = await axios.post("/api/product", product);
-
-          console.log(req.data);
+          const req = await axios.post("/api/product", {
+            ...product,
+            variants,
+          });
 
           setLoading(false);
+          toast({
+            variant: "success",
+            title: "Success!",
+            description: "Product Added successfully",
+          });
         } catch (err: any) {
           setLoading(false);
           toast({
-            title: "Something went wront!",
+            title: "Something went wrong!",
             description: `${err?.message}`,
             variant: "error",
           });
@@ -100,43 +111,50 @@ function ProductForm() {
             }}
           />
 
-          <ProductPrice
-            currency={product.price.currency}
-            value={product.price.value?.toString() || ""}
-            setCurrency={(v) => {
-              setProduct((prev) => ({
-                ...prev,
-                price: {
-                  ...prev.price,
-                  currency: v,
-                },
-              }));
-            }}
-            setValue={(v) => {
-              setProduct((prev) => ({
-                ...prev,
-                price: {
-                  ...prev.price,
-                  value: v,
-                },
-              }));
-            }}
-          />
-
           <div className="flex flex-col gap-2">
-            <p className="font-medium">Quantity</p>
+            <p className="font-medium">Currencies</p>
 
-            <Input
-              value={product.quantity ? product.quantity.toString() : ""}
-              onChange={(e) => {
-                const v = e.target.value.replaceAll(/\D/g, "");
+            <ProductCurrency
+              currency={product.currency}
+              onChange={(v: string) => {
                 setProduct((prev) => ({
                   ...prev,
-                  quantity: v,
+                  currency: v,
                 }));
               }}
             />
           </div>
+
+          {!variants?.length ? (
+            <>
+              <ProductPrice
+                value={product.price?.toString() || ""}
+                onChange={(v) => {
+                  setProduct((prev) => ({
+                    ...prev,
+                    price: v,
+                  }));
+                }}
+              />
+
+              <div className="flex flex-col gap-2">
+                <p className="font-medium">Quantity</p>
+
+                <Input
+                  value={product.quantity ? product.quantity.toString() : ""}
+                  onChange={(e) => {
+                    const v = e.target.value.replaceAll(/\D/g, "");
+                    setProduct((prev) => ({
+                      ...prev,
+                      quantity: v,
+                    }));
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="flex flex-col gap-6 h-fit">
@@ -162,6 +180,56 @@ function ProductForm() {
               }}
             />
           </div>
+        </div>
+      </div>
+
+      <div className="grid relative w-full gap-2">
+        <p className="font-medium">Variants</p>
+
+        {variants?.length ? (
+          <div className="grid w-full grid-cols-1 md:grid-cols-2 relative gap-6">
+            {variants.map((variant, idx) => (
+              <ProductVarinatForm
+                variant={variant}
+                name={`Variant ${idx + 1}`}
+                key={variant._id}
+                onChange={(key, value) => {
+                  setVariants((prev) => {
+                    const clone = [...prev];
+                    clone[idx as number][key] = value;
+                    return clone;
+                  });
+                }}
+                onRemove={() => {
+                  setVariants((prev) => [...prev.filter((_, i) => i !== idx)]);
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          ""
+        )}
+
+        <div className="flex items-start">
+          <Button
+            type="button"
+            variant="text"
+            onClick={() => {
+              setVariants((prev) => [
+                ...prev,
+                {
+                  color: "",
+                  price: prev[prev.length - 1]
+                    ? prev[prev.length - 1].price
+                    : "",
+                  quantity: "",
+                  _id: new Date().toString(),
+                },
+              ]);
+            }}
+          >
+            <Icons.Add className="text-[21px]" /> Add Variant
+          </Button>
         </div>
       </div>
 

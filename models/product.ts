@@ -10,9 +10,13 @@ const ProductSchema = new Schema({
     type: String,
     require: true,
   },
+  currency: {
+    type: String,
+    require: true,
+  },
   quantity: {
     type: Number,
-    require: true,
+    default: null,
   },
   images: {
     type: [String],
@@ -32,10 +36,11 @@ const ProductSchema = new Schema({
     default: new Date(),
   },
   price: {
-    type: {
-      currency: String,
-      value: Number,
-    },
+    type: Number,
+    default: null,
+  },
+  base_price: {
+    type: Number,
     require: true,
   },
 });
