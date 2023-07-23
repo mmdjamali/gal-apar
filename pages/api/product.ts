@@ -50,7 +50,7 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.json({ message: "product added successfuly" });
     }
 
-    const product = await ProductModel.create({
+    const product = new ProductModel({
       seller_id: user._id,
       images: body.images,
       name: body.name,
@@ -71,7 +71,17 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       }))
     );
 
+    product.variants = variants.map(({ _id }) => _id);
+
+    await product.save();
+
     return res.json({ message: "product added successfuly" });
+  }
+
+  if (req.method === "GET") {
+    const products = await ProductModel.find().limit(10).populate("variants");
+
+    return res.json(products);
   }
 
   return;

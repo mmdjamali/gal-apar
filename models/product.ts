@@ -23,10 +23,6 @@ const ProductSchema = new Schema({
     require: true,
     default: [],
   },
-  discount: {
-    type: Object,
-    default: null,
-  },
   available: {
     type: Boolean,
     default: true,
@@ -43,8 +39,13 @@ const ProductSchema = new Schema({
     type: Number,
     require: true,
   },
+  variants: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "variant",
+    },
+  ],
 });
 
 export const ProductModel =
-  mongoose.models.product<typeof ProductSchema> ||
-  mongoose.model("product", ProductSchema);
+  mongoose.models.product || mongoose.model("product", ProductSchema);
