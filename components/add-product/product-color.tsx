@@ -23,13 +23,15 @@ import {
   ScrollAreaViewport,
 } from "../ui/scroll-area";
 import { colors } from "@/constant/colors";
+import { cn } from "@/lib/utils";
 
 interface ProductColorProps {
   color: string;
   onChange: (v: string) => void;
+  used: string[];
 }
 
-function ProductColor({ color, onChange }: ProductColorProps) {
+function ProductColor({ color, onChange, used }: ProductColorProps) {
   return (
     <Dialog>
       <DialogTrigger className="w-full">
@@ -61,11 +63,15 @@ function ProductColor({ color, onChange }: ProductColorProps) {
               <div className="flex p-3 flex-col gap-1 w-full relative">
                 {colors.map(({ name, hexCode }, idx) => (
                   <button
+                    disabled={used.includes(name) && color !== name}
                     onClick={() => {
                       color === name ? onChange("") : onChange(name);
                     }}
                     key={idx}
-                    className="flex gap-2 items-center rounded px-3 py-1.5 hover:bg-foreground/10 justify-start w-full"
+                    className={cn(
+                      "flex gap-2 items-center rounded px-3 py-1.5 hover:bg-foreground/10 justify-start w-full",
+                      used.includes(name) && color !== name ? "opacity-50" : ""
+                    )}
                   >
                     <div className="flex flex-shrink-0 items-center justify-center h-4 aspect-square">
                       {color === name ? (

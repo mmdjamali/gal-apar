@@ -20,6 +20,7 @@ import ProductCurrency from "./product-currency";
 import { type VariantType } from "@/types/product";
 import ProductVarinatForm from "./product-varinat-form";
 import {} from "crypto";
+import { useRouter } from "next/navigation";
 
 interface ProductType {
   name: string;
@@ -32,6 +33,8 @@ interface ProductType {
 }
 
 function ProductForm() {
+  const { toast } = useToast();
+
   const [loading, setLoading] = useState(false);
 
   const [product, setProduct] = useState<ProductType>({
@@ -45,8 +48,6 @@ function ProductForm() {
   });
 
   const [variants, setVariants] = useState<VariantType[]>([]);
-
-  const { toast } = useToast();
 
   return (
     <form
@@ -190,6 +191,7 @@ function ProductForm() {
           <div className="grid w-full grid-cols-1 md:grid-cols-2 relative gap-6">
             {variants.map((variant, idx) => (
               <ProductVarinatForm
+                alreadyUsed={variants.map(({ color }) => ({ color }))}
                 variant={variant}
                 name={`Variant ${idx + 1}`}
                 key={variant._id}

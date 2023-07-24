@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Input from "../ui/input";
+import english from "@/json/english.json";
 
 import { Icons } from "../icons";
 import {
@@ -19,6 +20,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from "../ui/scroll-area";
+import { currencies } from "@/constant/currencies";
 
 interface ProductCurrencyProps {
   currency: string;
@@ -26,14 +28,16 @@ interface ProductCurrencyProps {
 }
 
 function ProductCurrency({ currency, onChange }: ProductCurrencyProps) {
+  const language = useRef<{ [word: string]: string }>(english);
+
   return (
     <Dialog>
       <DialogTrigger className="w-full">
         <Input
           inputClassName="text-start text-ellipsis overflow-hidden"
-          value={currency}
+          value={currency ? language.current[currency] : ""}
           onChange={() => {}}
-          placeholder="select-currencies"
+          placeholder={language.current["select-currency"]}
           block
           actions={[<Icons.ExpandY className="text-[16px] flex-shrink-0" />]}
         />
@@ -55,7 +59,7 @@ function ProductCurrency({ currency, onChange }: ProductCurrencyProps) {
                 <Input block placeholder="search-for-currencies" />
               </div>
               <div className="flex p-3 flex-col gap-1 w-full relative">
-                {productCategories.map((option, idx) => (
+                {currencies.map((option: string, idx) => (
                   <button
                     onClick={() => {
                       currency === option ? onChange("") : onChange(option);
@@ -70,7 +74,7 @@ function ProductCurrency({ currency, onChange }: ProductCurrencyProps) {
                         ""
                       )}
                     </div>
-                    {option}
+                    {language.current[option]}
                   </button>
                 ))}
               </div>
@@ -86,16 +90,3 @@ function ProductCurrency({ currency, onChange }: ProductCurrencyProps) {
 }
 
 export default ProductCurrency;
-
-const productCategories = [
-  "United States Dollar (USD)",
-  "Turkish Lira (TRY)",
-  "Azerbaijani manat (AZN)",
-  "Euro (EUR)",
-  "Japanese Yen (JPY)",
-  "Canadian Dollar (CAD)",
-  "British Pound Sterling (GBP)",
-  "Australian Dollar (AUD)",
-  "Swiss Franc (CHF)",
-  "Iranian Rial (IRR)",
-];

@@ -18,6 +18,9 @@ interface ProductVarinatFormProps {
   onChange: (k: keyof VariantType, v: string) => void;
   name: string;
   onRemove: () => void;
+  alreadyUsed: {
+    color: string;
+  }[];
 }
 
 function ProductVarinatForm({
@@ -25,6 +28,7 @@ function ProductVarinatForm({
   onChange,
   name,
   onRemove,
+  alreadyUsed,
 }: ProductVarinatFormProps) {
   return (
     <div className="flex flex-col items-start gap-4 p-4 relative rounded border border-border">
@@ -72,6 +76,7 @@ function ProductVarinatForm({
             <div className="w-full grid gap-2" key={i}>
               <p>{key}</p>
               <ProductColor
+                used={alreadyUsed.map(({ color }) => color)}
                 color={variant?.color}
                 onChange={(v) => {
                   onChange(key, v);

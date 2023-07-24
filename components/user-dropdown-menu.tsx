@@ -62,7 +62,10 @@ function UserDropdownMenu({}: UserDropdownMenuProps) {
     },
   ];
 
-  if (status === "loading") return <UserAvatar src="" />;
+  if (status === "loading")
+    return (
+      <span className="w-9 aspect-square rounded-full bg-foreground/50 animate-twPulse animate-infinite" />
+    );
 
   if (status === "authenticated")
     return (
