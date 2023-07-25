@@ -63,11 +63,9 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const variants = await variantModel.insertMany(
-      (body.variants as VariantType[]).map(({ color, price, quantity }) => ({
+      (body.variants as VariantType[]).map(({ _id, ...variant }) => ({
         product_id: product._id,
-        color,
-        price,
-        quantity,
+        ...variant,
       }))
     );
 
