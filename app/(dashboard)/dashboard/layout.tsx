@@ -1,7 +1,9 @@
 import Footer from "@/components/footer";
+import { Icons } from "@/components/icons";
 import MainNav from "@/components/main-nav";
 import Navbar from "@/components/navbar";
 import SearchDrawer from "@/components/search-drawer";
+import Button from "@/components/ui/button";
 import UserDropdownMenu from "@/components/user-dropdown-menu";
 import React from "react";
 
@@ -19,6 +21,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <MainNav />
 
           <div className="flex items-center gap-4">
+            <Button variant="text" color="foreground" className="p-2">
+              <Icons.Notification className="text-[21px]" />
+            </Button>
+
             <UserDropdownMenu
               user={{
                 image:

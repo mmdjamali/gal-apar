@@ -5,7 +5,21 @@ import Providers from "@/components/providers";
 import { cn } from "@/lib/utils";
 import Toaster from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: [
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Gal apar | online-marketplace",

@@ -1,6 +1,10 @@
+import { Icons } from "@/components/icons";
 import MainNav from "@/components/main-nav";
+import SearchDrawer from "@/components/search-drawer";
 import ThemeChanger from "@/components/theme-changer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
 import UserDropdownMenu from "@/components/user-dropdown-menu";
 import React from "react";
 
@@ -12,25 +16,15 @@ function MainLayout({ children }: props) {
   return (
     <div className="relative flex flex-col w-full h-fit min-h-screen text-foregrounds text-[14px]">
       <div className="sticky bg-background top-0 border-b border-border w-full z-[50]">
-        <header className="container flex items-center justify-between py-2 max-w-[1300px] mx-auto">
-          <MainNav
-            roots={[
-              {
-                title: "Home",
-                url: "/home",
-              },
-              {
-                title: "Kingdoms",
-                url: "/kingdoms",
-              },
-              {
-                title: "Players",
-                url: "/players",
-              },
-            ]}
-          />
+        <header className="container px-4 sm:px-8 flex items-center justify-between py-2 max-w-[1300px] mx-auto">
+          <SearchDrawer />
 
-          <div>
+          <MainNav />
+
+          <div className="flex items-center gap-4">
+            <Button className="p-2" variant="text" color="foreground">
+              <Icons.Cart className="text-[21px]" />
+            </Button>
             <UserDropdownMenu
               user={{
                 image:
@@ -43,28 +37,26 @@ function MainLayout({ children }: props) {
         </header>
       </div>
 
-      <div className="border-b border-border min-h-[calc(100vh_-_114px)]">
+      <div className="border-b border-border min-h-[calc(100vh_-_110px)]">
         {children}
       </div>
 
-      <footer className="container flex items-center justify-between gap-4 max-w-[1300px] mx-auto py-2">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="https://avatars.githubusercontent.com/u/97102957?v=4" />
-            <AvatarFallback />
-          </Avatar>
+      <footer className="container flex flex-col md:flex-row items-center justify-between gap-4 max-w-[1300px] mx-auto py-2">
+        <Avatar className="h-8 w-8">
+          <AvatarImage src="https://avatars.githubusercontent.com/u/97102957?v=4" />
+          <AvatarFallback />
+        </Avatar>
 
-          <p className="font-medium">
-            This project is made by{" "}
-            <a className="underline" href="https://github.com/1stMmD">
-              1stMmD
-            </a>{" "}
-            and deployed with{" "}
-            <a className="underline" href="https://vercel.com">
-              Vercel
-            </a>
-          </p>
-        </div>
+        <p className="font-medium md:mr-auto text-center">
+          This project is made by{" "}
+          <a className="underline" href="https://github.com/1stMmD">
+            1stMmD
+          </a>{" "}
+          and deployed with{" "}
+          <a className="underline" href="https://vercel.com">
+            Vercel
+          </a>
+        </p>
 
         <ThemeChanger />
       </footer>
