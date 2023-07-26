@@ -27,9 +27,9 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
   ) => {
     const variants = {
       contained: {
-        shared: "",
-        primary: "bg-primary text-white",
-        foreground: "bg-foreground text-background",
+        shared: "border",
+        primary: "bg-primary border-primary text-white",
+        foreground: "bg-foreground border-foreground text-background",
       },
       outlined: {
         shared: "border",

@@ -35,7 +35,9 @@ const RadioGroupItem = React.forwardRef<
 RadioGroupItem.displayName = "@1stmmd/radio-group-item";
 
 interface RadioGroupIndicatorProps
-  extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Item> {
+  extends React.ComponentPropsWithoutRef<
+    typeof RadioGroupPrimitives.Indicator
+  > {
   color?: "primary" | "foreground";
 }
 

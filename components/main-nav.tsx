@@ -19,11 +19,14 @@ function MainNav({ roots, className }: MainNavProps) {
   const pathname = usePathname();
   return (
     <div className={cn("flex items-center justify-center gap-8", className)}>
-      <div className="flex items-center justify-center gap-1 text-primary">
+      <Link
+        href="/"
+        className="flex items-center justify-center gap-1 text-primary"
+      >
         <Icons.Logo className="text-[28px] h-[28px]" />
 
         <Icons.LogoPr className="text-[21px] h-[21px]" />
-      </div>
+      </Link>
 
       {roots ? (
         <div className="flex items-center justify-center gap-4">

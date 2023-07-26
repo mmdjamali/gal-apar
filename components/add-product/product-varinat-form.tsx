@@ -12,15 +12,15 @@ import {
 } from "../ui/dialog";
 import Button from "../ui/button";
 import { Icons } from "../icons";
+import { category_options } from "@/constant/category-options";
 
 interface ProductVarinatFormProps {
   variant: VariantType;
   onChange: (k: keyof VariantType, v: string) => void;
   name: string;
   onRemove: () => void;
-  alreadyUsed: {
-    color: string;
-  }[];
+  variants: VariantType[];
+  category: string;
 }
 
 function ProductVarinatForm({
@@ -28,7 +28,8 @@ function ProductVarinatForm({
   onChange,
   name,
   onRemove,
-  alreadyUsed,
+  category,
+  variants,
 }: ProductVarinatFormProps) {
   return (
     <div className="flex flex-col items-start gap-4 p-4 relative rounded border border-border">
@@ -68,7 +69,10 @@ function ProductVarinatForm({
           </DialogPortal>
         </Dialog>
       </div>
-      {Object.keys(variant).map((key, i) => {
+      {[
+        ...(category_options[category.toLowerCase()] ?? []),
+        ...category_options?.default,
+      ]?.map((key, i) => {
         if (key === "_id") return "";
 
         if (key === "color")
@@ -76,8 +80,18 @@ function ProductVarinatForm({
             <div className="w-full grid gap-2" key={i}>
               <p>{key}</p>
               <ProductColor
-                used={alreadyUsed.map(({ color }) => color)}
-                color={variant?.color}
+                used={variants.reduce((prev, v) => {
+                  if (
+                    v.size === variant.size &&
+                    v.color !== variant.color &&
+                    v.color
+                  ) {
+                    prev.push(v.color);
+                  }
+
+                  return prev;
+                }, [] as string[])}
+                color={variant?.color ?? ""}
                 onChange={(v) => {
                   onChange(key, v);
                 }}

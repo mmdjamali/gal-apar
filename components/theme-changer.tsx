@@ -22,7 +22,7 @@ function ThemeChanger() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return "";
+  if (!mounted) return <></>;
 
   return (
     <DropdownMenu>

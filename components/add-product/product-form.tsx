@@ -19,8 +19,7 @@ import ProductCurrency from "./product-currency";
 // types
 import { type VariantType } from "@/types/product";
 import ProductVarinatForm from "./product-varinat-form";
-import {} from "crypto";
-import { useRouter } from "next/navigation";
+import { category_options } from "@/constant/category-options";
 
 interface ProductType {
   name: string;
@@ -191,7 +190,8 @@ function ProductForm() {
           <div className="grid w-full grid-cols-1 md:grid-cols-2 relative gap-6">
             {variants.map((variant, idx) => (
               <ProductVarinatForm
-                alreadyUsed={variants.map(({ color }) => ({ color }))}
+                category={product.category}
+                variants={variants}
                 variant={variant}
                 name={`Variant ${idx + 1}`}
                 key={variant._id}
@@ -217,17 +217,24 @@ function ProductForm() {
             type="button"
             variant="text"
             onClick={() => {
-              setVariants((prev) => [
-                ...prev,
-                {
-                  color: "",
-                  price: prev[prev.length - 1]
-                    ? prev[prev.length - 1].price
-                    : "",
-                  quantity: "",
-                  _id: new Date().toString(),
-                },
-              ]);
+              if (!product.category)
+                return toast({
+                  title: "You must select a category",
+                  variant: "error",
+                });
+
+              setVariants((prev) => {
+                return [
+                  ...prev,
+                  {
+                    price: prev[prev.length - 1]
+                      ? prev[prev.length - 1].price
+                      : "",
+                    quantity: "",
+                    _id: new Date().toString(),
+                  },
+                ];
+              });
             }}
           >
             <Icons.Add className="text-[21px]" /> Add Variant
