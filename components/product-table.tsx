@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Icons } from "./icons";
 import Button from "./ui/button";
 import { Chip } from "./ui/chip";
@@ -36,137 +36,125 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-
-interface Product {
-  _id: string;
-  created_at: number;
-  title: string;
-}
-
-const data: Product[] = [
-  {
-    _id: "0",
-    created_at: new Date().getMilliseconds(),
-    title: "test 0",
-  },
-  {
-    _id: "1",
-    created_at: new Date().getMilliseconds(),
-    title: "test 1",
-  },
-  {
-    _id: "2",
-    created_at: new Date().getMilliseconds(),
-    title: "test 2",
-  },
-  {
-    _id: "3",
-    created_at: new Date().getMilliseconds(),
-    title: "test 3",
-  },
-  {
-    _id: "4",
-    created_at: new Date().getMilliseconds(),
-    title: "test 4",
-  },
-  {
-    _id: "5",
-    created_at: new Date().getMilliseconds(),
-    title: "test 5",
-  },
-  {
-    _id: "6",
-    created_at: new Date().getMilliseconds(),
-    title: "test 6",
-  },
-  {
-    _id: "7",
-    created_at: new Date().getMilliseconds(),
-    title: "test 7",
-  },
-  {
-    _id: "8",
-    created_at: new Date().getMilliseconds(),
-    title: "test 8",
-  },
-  {
-    _id: "9",
-    created_at: new Date().getMilliseconds(),
-    title: "test 9",
-  },
-  {
-    _id: "10",
-    created_at: new Date().getMilliseconds(),
-    title: "test 10",
-  },
-];
-
-const columns: ColumnDef<Product>[] = [
-  {
-    id: "_id",
-    accessorKey: "_id",
-    cell({ row }) {
-      return (
-        <TableBodyCell className="w-1">
-          <Button
-            onClick={() => {
-              navigator.clipboard.writeText(row.getValue("_id"));
-            }}
-            className="p-2"
-            color="foreground"
-          >
-            <Icons.FileCopy className="text-[16px]" />
-          </Button>
-        </TableBodyCell>
-      );
-    },
-    header() {
-      return <TableHeadCell className="w-1 text-center">_id</TableHeadCell>;
-    },
-  },
-  {
-    id: "title",
-    accessorKey: "title",
-    cell({ row }) {
-      return (
-        <TableBodyCell>
-          <p>{row.getValue("title")}</p>
-        </TableBodyCell>
-      );
-    },
-    header() {
-      return (
-        <TableHeadCell>
-          <Button variant="text" color="foreground">
-            Title
-          </Button>
-        </TableHeadCell>
-      );
-    },
-  },
-  {
-    id: "options",
-    cell() {
-      return (
-        <TableBodyCell className="w-1">
-          <ProductOptions />
-        </TableBodyCell>
-      );
-    },
-    header() {
-      return <TableHeadCell className="w-1" />;
-    },
-    enableHiding: false,
-  },
-];
+import { useQuery } from "react-query";
+import axios from "axios";
+import { ProductType } from "@/types/product";
 
 const ProductTable = () => {
+  const {data, isLoading} = useQuery( "my-products", async () => {
+    return (await axios.get("/api/product/seller")).data
+  }) 
+
+  const columns: ColumnDef<ProductType>[] = [
+    {
+      id: "_id",
+      accessorKey: "_id",
+      cell({ row }) {
+        return (
+          <TableBodyCell className="w-1">
+            <Button
+              onClick={() => {
+                navigator.clipboard.writeText(row.getValue("_id"));
+              }}
+              className="p-2"
+              color="foreground"
+            >
+              <Icons.FileCopy className="text-[16px]" />
+            </Button>
+          </TableBodyCell>
+        );
+      },
+      header() {
+        return <TableHeadCell className="w-1 text-center">_id</TableHeadCell>;
+      },
+    },
+    {
+      id: "name",
+      accessorKey: "name",
+      cell({ row }) {
+        return (
+          <TableBodyCell>
+            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{row.getValue("name")}</p>
+          </TableBodyCell>
+        );
+      },
+      header() {
+        return (
+          <TableHeadCell>
+            <Button variant="text" color="foreground">
+              Name
+            </Button>
+          </TableHeadCell>
+        );
+      },
+    },
+    {
+      id : "currency",
+      accessorKey  :"currency",
+      cell({ row }) {
+        const Icon = Icons[row.getValue("currency") as string] ?? Icons.Circle
+
+        return (
+          <TableBodyCell className="w-1">
+            <div className="w-full grid place-items-center uppercase">
+              {/* <Icon className="text-[21px] h-[21px] aspect-square text-success"/> */}
+             { row.getValue("currency")}
+            </div>
+          </TableBodyCell>
+        );
+      },
+      header() {
+        return (
+          <TableHeadCell className="w-1 text-center">
+              Currency
+          </TableHeadCell>
+        );
+      },
+    },
+    {
+      id : "category",
+      accessorKey  :"category",
+      cell({ row }) {
+        return (
+          <TableBodyCell>
+            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{row.getValue("category")}</p>
+          </TableBodyCell>
+        );
+      },
+      header() {
+        return (
+          <TableHeadCell>
+            <Button variant="text" color="foreground">
+              Category
+            </Button>
+          </TableHeadCell>
+        );
+      },
+    },
+    {
+      id: "options",
+      cell() {
+        return (
+          <TableBodyCell className="w-1">
+            <ProductOptions />
+          </TableBodyCell>
+        );
+      },
+      header() {
+        return <TableHeadCell className="w-1" />;
+      },
+      enableHiding: false,
+    },
+  ]
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+
+
   const table = useReactTable({
-    data,
+    data : isLoading ? [] : data?.products,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -245,7 +233,7 @@ const ProductTable = () => {
             ))}
           </TableHead>
           <TableBody>
-            {table.getRowModel().rows.length ? (
+            {!isLoading && table?.getRowModel()?.rows?.length ? (
               table.getRowModel().rows.map((row, idx) => (
                 <TableRow
                   className={cn(idx + 1 === 10 ? "border-b-[0px]" : "")}
@@ -266,9 +254,9 @@ const ProductTable = () => {
             )}
 
             {(() => {
-              if (!table.getRowModel().rows.length) return null;
+              if (!isLoading && !table?.getRowModel().rows.length) return null;
 
-              const emptyRows = 10 - table.getRowModel().rows.length;
+              const emptyRows = 10 - (table?.getRowModel().rows.length ?? 0)
 
               return (
                 <>
@@ -282,8 +270,13 @@ const ProductTable = () => {
                 </>
               );
             })()}
+            
           </TableBody>
         </Table>
+        {
+              isLoading &&
+            <Icons.Spinner className="absolute inset-0 m-auto animate-spin text-[21px] text-foreground"/>
+            }
       </div>
     </div>
   );

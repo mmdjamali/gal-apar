@@ -58,7 +58,7 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       currency: body.currency,
       category: body.category,
       base_price: (body.variants as VariantType[]).sort(
-        (a, b) => parseFloat(b.price ?? "") - parseFloat(a.price ?? "")
+        (a, b) => parseFloat(b.price?.toString() ?? "") - parseFloat(a.price?.toString() ?? "")
       )[0].price,
     });
 

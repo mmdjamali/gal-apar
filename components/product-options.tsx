@@ -37,7 +37,7 @@ const ProductOptions = () => {
       <DropdownMenuPortal>
         <DropdownMenuContent align="end">
           {options.map(({ Icon, title, className }) => (
-            <DropdownMenuItem className={className}>
+            <DropdownMenuItem className={className} key={title}>
               <Icon className="text-[16px]" />
               {title}
             </DropdownMenuItem>
