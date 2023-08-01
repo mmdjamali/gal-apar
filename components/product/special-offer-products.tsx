@@ -39,7 +39,7 @@ function SpecialOfferProducts() {
 
   if (isLoading)
     return (
-      <div className="flex rounded w-full h-[264px] bg-foreground/50 animate-twPulse animate-infinite" />
+      <div className="flex rounded w-full h-[264px] bg-foreground/50 animate-pulse animate-infinite" />
     );
 
   return (

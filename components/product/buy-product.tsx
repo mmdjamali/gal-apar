@@ -1,46 +1,44 @@
 "use client";
 
-import React, { Component, useMemo, useState } from "react";
-import {
-  RadioGroup,
-  RadioGroupIndicator,
-  RadioGroupItem,
-} from "../ui/radio-group";
+import React, { useMemo, useState } from "react";
 import Button from "../ui/button";
 import ColorVariantOptions from "./color-variant-options";
 import { category_options } from "@/constant/category-options";
-import { VariantType } from "@/types/product";
+import { ProductType, VariantType } from "@/types/product";
+import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
+import { useGetCart } from "@/hooks/cart/use-get-cart";
+import ProductQuantityButton from "../product-quantity-button";
+import { CartProductType } from "@/types/cart";
 
 interface BuyProductProps {
-  data: {
-    variants: VariantType[];
-    category: string;
-  };
+  data: ProductType
 }
 
 const BuyProduct = ({ data }: BuyProductProps) => {
+  const queryClient = useQueryClient();
+
   const [filter, setFilter] = useState(
     Object.fromEntries(
       category_options[data.category.toLowerCase()]?.map((k) => [
         k,
-        data.variants[0][k as keyof VariantType],
+        (data?.variants as VariantType[])[0][k as keyof VariantType],
       ]) ?? []
     )
   );
-
-  const variant = useMemo(() => {}, [filter]);
 
   const components = {
     color: {
       Component: () => (
         <ColorVariantOptions
-          color={filter.color ?? ""}
-          options={data.variants.reduce((prev: string[], v) => {
+          color={(filter?.color as string) ?? ""}
+          options={(data?.variants as VariantType[])?.reduce((prev: string[], v : VariantType) => {
             if (v.color && !prev.includes(v.color) && v.size === filter.size) {
               prev.push(v.color);
             }
+
             return prev;
-          }, [] as string[])}
+          }, [])}
           onChange={(v) => {
             setFilter((prev) => ({
               ...prev,
@@ -53,7 +51,7 @@ const BuyProduct = ({ data }: BuyProductProps) => {
     size: {
       Component: () => (
         <div className="flex flex-wrap items-center gap-2">
-          {data.variants
+          {(data?.variants as VariantType[])
             .reduce((prev: string[], v) => {
               if (
                 v.size &&
@@ -63,7 +61,7 @@ const BuyProduct = ({ data }: BuyProductProps) => {
                 prev.push(v.size);
               }
               return prev;
-            }, [] as string[])
+            }, [])
             .map((size, _idx) => {
               return (
                 <Button
@@ -87,6 +85,33 @@ const BuyProduct = ({ data }: BuyProductProps) => {
     },
   };
 
+  const { data: cart, isLoading } = useGetCart();
+
+  const mutation = useMutation({
+    mutationFn: async (product: {
+      product: string;
+      variant: string | null;
+      quantity: number;
+    }) => {
+      return (await axios.post("/api/cart", product)).data;
+    },
+    onSuccess(data, variables, context) {
+      queryClient.setQueryData("cart", data);
+    },
+  });
+
+  const selected_variant = (data?.variants as VariantType[])?.filter((v) =>
+    Object.keys(filter).every((k) => v[k as keyof VariantType] === filter[k])
+  )[0];
+
+  const in_cart = useMemo(
+    () =>
+      cart?.cart?.products.filter(({ variant, product } : CartProductType) => {
+        return variant._id === selected_variant._id && product._id === data._id;
+      })[0],
+    [data, filter, cart]
+  );
+
   return (
     <>
       <div className="flex gap-3 flex-col rounded border border-border p-3">
@@ -94,7 +119,7 @@ const BuyProduct = ({ data }: BuyProductProps) => {
           const Component =
             components[option as keyof typeof components]?.Component;
 
-          if (Component && data.variants[0][option as keyof VariantType])
+          if (Component && (data?.variants as VariantType[])[0][option as keyof VariantType])
             return (
               <div className="flex flex-col gap-1">
                 <p className="text-[16px] text-foreground">{option}</p>
@@ -106,11 +131,37 @@ const BuyProduct = ({ data }: BuyProductProps) => {
       </div>
 
       <div className="flex gap-4 items-center w-full">
-        <Button>Add to cart</Button>
+        {in_cart ? (
+          <div className="w-[111px]">
+            <ProductQuantityButton
+              _id={cart?.cart?._id}
+              product={in_cart.product}
+              variant={in_cart.variant}
+              quantity={in_cart.quantity}
+            />
+          </div>
+        ) : (
+          <Button
+            className=" w-[100%] md:w-[50%]"
+            loading={mutation.isLoading}
+            onClick={() => {
+              mutation.mutate({
+                product: data._id ?? "",
+                variant:
+                  (data.variants as VariantType[]).filter((v) =>
+                    Object.keys(filter).every(
+                      (k) => v[k as keyof VariantType] === filter[k]
+                    )
+                  )[0]?._id ?? null,
+                quantity: 1,
+              });
+            }}
+          >
+            Add to cart
+          </Button>
+        )}
 
-        <p className="text-[16px] font-semibold">
-          {data.variants.filter((v) => v.color === filter.color)[0]?.price}
-        </p>
+        <p className="text-[16px] font-semibold">{selected_variant?.price}</p>
       </div>
     </>
   );

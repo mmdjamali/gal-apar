@@ -14,5 +14,6 @@ export type ProductType = {
   price?: number | null;
   base_prise : number;
   quantity?: string;
-  variants : VariantType[] | string[] | null
+  variants : VariantType[] | string[] | null,
+  category : string
 };

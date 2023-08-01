@@ -78,7 +78,7 @@ function ProductImageInput({
 
           return (
             <Icon
-              className={cn("text-[21px]", loading ? "animate-twSpin" : "")}
+              className={cn("text-[21px]", loading ? "animate-spin" : "")}
             />
           );
         })()}

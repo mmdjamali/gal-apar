@@ -33,12 +33,17 @@ import {
   RiMoreLine,
   RiNotification3Line,
   RiQuestionMark,
+  RiRulerFill,
+  RiRulerLine,
   RiSearchLine,
   RiSettingsLine,
   RiShakeHandsLine,
   RiShoppingCartLine,
   RiSparkling2Line,
   RiStarLine,
+  RiSubscript,
+  RiSubscript2,
+  RiSubtractLine,
   RiSunFoggyLine,
   RiUserLine,
 } from "react-icons/ri";
@@ -72,6 +77,7 @@ export const Icons: {
   FileList: RiFileList2Line,
   BankCard: RiBankCardLine,
   Add: RiAddLine,
+  Subtract: RiSubtractLine,
   Circle: RiCheckboxBlankCircleLine,
   Eye: RiEyeLine,
   Calender: RiCalendarLine,
@@ -86,6 +92,7 @@ export const Icons: {
   ExpandY: RiExpandUpDownLine,
   Login: RiLoginBoxLine,
   QuestionMark: RiQuestionMark,
+  Ruler : RiRulerLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}
