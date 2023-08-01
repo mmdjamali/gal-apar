@@ -1,3 +1,4 @@
+import CartButton from "@/components/cart/cart-button";
 import { Icons } from "@/components/icons";
 import MainNav from "@/components/main-nav";
 import SearchDrawer from "@/components/search-drawer";
@@ -22,9 +23,8 @@ function MainLayout({ children }: props) {
           <MainNav />
 
           <div className="flex items-center gap-4">
-            <Button className="p-2" variant="text" color="foreground">
-              <Icons.Cart className="text-[21px]" />
-            </Button>
+            <CartButton />
+
             <UserDropdownMenu
               user={{
                 image:

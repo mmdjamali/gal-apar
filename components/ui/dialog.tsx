@@ -37,7 +37,7 @@ const DialogContent = React.forwardRef<
   <DialogPrimitives.Content
     ref={ref}
     className={cn(
-      "fixed inset-0 m-auto rounded p-4 w-[min(80%,600px)] z-[51]",
+      "fixed bg-background inset-0 m-auto rounded p-4 w-[min(80%,600px)] z-[51]",
       className
     )}
     {...props}

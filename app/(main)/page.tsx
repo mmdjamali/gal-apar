@@ -12,7 +12,7 @@ import React from "react";
 function page() {
   return (
     <div className="flex flex-col container px-4 sm:px-8 max-w-[1300px] mx-auto relative">
-      <div className="flex w-full h-[268px] md:h-[368px] bg-foreground rounded mt-4"></div>
+      <div className="flex w-full h-[268px] md:h-[368px] bg-foreground"></div>
 
       <div className="grid w-full gap-6 place-items-center grid-cols-4 md:grid-cols-8 justify-center py-6">
         {Array(8)
