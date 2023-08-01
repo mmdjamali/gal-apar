@@ -1,6 +1,7 @@
 import { Icons } from "@/components/icons";
 import BuyProduct from "@/components/product/buy-product";
 import { KeysOfAType } from "mongodb";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment } from "react";
@@ -24,6 +25,16 @@ const fetchProductData = async (_id: string) => {
   return res.json();
 };
 
+export const generateMetadata = async ({
+  params,
+}: ProductPageProps): Promise<Metadata> => {
+  const data = await fetchProductData(params._id);
+
+  return {
+    title: `Gal Apar | ${data?.name}`,
+  };
+};
+
 const Product = async ({ params }: ProductPageProps) => {
   const data = await fetchProductData(params._id);
 
@@ -31,7 +42,7 @@ const Product = async ({ params }: ProductPageProps) => {
 
   return (
     <div className="flex flex-col container px-4 pb-6 sm:px-8 max-w-[1300px] mx-auto relative text-foreground text-[14px]">
-      <div className="flex items-center gap-2 justify-start py-2">
+      <div className="flex items-center gap-2 justify-start py-3">
         {["gal-apar", (data.category as string)?.toLowerCase()].map(
           (category, idx, list) => {
             if (!links[category]) return "";
@@ -55,17 +66,9 @@ const Product = async ({ params }: ProductPageProps) => {
         )}
       </div>
 
-      <div className="grid w-full relative md:grid-cols-2 gap-3 items-start">
+      <div className="grid w-full relative md:grid-cols-2 gap-6 items-start">
         <div className="grid gap-3 w-full relative">
-          <div className="flex md:hidden gap-2 items-center w-full p-2 border border-border rounded ">
-            <img
-              className="h-7 aspect-square rounded-full "
-              src={data?.seller_id?.image}
-            />
-            <p>{data?.seller_id?.name}</p>
-          </div>
-
-          <div className="relative w-full p-6 aspect-square rounded border border-border overflow-hidden">
+          <div className="relative w-full aspect-square overflow-hidden">
             <div className="relative w-full aspect-square ">
               <Image
                 fill
@@ -79,7 +82,7 @@ const Product = async ({ params }: ProductPageProps) => {
         </div>
 
         <div className="grid gap-3 w-full relative">
-          <div className="hidden md:flex gap-2 items-center w-full p-2 border border-border rounded ">
+          <div className="flex gap-2 items-center w-full p-2 border border-border rounded ">
             <img
               className="h-7 aspect-square rounded-full "
               src={data?.seller_id?.image}
