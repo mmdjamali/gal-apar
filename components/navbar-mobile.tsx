@@ -1,0 +1,88 @@
+"use client";
+
+import React from "react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTrigger,
+} from "./ui/drawer";
+import Button from "./ui/button";
+import { Icons } from "./icons";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+interface NavbarProps {
+  routes: {
+    icon: string;
+    disabled: boolean;
+    title: string;
+    url: string;
+    className: string;
+  }[];
+  className?: string;
+}
+
+function NavbarMobile({ routes }: NavbarProps) {
+  const pathname = usePathname();
+
+  return (
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button className="p-2 sm:hidden" variant="text" color="foreground">
+          <Icons.Menu className="text-[21px]" />
+        </Button>
+      </DrawerTrigger>
+
+      <DrawerPortal className="sm:hidden">
+        <DrawerOverlay />
+
+        <DrawerContent
+          side="left"
+          className="flex slide-in-from-left-full animate-in flex-col w-[220px] h-screen bg-background z-50 border-x border-border"
+        >
+          <div className="flex flex-row-reverse items-center justify-between px-3 py-2 border-b border-border">
+            <Icons.LogoPr className="h-[21px] text-primary" />
+
+            <DrawerClose asChild>
+              <Button className="p-2" color="foreground" variant="text">
+                <Icons.Close className="text-[21px]" />
+              </Button>
+            </DrawerClose>
+          </div>
+
+          <div className="flex flex-col gap-2 w-full p-3">
+            {routes.map(({ icon, disabled, title, url }) => (
+              <DrawerClose asChild key={title}>
+                <Link href={url}>
+                  <Button
+                    block
+                    variant="text"
+                    color="foreground"
+                    className={cn(
+                      "flex justify-start gap-2 px-3 py-2",
+                      pathname === url
+                        ? "text-foreground bg-foreground/10 hover:bg-foreground/20"
+                        : ""
+                    )}
+                  >
+                    {(() => {
+                      const Icon = Icons[icon];
+                      return <Icon className="text-[16px] h-[16px]" />;
+                    })()}
+                    <p className="font-medium capitalize">{title}</p>
+                  </Button>
+                </Link>
+              </DrawerClose>
+            ))}
+          </div>
+        </DrawerContent>
+      </DrawerPortal>
+    </Drawer>
+  );
+}
+
+export default NavbarMobile;

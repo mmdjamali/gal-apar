@@ -58,7 +58,7 @@ function ShoppingCart() {
 
   if (isLoading)
     return (
-      <div className="grid grid-cols-[1fr_300px] gap-4 w-full relative">
+      <div className="grid lg:grid-cols-[1fr_300px] gap-4 w-full relative">
         <div className="relative w-full border border-border rounded flex items-start flex-col overflow-hidden">
           <div className="flex w-full justify-between items-center px-6 py-3">
             <div className="flex flex-col gap-1">
@@ -101,7 +101,6 @@ function ShoppingCart() {
         </div>
 
         <div className="flex lg:sticky lg:top-[69px] relative flex-col p-5 border gap-3 border-border rounded w-full h-fit">
-          
           <div className="flex w-full items-center justify-between">
             <span className="h-[14px] w-[70px] rounded bg-foreground/25 animate-pulse" />
 
@@ -120,10 +119,8 @@ function ShoppingCart() {
             <span className="h-[14px] w-[50px] rounded bg-foreground/25 animate-pulse" />
           </div>
 
-          <div className="flex h-[37px] bg-foreground/25 rounded w-full animate-pulse"/>
-
+          <div className="flex h-[37px] bg-foreground/25 rounded w-full animate-pulse" />
         </div>
-        
       </div>
     );
   return (
@@ -134,7 +131,7 @@ function ShoppingCart() {
             <p className="text-[16px] font-semibold">Your Shopping Cart</p>
             <p className="text-[14px] text-foreground/75">{`${
               data?.cart?.products?.reduce(
-                (prev: number, p : CartProductType) => prev + p.quantity,
+                (prev: number, p: CartProductType) => prev + p.quantity,
                 0
               ) ?? 0
             } Products`}</p>
@@ -147,7 +144,11 @@ function ShoppingCart() {
 
         {data &&
           data.cart.products?.map(
-            ({ product, variant, quantity, _id } : CartProductType, idx : number, list : CartProductType[]) => {
+            (
+              { product, variant, quantity, _id }: CartProductType,
+              idx: number,
+              list: CartProductType[]
+            ) => {
               return (
                 <div
                   key={`${product?._id} --- ${variant?._id}`}
@@ -180,7 +181,9 @@ function ShoppingCart() {
                             className="w-4 aspect-square rounded-full border"
                           />
 
-                          <p className="text-[12px] text-foreground/75 font-medium">{variant?.color}</p>
+                          <p className="text-[12px] text-foreground/75 font-medium">
+                            {variant?.color}
+                          </p>
                         </div>
                       ) : (
                         <></>
@@ -219,8 +222,7 @@ function ShoppingCart() {
 
                         {(() => {
                           if (product?.price) {
-                            const price =
-                              product?.price * quantity;
+                            const price = product?.price * quantity;
                             return (
                               <p className="text-[16px] font-semibold">
                                 {price}
@@ -229,8 +231,7 @@ function ShoppingCart() {
                           }
 
                           if (variant?.price) {
-                            const price =
-                              variant?.price * quantity;
+                            const price = variant?.price * quantity;
                             return (
                               <p className="text-[16px] font-semibold">
                                 {price}
@@ -255,7 +256,7 @@ function ShoppingCart() {
             Total price{" "}
             <span className="text-[12px]">{`(${
               data?.cart?.products?.reduce(
-                (prev: number, p : CartProductType) => prev + p.quantity,
+                (prev: number, p: CartProductType) => prev + p.quantity,
                 0
               ) ?? 0
             })`}</span>
@@ -264,7 +265,10 @@ function ShoppingCart() {
           <p className="text-[16px] font-semibold text-foreground/75">
             {(() => {
               const price = data?.cart?.products?.reduce(
-                (prev : number, { variant, product, quantity } : CartProductType) => {
+                (
+                  prev: number,
+                  { variant, product, quantity }: CartProductType
+                ) => {
                   if (variant?.price) {
                     return prev + (variant?.price ?? 0) * quantity;
                   }
@@ -284,14 +288,15 @@ function ShoppingCart() {
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <p>
-            Total cart price
-          </p>
+          <p>Total cart price</p>
 
           <p className="text-[16px] font-semibold">
             {(() => {
               const price = data?.cart?.products?.reduce(
-                (prev : number, { variant, product, quantity } : CartProductType) => {
+                (
+                  prev: number,
+                  { variant, product, quantity }: CartProductType
+                ) => {
                   if (variant?.price) {
                     return prev + variant.price * quantity;
                   }
@@ -311,18 +316,12 @@ function ShoppingCart() {
         </div>
 
         <div className="flex w-full items-center justify-between text-primary">
-          <p className="text-[14px]">
-            Total benefit
-          </p>
+          <p className="text-[14px]">Total benefit</p>
 
-          <p className="text-[16px] font-semibold">
-            0
-          </p>
+          <p className="text-[16px] font-semibold">0</p>
         </div>
 
-        <Button>
-          Complete Order
-        </Button>
+        <Button>Complete Order</Button>
       </div>
     </div>
   );

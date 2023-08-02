@@ -16,15 +16,7 @@ import axios from "axios";
 import Button from "./ui/button";
 import { signOut, useSession } from "next-auth/react";
 
-interface UserDropdownMenuProps {
-  user: {
-    image: string;
-    email: string;
-    username: string;
-  };
-}
-
-function UserDropdownMenu({}: UserDropdownMenuProps) {
+function UserDropdownMenu() {
   const { data, status } = useSession();
 
   const links = [

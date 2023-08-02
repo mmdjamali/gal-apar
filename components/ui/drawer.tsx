@@ -12,9 +12,15 @@ const Drawer = ({
 }: React.ComponentPropsWithoutRef<typeof DialogPrimitives.Root>) => (
   <DialogPrimitives.Root
     onOpenChange={(open) => {
+      const bool =
+        document.body.scrollHeight > document.body.clientHeight &&
+        !/Mobi/i.test(navigator.userAgent);
+
       open
-        ? document.body.classList.add("overflow-hidden")
-        : document.body.classList.remove("overflow-hidden");
+        ? bool
+          ? document.body.classList.add("mr-[17px]")
+          : null
+        : document.body.classList.remove("mr-[17px]");
 
       onOpenChange ? onOpenChange(open) : null;
     }}
@@ -38,10 +44,10 @@ const DrawerContent = React.forwardRef<
   DrawerContentProps
 >(({ side, className, ...props }, ref) => {
   const variant = {
-    top: "top-0 animate-slideInDown",
-    right: "right-0 animate-slideInLeft",
-    bottom: "bottom-0 animate-slideInUp",
-    left: "left-0 animate-slideInRight",
+    top: "top-0",
+    right: "right-0 ",
+    bottom: "bottom-0",
+    left: "left-0 top-0 bottom-0",
   };
 
   return (
@@ -59,4 +65,27 @@ const DrawerContent = React.forwardRef<
 
 DrawerContent.displayName = "@1stmmd/drawer-content";
 
-export { Drawer, DrawerContent, DrawerTrigger, DrawerPortal, DrawerClose };
+const DrawerOverlay = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitives.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitives.Overlay>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitives.Overlay
+    ref={ref}
+    className={cn(
+      "fixed inset-0 z-[50] w-full h-full bg-foreground/50",
+      className
+    )}
+    {...props}
+  />
+));
+
+DrawerOverlay.displayName = "@1stmmd/drawer-overlay";
+
+export {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerPortal,
+  DrawerClose,
+  DrawerOverlay,
+};

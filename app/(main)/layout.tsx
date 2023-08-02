@@ -25,14 +25,7 @@ function MainLayout({ children }: props) {
           <div className="flex items-center gap-4">
             <CartButton />
 
-            <UserDropdownMenu
-              user={{
-                image:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFB9UjhBnlKl_IklgL03Jz7ZuaKFPdEzFcEw&usqp=CAU",
-                email: "aquamarine@gmail.com",
-                username: "Aqua",
-              }}
-            />
+            <UserDropdownMenu />
           </div>
         </header>
       </div>

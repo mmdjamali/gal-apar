@@ -2,6 +2,7 @@ import Footer from "@/components/footer";
 import { Icons } from "@/components/icons";
 import MainNav from "@/components/main-nav";
 import Navbar from "@/components/navbar";
+import NavbarMobile from "@/components/navbar-mobile";
 import SearchDrawer from "@/components/search-drawer";
 import Button from "@/components/ui/button";
 import UserDropdownMenu from "@/components/user-dropdown-menu";
@@ -16,7 +17,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     <div className="relative flex flex-col w-full h-fit min-h-screen text-foregrounds text-[14px]">
       <div className="sticky bg-background top-0 border-b border-border w-full z-[50]">
         <header className="container px-4 sm:px-8 flex items-center justify-between py-2 max-w-[1300px] mx-auto">
-          <SearchDrawer />
+          {/* <SearchDrawer /> */}
+          <NavbarMobile routes={routes} />
 
           <MainNav />
 
@@ -25,14 +27,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <Icons.Notification className="text-[21px]" />
             </Button>
 
-            <UserDropdownMenu
-              user={{
-                image:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFB9UjhBnlKl_IklgL03Jz7ZuaKFPdEzFcEw&usqp=CAU",
-                email: "aquamarine@gmail.com",
-                username: "Aqua",
-              }}
-            />
+            <UserDropdownMenu />
           </div>
         </header>
       </div>
