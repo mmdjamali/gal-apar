@@ -1,12 +1,29 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { toast } from "./components/ui/use-toast";
+
+const languages = {
+  en: {},
+  tr: {},
+  fa: {},
+};
 
 export default withAuth(
   async function middleware(req) {
-    if (req.nextauth?.token?.is_seller) return null;
+    const { pathname } = req.nextUrl;
 
-    return NextResponse.redirect(new URL("/", req.url));
+    const lang = pathname.split("").splice(1, 2).join("");
+
+    if (languages[lang as keyof typeof languages]) {
+      if (pathname.split("").splice(3).join().startsWith("/dashboard")) {
+        if (req.nextauth?.token?.is_seller) return null;
+
+        return NextResponse.redirect(new URL("/" + lang, req.url));
+      }
+
+      return null;
+    }
+
+    return null;
   },
   {
     callbacks: {
@@ -21,6 +38,6 @@ export default withAuth(
   }
 );
 
-export const config = {
-  matcher: ["/dashboard/:path*"],
-};
+// export const config = {
+//   matcher: ["/:path*"],
+// };

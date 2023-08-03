@@ -19,7 +19,6 @@ import ProductCurrency from "./product-currency";
 // types
 import { type VariantType } from "@/types/product";
 import ProductVarinatForm from "./product-varinat-form";
-import { category_options } from "@/constant/category-options";
 
 interface ProductType {
   name: string;
@@ -198,7 +197,11 @@ function ProductForm() {
                 onChange={(key, value) => {
                   setVariants((prev) => {
                     const clone = [...prev];
-                    clone[idx as number][key] = value;
+                    if (
+                      typeof clone[idx as number][key as keyof VariantType] !==
+                      "undefined"
+                    )
+                      clone[idx as number][key as keyof VariantType] = value;
                     return clone;
                   });
                 }}
@@ -233,7 +236,7 @@ function ProductForm() {
                     quantity: "",
                     _id: new Date().toString(),
                   },
-                ];
+                ] as VariantType[];
               });
             }}
           >

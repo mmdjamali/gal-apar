@@ -10,22 +10,25 @@ import UserDropdownMenu from "@/components/user-dropdown-menu";
 import React from "react";
 
 interface props {
+  params: {
+    language: "fa" | "en" | "tr";
+  };
   children: React.ReactNode;
 }
 
-function MainLayout({ children }: props) {
+function MainLayout({ children, params }: props) {
   return (
     <div className="relative flex flex-col w-full h-fit min-h-screen text-foregrounds text-[14px]">
       <div className="sticky bg-background top-0 border-b border-border w-full z-[50]">
         <header className="container px-4 sm:px-8 flex items-center justify-between py-2 max-w-[1300px] mx-auto">
           <SearchDrawer />
 
-          <MainNav />
+          <MainNav language={params.language} />
 
           <div className="flex items-center gap-4">
-            <CartButton />
+            <CartButton language={params.language} />
 
-            <UserDropdownMenu />
+            <UserDropdownMenu language={params.language} />
           </div>
         </header>
       </div>
@@ -40,16 +43,29 @@ function MainLayout({ children }: props) {
           <AvatarFallback />
         </Avatar>
 
-        <p className="font-medium md:mr-auto text-center">
-          This project is made by{" "}
-          <a className="underline" href="https://github.com/1stMmD">
-            1stMmD
-          </a>{" "}
-          and deployed with{" "}
-          <a className="underline" href="https://vercel.com">
-            Vercel
-          </a>
-        </p>
+        {params.language === "fa" ? (
+          <p className="font-medium md:ml-auto text-center">
+            ساخته شده توسط{" "}
+            <a className="underline" href="https://github.com/1stMmD">
+              1stMmD
+            </a>{" "}
+            و دپلوی شده در{" "}
+            <a className="underline" href="https://vercel.com">
+              Vercel
+            </a>
+          </p>
+        ) : (
+          <p className="font-medium md:mr-auto text-center">
+            Built by{" "}
+            <a className="underline" href="https://github.com/1stMmD">
+              1stMmD
+            </a>{" "}
+            and deployed on{" "}
+            <a className="underline" href="https://vercel.com">
+              Vercel
+            </a>
+          </p>
+        )}
 
         <ThemeChanger />
       </footer>

@@ -11,7 +11,7 @@ function ProductSellingType() {
       {sellingTypes.map((value, idx) => (
         <div className="flex items-center justify-start gap-2" key={value}>
           <RadioGroupItem value={value}>
-            <RadioGroupIndicator value={value} />
+            <RadioGroupIndicator />
           </RadioGroupItem>
           {value}
         </div>

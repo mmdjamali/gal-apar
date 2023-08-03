@@ -224,8 +224,11 @@ function ShoppingCart() {
                             );
                           }
 
-                          if (variant?.price) {
-                            const price = variant?.price * quantity;
+                          if (
+                            variant?.price &&
+                            typeof variant.price === "number"
+                          ) {
+                            const price = variant.price * quantity;
                             return (
                               <p className="text-[16px] font-semibold">
                                 {price}
@@ -263,12 +266,12 @@ function ShoppingCart() {
                   prev: number,
                   { variant, product, quantity }: CartProductType
                 ) => {
-                  if (variant?.price) {
+                  if (variant?.price && typeof variant.price === "number") {
                     return prev + (variant?.price ?? 0) * quantity;
                   }
 
                   if (product?.price) {
-                    return prev + (variant?.price ?? 0) * quantity;
+                    return prev + (product?.price ?? 0) * quantity;
                   }
 
                   return prev;
@@ -291,12 +294,12 @@ function ShoppingCart() {
                   prev: number,
                   { variant, product, quantity }: CartProductType
                 ) => {
-                  if (variant?.price) {
+                  if (variant?.price && typeof variant.price === "number") {
                     return prev + variant.price * quantity;
                   }
 
                   if (product?.price) {
-                    return prev + (variant?.price ?? 0) * quantity;
+                    return prev + (product?.price ?? 0) * quantity;
                   }
 
                   return prev;

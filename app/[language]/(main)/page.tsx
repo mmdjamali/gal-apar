@@ -1,15 +1,10 @@
 import { Icons } from "@/components/icons";
 import SpecialOfferProducts from "@/components/product/special-offer-products";
 import Button from "@/components/ui/button";
-import {
-  ScrollArea,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from "@/components/ui/scroll-area";
+import { PropsWithLanguage } from "@/types/language";
 import React from "react";
 
-function page() {
+function page({ params }: PropsWithLanguage<{}>) {
   return (
     <div className="flex flex-col container px-4 sm:px-8 max-w-[1300px] mx-auto relative">
       <div className="flex w-full h-[268px] md:h-[368px] bg-foreground"></div>
@@ -26,7 +21,7 @@ function page() {
           })}
       </div>
 
-      <SpecialOfferProducts />
+      <SpecialOfferProducts language={params.language} />
 
       {/* <div className="flex w-full relative items-center rounded">
         <ScrollArea className="block scroll w-full realtive rounded bg-primary p-4 overflow-hidden">

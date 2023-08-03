@@ -7,8 +7,10 @@ import { Bedge } from "../ui/bedge";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
 import { useGetCart } from "@/hooks/cart/use-get-cart";
+import { WithLanguageType } from "@/types/language";
+import { toPersianNumbers } from "@/lib/utils";
 
-function CartButton() {
+function CartButton({ language }: WithLanguageType) {
   const { data, isLoading } = useGetCart();
 
   const cart = useMemo(
@@ -44,10 +46,17 @@ function CartButton() {
           )
         }
         number={
-          cart?.products?.reduce(
-            (prev: number, p: CartProductType) => prev + p.quantity,
-            0
-          ) ?? 0
+          language === "fa"
+            ? toPersianNumbers(
+                cart?.products?.reduce(
+                  (prev: number, p: CartProductType) => prev + p.quantity,
+                  0
+                ) ?? 0
+              )
+            : cart?.products?.reduce(
+                (prev: number, p: CartProductType) => prev + p.quantity,
+                0
+              ) ?? 0
         }
       >
         <Button className="p-2" variant="text" color="foreground">

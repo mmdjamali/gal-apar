@@ -10,10 +10,13 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { cn } from "@/lib/utils";
+import { cn, createUrlInitilizer, isLtr, toPersianNumbers } from "@/lib/utils";
 import { ProductType } from "@/types/product";
+import { WithLanguageType } from "@/types/language";
 
-function SpecialOfferProducts() {
+function SpecialOfferProducts({ language }: WithLanguageType) {
+  const createUrl = createUrlInitilizer(language);
+
   const { data, isLoading, isError } = useQuery("special-offers", async () => {
     const res = await axios.get("/api/product");
     return res.data;
@@ -24,7 +27,7 @@ function SpecialOfferProducts() {
   const swiper = useRef<null | SwiperRef>(null);
 
   const [move, setMove] = useState({
-    next: swiper.current ? !swiper.current.swiper.isEnd : false,
+    next: false,
     prev: false,
   });
 
@@ -32,6 +35,10 @@ function SpecialOfferProducts() {
     if (!swiper.current || isLoading) return;
 
     setWidth(swiper.current.swiper.el.clientWidth);
+    setMove({
+      next: swiper.current ? !swiper.current.swiper.isEnd : false,
+      prev: false,
+    });
 
     const handleResize = () => {
       if (!swiper.current) return;
@@ -94,14 +101,23 @@ function SpecialOfferProducts() {
               ) => (
                 <SwiperSlide key={idx}>
                   <div
+                    dir="ltr"
                     className={cn(
                       "flex w-[170px] items-start gap-1 flex-col relative p-3 flex-shrink-0 snap-center h-[240px] bg-white",
-                      idx === 0 ? "rounded-l" : "",
-                      idx === list.length - 1 ? "rounded-r" : ""
+                      idx === 0
+                        ? isLtr(language)
+                          ? "rounded-l"
+                          : "rounded-r"
+                        : "",
+                      idx === list.length - 1
+                        ? isLtr(language)
+                          ? "rounded-r"
+                          : "rounded-l"
+                        : ""
                     )}
                   >
                     <Link
-                      href={"/product/" + _id}
+                      href={createUrl("/product/" + _id)}
                       key={idx}
                       className="w-full inline-block relative aspect-square overflow-hidden rounded"
                     >
@@ -119,7 +135,14 @@ function SpecialOfferProducts() {
                         const Icon = Icons[currency] ?? Icons["Circle"];
                         return <Icon className="text-[14px] h-[14px]" />;
                       })()}
-                      <p className="font-bold text-foreground">{base_price}</p>
+                      <p className="font-bold text-foreground">
+                        {(() => {
+                          if (!isLtr(language)) {
+                            return toPersianNumbers(base_price);
+                          }
+                          return base_price;
+                        })()}
+                      </p>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -129,33 +152,63 @@ function SpecialOfferProducts() {
         )}
       </Swiper>
 
-      <div className="hidden z-[25] md:flex px-2 w-full absolute left-0 right-0 my-auto pointer-events-none">
-        {move.prev && (
-          <Button
-            onClick={() => {
-              swiper?.current?.swiper.slidePrev();
-            }}
-            variant="outlined"
-            color="foreground"
-            className="p-2 pointer-events-auto bg-background hover:bg-background"
-          >
-            <Icons.LeftArrow className="text-[21px]" />
-          </Button>
-        )}
+      {isLtr(language) ? (
+        <div className="hidden z-[25] md:flex px-2 w-full absolute left-0 right-0 my-auto pointer-events-none">
+          {move.prev && (
+            <Button
+              onClick={() => {
+                swiper?.current?.swiper.slidePrev();
+              }}
+              variant="outlined"
+              color="foreground"
+              className="p-2 pointer-events-auto bg-background hover:bg-background"
+            >
+              <Icons.LeftArrow className="text-[21px]" />
+            </Button>
+          )}
 
-        {move.next && (
-          <Button
-            onClick={() => {
-              swiper?.current?.swiper.slideNext();
-            }}
-            variant="outlined"
-            color="foreground"
-            className="p-2 ml-auto pointer-events-auto bg-background hover:bg-background"
-          >
-            <Icons.RightArrow className="text-[21px]" />
-          </Button>
-        )}
-      </div>
+          {move.next && (
+            <Button
+              onClick={() => {
+                swiper?.current?.swiper.slideNext();
+              }}
+              variant="outlined"
+              color="foreground"
+              className="p-2 ml-auto pointer-events-auto bg-background hover:bg-background"
+            >
+              <Icons.RightArrow className="text-[21px]" />
+            </Button>
+          )}
+        </div>
+      ) : (
+        <div className="hidden z-[25] md:flex px-2 w-full absolute left-0 right-0 my-auto pointer-events-none">
+          {move.prev && (
+            <Button
+              onClick={() => {
+                swiper?.current?.swiper.slidePrev();
+              }}
+              variant="outlined"
+              color="foreground"
+              className="p-2 pointer-events-auto bg-background hover:bg-background"
+            >
+              <Icons.RightArrow className="text-[21px]" />
+            </Button>
+          )}
+
+          {move.next && (
+            <Button
+              onClick={() => {
+                swiper?.current?.swiper.slideNext();
+              }}
+              variant="outlined"
+              color="foreground"
+              className="p-2 mr-auto pointer-events-auto bg-background hover:bg-background"
+            >
+              <Icons.LeftArrow className="text-[21px]" />
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

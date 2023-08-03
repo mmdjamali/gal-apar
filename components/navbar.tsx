@@ -11,7 +11,7 @@ import {
 import Button from "./ui/button";
 import { Icons } from "./icons";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, createUrlInitilizer } from "@/lib/utils";
 
 interface NavbarProps {
   routes: {
@@ -21,11 +21,14 @@ interface NavbarProps {
     url: string;
     className: string;
   }[];
+  language: "en" | "tr" | "fa";
   className?: string;
 }
 
-const Navbar = ({ routes, className }: NavbarProps) => {
+const Navbar = ({ routes, className, language }: NavbarProps) => {
   const pathname = usePathname();
+
+  const createUrl = createUrlInitilizer(language);
 
   return (
     <nav
@@ -39,14 +42,14 @@ const Navbar = ({ routes, className }: NavbarProps) => {
           <ScrollAreaViewport className="w-full h-full py-6 pr-2">
             <div className="flex gap-2 flex-col w-full h-full">
               {routes.map(({ icon, disabled, title, url }) => (
-                <Link key={title} href={url}>
+                <Link key={title} href={createUrl(url)}>
                   <Button
                     block
                     variant="text"
                     color="foreground"
                     className={cn(
                       "flex justify-start gap-2 px-3 py-2",
-                      pathname === url
+                      pathname === createUrl(url)
                         ? "text-foreground bg-foreground/10 hover:bg-foreground/20"
                         : ""
                     )}

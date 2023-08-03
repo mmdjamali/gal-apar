@@ -9,7 +9,7 @@ export interface CheckboxFilterProps
   options: string[];
   checkedValues: string[] | [];
   changeHandler: (v: string[] | []) => void;
-  Component?: ({ value }: { value: string }) => React.ReactNode;
+  Component?: React.FC<{ value: string }>;
 }
 
 const CheckboxFilter = ({

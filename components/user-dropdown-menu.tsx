@@ -9,22 +9,28 @@ import {
 } from "./ui/dropdown-menu";
 import UserAvatar from "./user-avatar";
 import { Icons } from "./icons";
-import { cn } from "@/lib/utils";
+import { cn, createUrlInitilizer } from "@/lib/utils";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Button from "./ui/button";
 import { signOut, useSession } from "next-auth/react";
 
-function UserDropdownMenu() {
+interface UserDopdownMenuProps {
+  language: "tr" | "fa" | "en";
+}
+
+function UserDropdownMenu({ language }: UserDopdownMenuProps) {
   const { data, status } = useSession();
+
+  const createUrl = createUrlInitilizer(language);
 
   const links = [
     {
       type: "button",
       title: "Profile",
       Icon: Icons.User,
-      url: "/me",
+      url: createUrl("/me"),
       className: "",
       disabled: false,
     },
@@ -32,7 +38,7 @@ function UserDropdownMenu() {
       type: "button",
       title: "Settings",
       Icon: Icons.Setting,
-      url: "/setting",
+      url: createUrl("/setting"),
       className: "",
       disabled: false,
     },
@@ -40,7 +46,7 @@ function UserDropdownMenu() {
       type: "button",
       title: "Upgrade",
       Icon: Icons.Sparking,
-      url: "/upgrade",
+      url: createUrl("/upgrade"),
       className: "",
       disabled: true,
     },
@@ -48,7 +54,7 @@ function UserDropdownMenu() {
       type: "button",
       title: "Dashboard",
       Icon: Icons.Dashboard,
-      url: "/dashboard/overview",
+      url: createUrl("/dashboard/overview"),
       className: "hover:bg-warning/10 hover:text-warning",
       disabled: !data?.user.is_seller ?? true,
     },
@@ -66,7 +72,7 @@ function UserDropdownMenu() {
           <UserAvatar src={data.user?.image} />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align={language === "fa" ? "start" : "end"}>
           <div className="text-[14px] font-medium text-foreground px-2 py-1.5">
             <p className="">{data.user?.name}</p>
             <p className="text-foreground/75">{data.user?.email}</p>
@@ -112,38 +118,3 @@ function UserDropdownMenu() {
 }
 
 export default UserDropdownMenu;
-
-const links = [
-  {
-    type: "button",
-    title: "Profile",
-    Icon: Icons.User,
-    url: "/me",
-    className: "",
-    disabled: false,
-  },
-  {
-    type: "button",
-    title: "Settings",
-    Icon: Icons.Setting,
-    url: "/setting",
-    className: "",
-    disabled: false,
-  },
-  {
-    type: "button",
-    title: "Upgrade",
-    Icon: Icons.Sparking,
-    url: "/upgrade",
-    className: "",
-    disabled: true,
-  },
-  {
-    type: "button",
-    title: "Dashboard",
-    Icon: Icons.Dashboard,
-    url: "/dashboard/overview",
-    className: "hover:bg-warning/10 hover:text-warning",
-    disabled: false,
-  },
-];
