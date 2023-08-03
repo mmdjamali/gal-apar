@@ -4,7 +4,7 @@ import React from "react";
 
 function Products() {
   return (
-    <div className="pt-6 w-full relative">
+    <div className="pt-6 w-full relative overflow-hidden">
       <div className="flex flex-col w-full mb-6">
         <h1 className="text-[26px] font-bold">Products</h1>
 

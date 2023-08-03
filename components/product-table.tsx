@@ -41,9 +41,9 @@ import axios from "axios";
 import { ProductType } from "@/types/product";
 
 const ProductTable = () => {
-  const {data, isLoading} = useQuery( "my-products", async () => {
-    return (await axios.get("/api/product/seller")).data
-  }) 
+  const { data, isLoading } = useQuery("my-products", async () => {
+    return (await axios.get("/api/product/seller")).data;
+  });
 
   const columns: ColumnDef<ProductType>[] = [
     {
@@ -74,7 +74,9 @@ const ProductTable = () => {
       cell({ row }) {
         return (
           <TableBodyCell>
-            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{row.getValue("name")}</p>
+            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">
+              {row.getValue("name")}
+            </p>
           </TableBodyCell>
         );
       },
@@ -89,35 +91,35 @@ const ProductTable = () => {
       },
     },
     {
-      id : "currency",
-      accessorKey  :"currency",
+      id: "currency",
+      accessorKey: "currency",
       cell({ row }) {
-        const Icon = Icons[row.getValue("currency") as string] ?? Icons.Circle
+        const Icon = Icons[row.getValue("currency") as string] ?? Icons.Circle;
 
         return (
           <TableBodyCell className="w-1">
             <div className="w-full grid place-items-center uppercase">
               {/* <Icon className="text-[21px] h-[21px] aspect-square text-success"/> */}
-             { row.getValue("currency")}
+              {row.getValue("currency")}
             </div>
           </TableBodyCell>
         );
       },
       header() {
         return (
-          <TableHeadCell className="w-1 text-center">
-              Currency
-          </TableHeadCell>
+          <TableHeadCell className="w-1 text-center">Currency</TableHeadCell>
         );
       },
     },
     {
-      id : "category",
-      accessorKey  :"category",
+      id: "category",
+      accessorKey: "category",
       cell({ row }) {
         return (
           <TableBodyCell>
-            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{row.getValue("category")}</p>
+            <p className="max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">
+              {row.getValue("category")}
+            </p>
           </TableBodyCell>
         );
       },
@@ -133,10 +135,10 @@ const ProductTable = () => {
     },
     {
       id: "options",
-      cell() {
+      cell({ row }) {
         return (
           <TableBodyCell className="w-1">
-            <ProductOptions />
+            <ProductOptions _id={row.getValue("_id")} />
           </TableBodyCell>
         );
       },
@@ -145,16 +147,14 @@ const ProductTable = () => {
       },
       enableHiding: false,
     },
-  ]
+  ];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-
-
   const table = useReactTable({
-    data : isLoading ? [] : data?.products,
+    data: isLoading ? [] : data?.products,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -214,8 +214,8 @@ const ProductTable = () => {
         </div>
       </div>
 
-      <div className="w-full border border-border rounded overflow-auto mb-4">
-        <Table>
+      <div className="w-full border border-border rounded overflow-y-auto mb-4">
+        <Table className="overflow-hidden">
           <TableHead>
             {table.getHeaderGroups().map((headerGroup, idx) => (
               <TableRow key={idx}>
@@ -256,7 +256,7 @@ const ProductTable = () => {
             {(() => {
               if (!isLoading && !table?.getRowModel().rows.length) return null;
 
-              const emptyRows = 10 - (table?.getRowModel().rows.length ?? 0)
+              const emptyRows = 10 - (table?.getRowModel().rows.length ?? 0);
 
               return (
                 <>
@@ -270,13 +270,11 @@ const ProductTable = () => {
                 </>
               );
             })()}
-            
           </TableBody>
         </Table>
-        {
-              isLoading &&
-            <Icons.Spinner className="absolute inset-0 m-auto animate-spin text-[21px] text-foreground"/>
-            }
+        {isLoading && (
+          <Icons.Spinner className="absolute inset-0 m-auto animate-spin text-[21px] text-foreground" />
+        )}
       </div>
     </div>
   );
