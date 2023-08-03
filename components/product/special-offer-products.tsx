@@ -1,41 +1,49 @@
 "use client";
 
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Icons } from "../icons";
 import Button from "../ui/button";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Chip } from "../ui/chip";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { cn } from "@/lib/utils";
+import { ProductType } from "@/types/product";
+
 function SpecialOfferProducts() {
-  const [scroll, setScroll] = useState(0);
-  const [show, setShow] = useState({
-    prev: false,
-    next: false,
-  });
-
-  const ref = useRef<HTMLDivElement | null>(null);
-
   const { data, isLoading, isError } = useQuery("special-offers", async () => {
     const res = await axios.get("/api/product");
     return res.data;
   });
 
+  const [width, setWidth] = useState<number>(0);
+
+  const swiper = useRef<null | SwiperRef>(null);
+
+  const [move, setMove] = useState({
+    next: swiper.current ? !swiper.current.swiper.isEnd : false,
+    prev: false,
+  });
+
   useEffect(() => {
-    if (!ref.current) return;
+    if (!swiper.current || isLoading) return;
 
-    setShow({
-      prev: scroll > 0,
-      next: scroll < ref.current.scrollWidth - ref.current.clientWidth,
-    });
+    setWidth(swiper.current.swiper.el.clientWidth);
 
-    ref.current.scrollTo({
-      behavior: "smooth",
-      left: scroll,
-    });
-  }, [ref, scroll, data]);
+    const handleResize = () => {
+      if (!swiper.current) return;
+      setWidth(swiper.current.swiper.el.clientWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [swiper, isLoading]);
 
   if (isLoading)
     return (
@@ -44,19 +52,31 @@ function SpecialOfferProducts() {
 
   return (
     <div className="flex w-full relative items-center rounded bg-primary px-1 ">
-      <div
-        ref={ref}
-        className="flex relative snap-x snap-proximity items-center gap-1 rounded  py-3 overflow-auto scroll no-scrollbar"
+      <Swiper
+        ref={swiper}
+        spaceBetween={2}
+        onSlideChange={(s) => {
+          const num = data?.length + 1;
+          setMove({
+            prev: !!s.progress,
+            next: Math.round(s.progress * num) / num !== 1,
+          });
+        }}
+        slidesPerView={width / 172 || 0.1}
+        className="!py-3"
       >
-        <div className="flex flex-shrink-0 flex-col snap-center bg-primary items-center justify-center w-[170px] h-[240px]">
-          <span className="p-3 rounded-full bg-white">
-            <Icons.Cart className="text-[32px] text-primary" />
-          </span>
-          <p className="text-[14px] text-white font-bold">Populer</p>
-        </div>
+        <SwiperSlide>
+          <div className="relative flex flex-shrink-0 flex-col snap-center bg-primary items-center justify-center w-[170px] h-[240px]">
+            <span className="p-3 rounded-full bg-white">
+              <Icons.Cart className="text-[32px] text-primary" />
+            </span>
+            <p className="text-[14px] text-white font-bold">Populer</p>
+          </div>
+        </SwiperSlide>
 
-        {!isLoading && !isError
-          ? data.map(
+        {!isLoading && !isError && (
+          <>
+            {data.map(
               (
                 {
                   images,
@@ -69,44 +89,51 @@ function SpecialOfferProducts() {
                   _id: string;
                   currency: string;
                 },
-                idx: number
+                idx: number,
+                list: ProductType[]
               ) => (
-                <div
-                  key={idx}
-                  className="flex items-start gap-1 flex-col relative p-3 flex-shrink-0 snap-center w-[170px] h-[240px] bg-white rounded"
-                >
-                  <Link
-                    href={"/product/" + _id}
-                    key={idx}
-                    className="w-full relative aspect-square rounded overflow-hidden"
+                <SwiperSlide key={idx}>
+                  <div
+                    className={cn(
+                      "flex w-[170px] items-start gap-1 flex-col relative p-3 flex-shrink-0 snap-center h-[240px] bg-white",
+                      idx === 0 ? "rounded-l" : "",
+                      idx === list.length - 1 ? "rounded-r" : ""
+                    )}
                   >
-                    <Image
-                      alt=""
-                      className="object-cover"
-                      fill
-                      src={images[0]}
-                      unoptimized
-                    />
-                  </Link>
+                    <Link
+                      href={"/product/" + _id}
+                      key={idx}
+                      className="w-full inline-block relative aspect-square overflow-hidden rounded"
+                    >
+                      <Image
+                        alt=""
+                        className="object-cover"
+                        fill
+                        src={images[0]}
+                        unoptimized
+                      />
+                    </Link>
 
-                  <div className="flex w-full gap-1 items-center">
-                    {(() => {
-                      const Icon = Icons[currency] ?? Icons["Circle"];
-                      return <Icon className="text-[14px] h-[14px]" />;
-                    })()}
-                    <p className="font-bold text-foreground">{base_price}</p>
+                    <div className="flex w-full gap-1 items-center">
+                      {(() => {
+                        const Icon = Icons[currency] ?? Icons["Circle"];
+                        return <Icon className="text-[14px] h-[14px]" />;
+                      })()}
+                      <p className="font-bold text-foreground">{base_price}</p>
+                    </div>
                   </div>
-                </div>
+                </SwiperSlide>
               )
-            )
-          : ""}
-      </div>
+            )}
+          </>
+        )}
+      </Swiper>
 
-      <div className="hidden md:flex px-2 w-full absolute left-0 right-0 my-auto pointer-events-none">
-        {show.prev && (
+      <div className="hidden z-[25] md:flex px-2 w-full absolute left-0 right-0 my-auto pointer-events-none">
+        {move.prev && (
           <Button
             onClick={() => {
-              setScroll((prev) => prev - 170);
+              swiper?.current?.swiper.slidePrev();
             }}
             variant="outlined"
             color="foreground"
@@ -116,10 +143,10 @@ function SpecialOfferProducts() {
           </Button>
         )}
 
-        {show.next && (
+        {move.next && (
           <Button
             onClick={() => {
-              setScroll((prev) => prev + 170);
+              swiper?.current?.swiper.slideNext();
             }}
             variant="outlined"
             color="foreground"
