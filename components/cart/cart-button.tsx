@@ -1,24 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Button from "../ui/button";
 import { Icons } from "../icons";
-import { useQuery } from "react-query";
-import axios from "axios";
 import { Bedge } from "../ui/bedge";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
+import { useGetCart } from "@/hooks/cart/use-get-cart";
 
 function CartButton() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["cart"],
-    queryFn: async () => {
-      const res = await axios.get("/api/cart");
-      return res.data;
-    },
-    refetchOnWindowFocus: false,
-    cacheTime: 1000,
-  });
+  const { data, isLoading } = useGetCart();
+
+  const cart = useMemo(
+    () =>
+      data?.cart?.products?.reduce(
+        (prev: { products: CartProductType[] }, p: CartProductType) => {
+          if (p.product) {
+            prev.products.push(p);
+          }
+
+          return prev;
+        },
+        {
+          ...data.cart,
+          products: [],
+        }
+      ),
+    [data]
+  );
 
   if (isLoading)
     return (
@@ -29,14 +38,14 @@ function CartButton() {
     <Link href="/me/cart">
       <Bedge
         show={
-          !!data?.cart?.products?.reduce(
-            (prev: number, p : CartProductType) => prev + p.quantity,
+          !!cart?.products?.reduce(
+            (prev: number, p: CartProductType) => prev + p.quantity,
             0
           )
         }
         number={
-          data?.cart?.products?.reduce(
-            (prev: number, p : CartProductType) => prev + p.quantity,
+          cart?.products?.reduce(
+            (prev: number, p: CartProductType) => prev + p.quantity,
             0
           ) ?? 0
         }

@@ -2,7 +2,7 @@
 
 import { colors } from "@/constant/colors";
 import axios from "axios";
-import React from "react";
+import React, { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   Table,
@@ -19,11 +19,9 @@ import { useToast } from "../ui/use-toast";
 import ProductQuantityButton from "../product-quantity-button";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
+import cart from "@/pages/api/cart";
 
 function ShoppingCart() {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-
   const { data, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
@@ -34,27 +32,23 @@ function ShoppingCart() {
     cacheTime: 1000,
   });
 
-  const mutation = useMutation({
-    mutationFn: async (info: {
-      product: string;
-      variant: string | null;
-      quantity: number;
-    }) => {
-      return (await axios.post("/api/cart", info)).data;
-    },
-    onSuccess(data, variables, context) {
-      queryClient.setQueryData("cart", data);
-    },
-  });
+  const cart = useMemo(
+    () =>
+      data?.cart?.products?.reduce(
+        (prev: { products: CartProductType[] }, p: CartProductType) => {
+          if (p.product) {
+            prev.products.push(p);
+          }
 
-  const del_mutation = useMutation({
-    mutationFn: async (_id: string) => {
-      return (await axios.patch("/api/cart/remove-item", { _id })).data;
-    },
-    onSuccess(data, variables, context) {
-      queryClient.setQueryData("cart", data);
-    },
-  });
+          return prev;
+        },
+        {
+          ...data.cart,
+          products: [],
+        }
+      ),
+    [data]
+  );
 
   if (isLoading)
     return (
@@ -130,7 +124,7 @@ function ShoppingCart() {
           <div className="flex flex-col gap-1">
             <p className="text-[16px] font-semibold">Your Shopping Cart</p>
             <p className="text-[14px] text-foreground/75">{`${
-              data?.cart?.products?.reduce(
+              cart?.products?.reduce(
                 (prev: number, p: CartProductType) => prev + p.quantity,
                 0
               ) ?? 0
@@ -143,7 +137,7 @@ function ShoppingCart() {
         </div>
 
         {data &&
-          data.cart.products?.map(
+          cart.products?.map(
             (
               { product, variant, quantity, _id }: CartProductType,
               idx: number,
@@ -158,7 +152,7 @@ function ShoppingCart() {
                   )}
                 >
                   <div className="grid grid-cols-[116px_1fr] items-start w-full gap-4 overflow-hidden p-4 px-6">
-                    <Link href={`/product/${product._id}`}>
+                    <Link href={`/product/${product?._id}`}>
                       <img
                         className="w-full aspect-square"
                         src={product?.images[0] ?? ""}
@@ -255,7 +249,7 @@ function ShoppingCart() {
           <p>
             Total price{" "}
             <span className="text-[12px]">{`(${
-              data?.cart?.products?.reduce(
+              cart?.products?.reduce(
                 (prev: number, p: CartProductType) => prev + p.quantity,
                 0
               ) ?? 0
@@ -264,7 +258,7 @@ function ShoppingCart() {
 
           <p className="text-[16px] font-semibold text-foreground/75">
             {(() => {
-              const price = data?.cart?.products?.reduce(
+              const price = cart?.products?.reduce(
                 (
                   prev: number,
                   { variant, product, quantity }: CartProductType
@@ -292,7 +286,7 @@ function ShoppingCart() {
 
           <p className="text-[16px] font-semibold">
             {(() => {
-              const price = data?.cart?.products?.reduce(
+              const price = cart?.products?.reduce(
                 (
                   prev: number,
                   { variant, product, quantity }: CartProductType
