@@ -17,9 +17,9 @@ const DropdownMenu = ({
 
       open
         ? bool
-          ? document.body.classList.add("mr-[17px]")
+          ? document.body.classList.add("pr-[17px]")
           : null
-        : document.body.classList.remove("mr-[17px]");
+        : document.body.classList.remove("pr-[17px]");
 
       onOpenChange ? onOpenChange(open) : null;
     }}

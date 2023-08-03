@@ -10,7 +10,7 @@ const BedgeVariants = cva("flex w-full h-full relative", {
 const Bedge = React.forwardRef<
   React.ElementRef<"div">,
   React.ComponentPropsWithoutRef<"div"> & {
-    number?: number;
+    number?: number | string;
     show?: boolean;
   }
 >(({ className, show = true, number, children, ...props }, ref) => {
@@ -20,7 +20,7 @@ const Bedge = React.forwardRef<
         <div
           {...props}
           className={cn(
-            "flex items-center pointer-events-none justify-center text-white w-4 h-4 absolute top-0 right-0 text-[10px] rounded-[4px] aspect-square bg-primary",
+            "flex items-center pointer-events-none justify-center text-white font-semibold w-4 h-4 absolute top-0 right-0 text-[10px] rounded-[4px] aspect-square bg-primary",
             className
           )}
         >
