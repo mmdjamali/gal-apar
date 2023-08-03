@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/connect-db";
 import { nextAuthConfig } from "@/lib/next-auth-config";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+import { CartProductType } from "@/types/cart";
 
 const cart = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req?.method) return;
@@ -19,7 +20,9 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
       "products.variant",
     ]);
 
-    return res.json({ cart });
+    return res.json({
+      cart,
+    });
   }
 
   if (req.method === "POST") {
