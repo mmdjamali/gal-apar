@@ -13,9 +13,10 @@ import Button from "./ui/button";
 import { Icons } from "./icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, createUrlInitilizer, isLtr } from "@/lib/utils";
+import { WithLanguageType } from "@/types/language";
 
-interface NavbarProps {
+type NavbarProps = {
   routes: {
     icon: string;
     disabled: boolean;
@@ -24,10 +25,12 @@ interface NavbarProps {
     className: string;
   }[];
   className?: string;
-}
+} & WithLanguageType;
 
-function NavbarMobile({ routes }: NavbarProps) {
+function NavbarMobile({ routes, language }: NavbarProps) {
   const pathname = usePathname();
+
+  const createUrl = createUrlInitilizer(language);
 
   return (
     <Drawer>
@@ -41,8 +44,8 @@ function NavbarMobile({ routes }: NavbarProps) {
         <DrawerOverlay />
 
         <DrawerContent
-          side="left"
-          className="flex slide-in-from-left-full animate-in flex-col w-[220px] h-screen bg-background z-50 border-x border-border"
+          side={isLtr(language) ? "left" : "right"}
+          className="flex flex-col w-[220px] h-screen bg-background z-50 border-x border-border"
         >
           <div className="flex flex-row-reverse items-center justify-between px-3 py-2 border-b border-border">
             <Icons.LogoPr className="h-[21px] text-primary" />
@@ -57,8 +60,9 @@ function NavbarMobile({ routes }: NavbarProps) {
           <div className="flex flex-col gap-2 w-full p-3">
             {routes.map(({ icon, disabled, title, url }) => (
               <DrawerClose asChild key={title}>
-                <Link href={url}>
+                <Link href={createUrl(url)}>
                   <Button
+                    dir={isLtr(language) ? "ltr" : "rtl"}
                     block
                     variant="text"
                     color="foreground"

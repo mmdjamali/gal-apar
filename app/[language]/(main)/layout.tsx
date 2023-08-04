@@ -1,4 +1,5 @@
 import CartButton from "@/components/cart/cart-button";
+import Footer from "@/components/footer";
 import { Icons } from "@/components/icons";
 import MainNav from "@/components/main-nav";
 import SearchDrawer from "@/components/search-drawer";
@@ -37,38 +38,7 @@ function MainLayout({ children, params }: props) {
         {children}
       </div>
 
-      <footer className="container flex flex-col md:flex-row items-center justify-between gap-4 max-w-[1300px] mx-auto py-2">
-        <Avatar className="h-8 w-8">
-          <AvatarImage src="https://avatars.githubusercontent.com/u/97102957?v=4" />
-          <AvatarFallback />
-        </Avatar>
-
-        {params.language === "fa" ? (
-          <p className="font-medium md:ml-auto text-center">
-            ساخته شده توسط{" "}
-            <a className="underline" href="https://github.com/1stMmD">
-              1stMmD
-            </a>{" "}
-            و دپلوی شده در{" "}
-            <a className="underline" href="https://vercel.com">
-              Vercel
-            </a>
-          </p>
-        ) : (
-          <p className="font-medium md:mr-auto text-center">
-            Built by{" "}
-            <a className="underline" href="https://github.com/1stMmD">
-              1stMmD
-            </a>{" "}
-            and deployed on{" "}
-            <a className="underline" href="https://vercel.com">
-              Vercel
-            </a>
-          </p>
-        )}
-
-        <ThemeChanger />
-      </footer>
+      <Footer language={params.language} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import ProductQuantityButton from "../product-quantity-button";
 import { CartProductType } from "@/types/cart";
 
 interface BuyProductProps {
-  data: ProductType
+  data: ProductType;
 }
 
 const BuyProduct = ({ data }: BuyProductProps) => {
@@ -32,13 +32,20 @@ const BuyProduct = ({ data }: BuyProductProps) => {
       Component: () => (
         <ColorVariantOptions
           color={(filter?.color as string) ?? ""}
-          options={(data?.variants as VariantType[])?.reduce((prev: string[], v : VariantType) => {
-            if (v.color && !prev.includes(v.color) && v.size === filter.size) {
-              prev.push(v.color);
-            }
+          options={(data?.variants as VariantType[])?.reduce(
+            (prev: string[], v: VariantType) => {
+              if (
+                v.color &&
+                !prev.includes(v.color) &&
+                v.size === filter.size
+              ) {
+                prev.push(v.color);
+              }
 
-            return prev;
-          }, [])}
+              return prev;
+            },
+            []
+          )}
           onChange={(v) => {
             setFilter((prev) => ({
               ...prev,
@@ -106,8 +113,10 @@ const BuyProduct = ({ data }: BuyProductProps) => {
 
   const in_cart = useMemo(
     () =>
-      cart?.cart?.products.filter(({ variant, product } : CartProductType) => {
-        return variant._id === selected_variant._id && product._id === data._id;
+      cart?.cart?.products.filter(({ variant, product }: CartProductType) => {
+        return (
+          variant?._id === selected_variant?._id && product?._id === data?._id
+        );
       })[0],
     [data, filter, cart]
   );
@@ -119,7 +128,10 @@ const BuyProduct = ({ data }: BuyProductProps) => {
           const Component =
             components[option as keyof typeof components]?.Component;
 
-          if (Component && (data?.variants as VariantType[])[0][option as keyof VariantType])
+          if (
+            Component &&
+            (data?.variants as VariantType[])[0][option as keyof VariantType]
+          )
             return (
               <div className="flex flex-col gap-1">
                 <p className="text-[16px] text-foreground">{option}</p>

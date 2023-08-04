@@ -20,7 +20,7 @@ const ProfileLayout = ({ children, params }: DashboardLayoutProps) => {
     <div className="relative flex flex-col w-full h-fit min-h-screen text-foregrounds text-[14px]">
       <div className="sticky bg-background top-0 border-b border-border w-full z-[50]">
         <header className="container px-4 sm:px-8 flex items-center justify-between py-2 max-w-[1300px] mx-auto">
-          <NavbarMobile routes={routes} />
+          <NavbarMobile language={params.language} routes={routes} />
 
           <MainNav language={params.language} />
 
@@ -46,7 +46,7 @@ const ProfileLayout = ({ children, params }: DashboardLayoutProps) => {
         </div>
       </div>
 
-      <Footer />
+      <Footer language={params.language} />
     </div>
   );
 };

@@ -27,7 +27,7 @@ function SearchDrawer() {
       <DrawerPortal>
         <DrawerContent side="bottom" className="flex sm:hidden flex-col">
           <div className="flex gap-2 py-2 px-4 bg-background">
-            <DrawerClose>
+            <DrawerClose asChild>
               <Button variant="text" color="foreground" className="p-2">
                 <Icons.ArrowLeft className="text-[21px]" />
               </Button>

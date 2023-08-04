@@ -11,7 +11,7 @@ import {
 import Button from "./ui/button";
 import { Icons } from "./icons";
 import { usePathname } from "next/navigation";
-import { cn, createUrlInitilizer } from "@/lib/utils";
+import { cn, createUrlInitilizer, isLtr } from "@/lib/utils";
 
 interface NavbarProps {
   routes: {
@@ -44,6 +44,7 @@ const Navbar = ({ routes, className, language }: NavbarProps) => {
               {routes.map(({ icon, disabled, title, url }) => (
                 <Link key={title} href={createUrl(url)}>
                   <Button
+                    dir={isLtr(language) ? "ltr" : "rtl"}
                     block
                     variant="text"
                     color="foreground"

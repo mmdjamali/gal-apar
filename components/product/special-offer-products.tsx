@@ -103,7 +103,7 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
                   <div
                     dir="ltr"
                     className={cn(
-                      "flex w-[170px] items-start gap-1 flex-col relative p-3 flex-shrink-0 snap-center h-[240px] bg-white",
+                      "flex w-[170px] items-start gap-1 flex-col relative p-3 flex-shrink-0 snap-center h-[240px] bg-background",
                       idx === 0
                         ? isLtr(language)
                           ? "rounded-l"

@@ -13,7 +13,7 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const user = (await getServerSession(req, res, nextAuthConfig))?.user;
 
-    if (!user) return (res.status(401).statusMessage = "auth required");
+    if (!user?._id) return res.status(401).end();
 
     const cart = await CartModel.findOne({ owner: user._id }).populate([
       "products.product",
@@ -30,7 +30,7 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const user = (await getServerSession(req, res, nextAuthConfig))?.user;
 
-    if (!user) return (res.status(401).statusMessage = "auth required");
+    if (!user) return res.status(401).end();
 
     const cart = await CartModel.findOne({ owner: user._id });
 
@@ -71,7 +71,7 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
         {
           _id: cart._id,
           "products.product": body.product,
-          "products.variant": body.variant,
+          "products.variant": body.variant || null,
         },
         {
           $set: {
@@ -112,7 +112,7 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const user = (await getServerSession(req, res, nextAuthConfig))?.user;
 
-    if (!user) return (res.status(401).statusMessage = "auth required");
+    if (!user) return res.status(401).end();
 
     const cart = await CartModel.findOne({ owner: user._id });
 

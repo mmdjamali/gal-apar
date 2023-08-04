@@ -109,7 +109,7 @@ function UserDropdownMenu({ language }: UserDopdownMenuProps) {
     );
 
   return (
-    <Link href="/auth">
+    <Link href={createUrl("/auth")}>
       <Button className="p-2" variant="text" color="foreground">
         <Icons.Login className="text-[21px]" />
       </Button>

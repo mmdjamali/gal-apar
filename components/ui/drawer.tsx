@@ -45,16 +45,16 @@ const DrawerContent = React.forwardRef<
 >(({ side, className, ...props }, ref) => {
   const variant = {
     top: "top-0",
-    right: "right-0 ",
+    right: "right-0 inset-y-0 slide-in-from-right-full",
     bottom: "bottom-0",
-    left: "left-0 top-0 bottom-0",
+    left: "left-0 inset-y-0 slide-in-from-left-full",
   };
 
   return (
     <DialogPrimitives.Content
       ref={ref}
       className={cn(
-        "fixed w-full h-full overflow-auto z-[999] bg-background animate-duration-200 animate-ease-linear	",
+        "fixed w-full animate-in h-full overflow-auto z-[999] bg-background animate-duration-200 animate-ease-linear	",
         variant[side],
         className
       )}

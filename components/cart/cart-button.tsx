@@ -8,9 +8,13 @@ import Link from "next/link";
 import { CartProductType } from "@/types/cart";
 import { useGetCart } from "@/hooks/cart/use-get-cart";
 import { WithLanguageType } from "@/types/language";
-import { toPersianNumbers } from "@/lib/utils";
+import { createUrlInitilizer, toPersianNumbers } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 function CartButton({ language }: WithLanguageType) {
+  const session = useSession();
+  const createUrl = createUrlInitilizer(language);
+
   const { data, isLoading } = useGetCart();
 
   const cart = useMemo(
@@ -37,7 +41,7 @@ function CartButton({ language }: WithLanguageType) {
     );
 
   return (
-    <Link href="/me/cart">
+    <Link href={createUrl("/me/cart")}>
       <Bedge
         show={
           !!cart?.products?.reduce(

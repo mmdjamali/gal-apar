@@ -119,7 +119,10 @@ function ShoppingCart() {
     );
   return (
     <div className="grid lg:grid-cols-[1fr_300px] gap-4 w-full relative text-foreground">
-      <div className="relative w-full border border-border rounded flex items-start flex-col overflow-hidden">
+      <div
+        dir="ltr"
+        className="relative w-full border border-border rounded flex items-start flex-col overflow-hidden"
+      >
         <div className="flex w-full justify-between items-center px-6 py-3">
           <div className="flex flex-col gap-1">
             <p className="text-[16px] font-semibold">Your Shopping Cart</p>
