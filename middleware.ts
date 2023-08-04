@@ -11,10 +11,19 @@ export default withAuth(
   async function middleware(req) {
     const { pathname } = req.nextUrl;
 
-    const lang = pathname.split("").splice(1, 2).join("");
+    if (pathname === "/") {
+      const lang = req.headers.get("accept-language")?.substring(0, 2);
+
+      if (!lang || !languages[lang as keyof typeof languages])
+        return NextResponse.redirect(new URL("/en", req.url));
+
+      return NextResponse.redirect(new URL("/" + lang, req.url));
+    }
+
+    const lang = pathname.substring(1, 3);
 
     if (languages[lang as keyof typeof languages]) {
-      if (pathname.split("").splice(3).join().startsWith("/dashboard")) {
+      if (pathname.substring(3).startsWith("/dashboard")) {
         if (req.nextauth?.token?.is_seller) return null;
 
         return NextResponse.redirect(new URL("/" + lang, req.url));
