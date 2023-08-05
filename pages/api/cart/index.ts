@@ -4,6 +4,7 @@ import { nextAuthConfig } from "@/lib/next-auth-config";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { CartProductType } from "@/types/cart";
+import { ProductModel } from "@/models/product";
 
 const cart = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req?.method) return;
@@ -35,8 +36,11 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
     const cart = await CartModel.findOne({ owner: user._id });
 
     if (!cart) {
+      const product = await ProductModel.findOne({ _id: body.product });
+
       const new_cart = await CartModel.create({
         owner: user._id,
+        currency: product.currency,
         products: [
           {
             product: body?.product,
