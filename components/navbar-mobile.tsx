@@ -68,7 +68,7 @@ function NavbarMobile({ routes, language }: NavbarProps) {
                     color="foreground"
                     className={cn(
                       "flex justify-start gap-2 px-3 py-2",
-                      pathname === url
+                      pathname === createUrl(url)
                         ? "text-foreground bg-foreground/10 hover:bg-foreground/20"
                         : ""
                     )}
