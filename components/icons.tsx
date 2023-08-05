@@ -29,6 +29,7 @@ import {
   RiLoginBoxLine,
   RiLogoutBoxLine,
   RiMacbookLine,
+  RiMapPinUserLine,
   RiMenuLine,
   RiMoonFoggyLine,
   RiMoreLine,
@@ -95,6 +96,7 @@ export const Icons: {
   QuestionMark: RiQuestionMark,
   Ruler: RiRulerLine,
   Menu: RiMenuLine,
+  UserLocation: RiMapPinUserLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}

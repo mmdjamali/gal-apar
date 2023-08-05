@@ -3,25 +3,16 @@
 import { colors } from "@/constant/colors";
 import axios from "axios";
 import React, { useMemo } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import {
-  Table,
-  TableBody,
-  TableBodyCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from "../ui/table";
-import { cn } from "@/lib/utils";
+import { useQuery } from "react-query";
+import { cn, createUrlInitilizer } from "@/lib/utils";
 import Button from "../ui/button";
 import { Icons } from "../icons";
-import { useToast } from "../ui/use-toast";
 import ProductQuantityButton from "../product-quantity-button";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
-import cart from "@/pages/api/cart";
+import { WithLanguageType } from "@/types/language";
 
-function ShoppingCart() {
+function ShoppingCart({ language }: WithLanguageType) {
   const { data, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
@@ -49,6 +40,8 @@ function ShoppingCart() {
       ),
     [data]
   );
+
+  const createUrl = createUrlInitilizer(language);
 
   if (isLoading)
     return (
@@ -155,9 +148,9 @@ function ShoppingCart() {
                   )}
                 >
                   <div className="grid grid-cols-[116px_1fr] items-start w-full gap-4 overflow-hidden p-4 px-6">
-                    <Link href={`/product/${product?._id}`}>
+                    <Link href={createUrl(`/product/${product?._id}`)}>
                       <img
-                        className="w-full aspect-square"
+                        className="w-full aspect-square object-cover"
                         src={product?.images[0] ?? ""}
                       />
                     </Link>
@@ -262,7 +255,13 @@ function ShoppingCart() {
             })`}</span>
           </p>
 
-          <p className="text-[16px] font-semibold text-foreground/75">
+          <p className="text-[16px] flex items-center justify-center font-semibold text-foreground/75">
+            {(() => {
+              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+
+              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+            })()}
+
             {(() => {
               const price = cart?.products?.reduce(
                 (
@@ -290,7 +289,13 @@ function ShoppingCart() {
         <div className="flex w-full items-center justify-between">
           <p>Total cart price</p>
 
-          <p className="text-[16px] font-semibold">
+          <p className="text-[16px] flex items-center justify-center font-semibold">
+            {(() => {
+              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+
+              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+            })()}
+
             {(() => {
               const price = cart?.products?.reduce(
                 (
@@ -318,7 +323,14 @@ function ShoppingCart() {
         <div className="flex w-full items-center justify-between text-primary">
           <p className="text-[14px]">Total benefit</p>
 
-          <p className="text-[16px] font-semibold">0</p>
+          <p className="flex items-center justify-center text-[16px] font-semibold">
+            {(() => {
+              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+
+              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+            })()}
+            0
+          </p>
         </div>
 
         <Button>Complete Order</Button>
