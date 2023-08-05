@@ -60,6 +60,7 @@ function ProductColor({ color, onChange, used }: ProductColorProps) {
 
                 <Input block placeholder="search-for-currencies" />
               </div>
+
               <div className="flex p-3 flex-col gap-1 w-full relative">
                 {colors.map(({ name, hexCode }, idx) => (
                   <button

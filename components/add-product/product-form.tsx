@@ -199,7 +199,7 @@ function ProductForm() {
                     const clone = [...prev];
                     if (
                       typeof clone[idx as number][key as keyof VariantType] !==
-                      "undefined"
+                      undefined
                     )
                       clone[idx as number][key as keyof VariantType] = value;
                     return clone;
