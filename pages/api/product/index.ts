@@ -58,7 +58,9 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       currency: body.currency,
       category: body.category,
       base_price: (body.variants as VariantType[]).sort(
-        (a, b) => parseFloat(b.price?.toString() ?? "") - parseFloat(a.price?.toString() ?? "")
+        (a, b) =>
+          parseFloat(b.price?.toString() ?? "") -
+          parseFloat(a.price?.toString() ?? "")
       )[0].price,
     });
 
@@ -77,7 +79,13 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
-    const products = await ProductModel.find().limit(10).populate("variants");
+    const currency = req.query?.currency;
+
+    if (!currency) return res.json([]);
+
+    const products = await ProductModel.find({ currency })
+      .limit(10)
+      .populate("variants");
 
     return res.json(products);
   }

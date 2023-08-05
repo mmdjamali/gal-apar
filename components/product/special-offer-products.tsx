@@ -13,14 +13,23 @@ import "swiper/swiper-bundle.css";
 import { cn, createUrlInitilizer, isLtr, toPersianNumbers } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { WithLanguageType } from "@/types/language";
+import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
 
 function SpecialOfferProducts({ language }: WithLanguageType) {
   const createUrl = createUrlInitilizer(language);
 
-  const { data, isLoading, isError } = useQuery("special-offers", async () => {
-    const res = await axios.get("/api/product");
-    return res.data;
-  });
+  const { currency } = useGetStoredCurrency(language);
+
+  const { data, isLoading, isError } = useQuery(
+    ["special-offers", currency],
+    async () => {
+      if (!currency) return null;
+
+      const res = await axios.get(`/api/product?currency=${currency}`);
+
+      return res.data;
+    }
+  );
 
   const [width, setWidth] = useState<number>(0);
 
@@ -50,9 +59,9 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [swiper, isLoading]);
+  }, [swiper, isLoading, data]);
 
-  if (isLoading)
+  if (isLoading || !currency)
     return (
       <div className="flex rounded w-full h-[264px] bg-foreground/25 animate-pulse" />
     );
@@ -70,7 +79,7 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
           });
         }}
         slidesPerView={width / 172 || 0.1}
-        className="!py-3"
+        className="!py-3 w-full"
       >
         <SwiperSlide>
           <div className="relative flex flex-shrink-0 flex-col snap-center bg-primary items-center justify-center w-[170px] h-[240px]">

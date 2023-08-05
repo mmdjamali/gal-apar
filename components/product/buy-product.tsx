@@ -142,39 +142,41 @@ const BuyProduct = ({ data }: BuyProductProps) => {
         })}
       </div>
 
-      <div className="flex gap-4 items-center w-full">
-        {in_cart ? (
-          <div className="w-[111px]">
-            <ProductQuantityButton
-              _id={cart?.cart?._id}
-              product={in_cart.product}
-              variant={in_cart.variant}
-              quantity={in_cart.quantity}
-            />
-          </div>
-        ) : (
-          <Button
-            className=" w-[100%] md:w-[50%]"
-            loading={mutation.isLoading}
-            onClick={() => {
-              mutation.mutate({
-                product: data._id ?? "",
-                variant:
-                  (data.variants as VariantType[]).filter((v) =>
-                    Object.keys(filter).every(
-                      (k) => v[k as keyof VariantType] === filter[k]
-                    )
-                  )[0]?._id ?? null,
-                quantity: 1,
-              });
-            }}
-          >
-            Add to cart
-          </Button>
-        )}
+      {data?.currency === cart?.cart?.currency && (
+        <div className="flex gap-4 items-center w-full">
+          {in_cart ? (
+            <div className="w-[111px]">
+              <ProductQuantityButton
+                _id={cart?.cart?._id}
+                product={in_cart.product}
+                variant={in_cart.variant}
+                quantity={in_cart.quantity}
+              />
+            </div>
+          ) : (
+            <Button
+              className=" w-[100%] md:w-[50%]"
+              loading={mutation.isLoading}
+              onClick={() => {
+                mutation.mutate({
+                  product: data._id ?? "",
+                  variant:
+                    (data.variants as VariantType[]).filter((v) =>
+                      Object.keys(filter).every(
+                        (k) => v[k as keyof VariantType] === filter[k]
+                      )
+                    )[0]?._id ?? null,
+                  quantity: 1,
+                });
+              }}
+            >
+              Add to cart
+            </Button>
+          )}
 
-        <p className="text-[16px] font-semibold">{selected_variant?.price}</p>
-      </div>
+          <p className="text-[16px] font-semibold">{selected_variant?.price}</p>
+        </div>
+      )}
     </>
   );
 };
