@@ -7,6 +7,10 @@ const CartSchema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "user",
   },
+  currency: {
+    type: String,
+    require: true,
+  },
   products: [
     {
       product: { type: mongoose.Types.ObjectId, ref: ProductModel },
