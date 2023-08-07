@@ -10,6 +10,7 @@ const languages = {
 export default withAuth(
   async function middleware(req) {
     const { pathname } = req.nextUrl;
+    console.log(pathname);
 
     if (pathname === "/") {
       const lang = req.headers.get("accept-language")?.substring(0, 2);

@@ -6,6 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "./mongo-client";
 import { UserModel } from "@/models/user";
 import { connectDB } from "./connect-db";
+import { AccountModel } from "@/models/account";
 
 export const nextAuthConfig: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -17,20 +18,33 @@ export const nextAuthConfig: AuthOptions = {
 
         const { email, otp } = credentials;
 
-        const res = await fetch("http://localhost:3000/api/otp/validate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            otp,
-          }),
+        await connectDB();
+
+        const account = await AccountModel.findOne({ email });
+
+        if (!otp) return null;
+
+        if (!account.otp) return null;
+
+        if (account.otp.expires_at < Date.now()) return null;
+
+        if (account.otp.value !== otp) return null;
+
+        if (account.user_id) {
+          const user = await UserModel.findById(account.user_id);
+
+          return user;
+        }
+
+        const user = await UserModel.create({
+          email,
         });
 
-        if (!res.ok) return null;
+        await AccountModel.findByIdAndUpdate(account._id, {
+          user_id: user._id,
+        });
 
-        const data = await res.json();
-
-        return data.user;
+        return user;
       },
       credentials: {
         email: { label: "Email", placeholder: "Email", type: "text" },
