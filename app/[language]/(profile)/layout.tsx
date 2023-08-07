@@ -3,7 +3,6 @@ import Footer from "@/components/footer";
 import MainNav from "@/components/main-nav";
 import Navbar from "@/components/navbar";
 import NavbarMobile from "@/components/navbar-mobile";
-import SearchDrawer from "@/components/search-drawer";
 import UserDropdownMenu from "@/components/user-dropdown-menu";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -62,9 +61,9 @@ const routes = [
     className: "",
   },
   {
-    title: "setting",
+    title: "settings",
     icon: "Setting",
-    url: "/me/setting",
+    url: "/me/settings",
     disabled: false,
     className: "",
   },
@@ -72,6 +71,13 @@ const routes = [
     title: "cart",
     icon: "Cart",
     url: "/me/cart",
+    disabled: false,
+    className: "",
+  },
+  {
+    title: "locations",
+    icon: "UserLocation",
+    url: "/me/locations",
     disabled: false,
     className: "",
   },
