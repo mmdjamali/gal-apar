@@ -29,6 +29,10 @@ import {
   RiLoginBoxLine,
   RiLogoutBoxLine,
   RiMacbookLine,
+  RiMapPin3Fill,
+  RiMapPin3Line,
+  RiMapPinAddFill,
+  RiMapPinLine,
   RiMapPinUserLine,
   RiMenuLine,
   RiMoonFoggyLine,
@@ -40,6 +44,7 @@ import {
   RiSearchLine,
   RiSettingsLine,
   RiShakeHandsLine,
+  RiShoppingBasket2Line,
   RiShoppingCartLine,
   RiSparkling2Line,
   RiStarLine,
@@ -97,6 +102,10 @@ export const Icons: {
   Ruler: RiRulerLine,
   Menu: RiMenuLine,
   UserLocation: RiMapPinUserLine,
+  MapPin: RiMapPinLine,
+  MapPin3: RiMapPin3Fill,
+  MapPinAdd: RiMapPinAddFill,
+  ShoppingBasket: RiShoppingBasket2Line,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}

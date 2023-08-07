@@ -11,8 +11,11 @@ import ProductQuantityButton from "../product-quantity-button";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
 import { WithLanguageType } from "@/types/language";
+import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
 
 function ShoppingCart({ language }: WithLanguageType) {
+  const { currency } = useGetStoredCurrency(language);
+
   const { data, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
@@ -132,8 +135,8 @@ function ShoppingCart({ language }: WithLanguageType) {
           </Button>
         </div>
 
-        {data &&
-          cart.products?.map(
+        {cart?.products?.length ?? 0 ? (
+          cart?.products?.map(
             (
               { product, variant, quantity, _id }: CartProductType,
               idx: number,
@@ -240,7 +243,13 @@ function ShoppingCart({ language }: WithLanguageType) {
                 </div>
               );
             }
-          )}
+          )
+        ) : (
+          <div className="grid place-items-center h-full w-full pb-8 pt-2">
+            <Icons.ShoppingBasket className="text-foreground text-[48px]" />
+            <p>Your cart is empty</p>
+          </div>
+        )}
       </div>
 
       <div className="flex lg:sticky lg:top-[69px] relative flex-col gap-3 p-5 border border-border rounded w-full h-fit">
@@ -257,7 +266,7 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="text-[16px] flex items-center justify-center font-semibold text-foreground/75">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
 
               return <Icon className="h-[14px] aspect-square text-[14px]" />;
             })()}
@@ -281,7 +290,7 @@ function ShoppingCart({ language }: WithLanguageType) {
                 0
               );
 
-              return (Math.round(price * 100) / 100).toFixed(2);
+              return (Math.round((price ?? 0) * 100) / 100).toFixed(2);
             })()}
           </p>
         </div>
@@ -291,7 +300,7 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="text-[16px] flex items-center justify-center font-semibold">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
 
               return <Icon className="h-[14px] aspect-square text-[14px]" />;
             })()}
@@ -315,7 +324,7 @@ function ShoppingCart({ language }: WithLanguageType) {
                 0
               );
 
-              return (Math.round(price * 100) / 100).toFixed(2);
+              return (Math.round((price ?? 0) * 100) / 100).toFixed(2);
             })()}
           </p>
         </div>
@@ -325,7 +334,7 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="flex items-center justify-center text-[16px] font-semibold">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons["Circle"];
+              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
 
               return <Icon className="h-[14px] aspect-square text-[14px]" />;
             })()}
@@ -333,7 +342,9 @@ function ShoppingCart({ language }: WithLanguageType) {
           </p>
         </div>
 
-        <Button>Complete Order</Button>
+        <Button disabled={cart?.products ? !cart?.products.length : true}>
+          Complete Order
+        </Button>
       </div>
     </div>
   );
