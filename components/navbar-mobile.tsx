@@ -15,6 +15,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn, createUrlInitilizer, isLtr } from "@/lib/utils";
 import { WithLanguageType } from "@/types/language";
+import Icon from "./icon";
 
 type NavbarProps = {
   routes: {
@@ -45,19 +46,28 @@ function NavbarMobile({ routes, language }: NavbarProps) {
 
         <DrawerContent
           side={isLtr(language) ? "left" : "right"}
-          className="flex flex-col w-[220px] h-screen bg-background z-50 border-x border-border"
+          className="flex flex-col w-[min(100%_,_300px)] h-screen bg-background z-50 px-5 border-x border-border"
         >
-          <div className="flex flex-row-reverse items-center justify-between px-3 py-2 border-b border-border">
-            <Icons.LogoPr className="h-[21px] text-primary" />
-
+          <div className="flex flex-row-reverse items-center justify-between pt-2">
             <DrawerClose asChild>
               <Button className="p-2" color="foreground" variant="text">
-                <Icons.Close className="text-[21px]" />
+                <Icon name="Close" className="text-[21px]" />
               </Button>
             </DrawerClose>
+
+            <Link
+              href={`/${language}`}
+              className="flex items-center justify-center gap-1 text-primary"
+            >
+              <Icon name="Logo" className="text-[28px] h-[28px]" />
+
+              <Icon name="LogoPr" className="text-[21px] h-[21px]" />
+            </Link>
           </div>
 
-          <div className="flex flex-col gap-2 w-full p-3">
+          <span className="inline-block w-full h-[1px] bg-border my-2" />
+
+          <div className="flex flex-col gap-2 w-full">
             {routes.map(({ icon, disabled, title, url }) => (
               <DrawerClose asChild key={title}>
                 <Link href={createUrl(url)}>
