@@ -62,7 +62,7 @@ function UserDropdownMenu({ language }: UserDopdownMenuProps) {
 
   if (status === "loading")
     return (
-      <span className="w-9 aspect-square rounded-full bg-foreground/50 animate-pulse animate-infinite" />
+      <span className="w-9 aspect-square rounded-full bg-foreground/25 animate-pulse animate-infinite" />
     );
 
   if (status === "authenticated")

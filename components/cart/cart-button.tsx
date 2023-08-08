@@ -37,7 +37,7 @@ function CartButton({ language }: WithLanguageType) {
 
   if (isLoading)
     return (
-      <div className="flex rounded h-[37px] aspect-square bg-foreground/50 animate-pulse animate-infinite" />
+      <div className="flex rounded h-[37px] aspect-square bg-foreground/25 animate-pulse animate-infinite" />
     );
 
   return (
