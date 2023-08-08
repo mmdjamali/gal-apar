@@ -3,10 +3,10 @@ import { Icons } from "./icons";
 import { IconBaseProps } from "react-icons";
 
 interface IconProps extends IconBaseProps {
-  name: string;
+  name?: string;
 }
 
-function Icon({ name, ...props }: IconProps) {
+function Icon({ name = "Circle", ...props }: IconProps) {
   const Component = Icons[name] ?? Icons["Circle"];
 
   return <Component {...props} />;

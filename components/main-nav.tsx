@@ -71,7 +71,7 @@ function MainNav({ roots, className, language }: MainNavProps) {
         )}
       </div>
 
-      <div className="w-full relative">
+      <div className="flex md:hidden w-full relative">
         <Drawer>
           <DrawerTrigger asChild>
             <Button variant="text" className="p-2" color="foreground">

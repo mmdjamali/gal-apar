@@ -2,6 +2,7 @@ import { IconBaseProps } from "react-icons";
 import { IconType } from "react-icons/lib";
 import {
   RiAddLine,
+  RiArrowDownSLine,
   RiArrowLeftLine,
   RiArrowLeftSLine,
   RiArrowRightSLine,
@@ -106,6 +107,7 @@ export const Icons: {
   MapPin3: RiMapPin3Fill,
   MapPinAdd: RiMapPinAddFill,
   ShoppingBasket: RiShoppingBasket2Line,
+  ArrowDown: RiArrowDownSLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}
