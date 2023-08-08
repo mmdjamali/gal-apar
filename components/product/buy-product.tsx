@@ -10,6 +10,8 @@ import axios from "axios";
 import { useGetCart } from "@/hooks/cart/use-get-cart";
 import ProductQuantityButton from "../product-quantity-button";
 import { CartProductType } from "@/types/cart";
+import Icon from "../icon";
+import Input from "../ui/input";
 
 interface BuyProductProps {
   data: ProductType;
@@ -123,7 +125,7 @@ const BuyProduct = ({ data }: BuyProductProps) => {
 
   return (
     <>
-      <div className="flex gap-3 flex-col rounded border border-border p-3">
+      <div className="flex gap-4 flex-col">
         {category_options[data.category.toLowerCase()]?.map((option, idx) => {
           const Component =
             components[option as keyof typeof components]?.Component;
@@ -142,39 +144,51 @@ const BuyProduct = ({ data }: BuyProductProps) => {
         })}
       </div>
 
+      <span className="inline-block w-full h-[1px] bg-border" />
+
       {data?.currency === cart?.cart?.currency && (
-        <div className="flex gap-4 items-center w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-4 w-full">
           {in_cart ? (
             <div className="w-[111px]">
               <ProductQuantityButton
-                _id={cart?.cart?._id}
+                _id={in_cart?._id}
                 product={in_cart.product}
                 variant={in_cart.variant}
                 quantity={in_cart.quantity}
               />
             </div>
           ) : (
-            <Button
-              className=" w-[100%] md:w-[50%]"
-              loading={mutation.isLoading}
-              onClick={() => {
-                mutation.mutate({
-                  product: data._id ?? "",
-                  variant:
-                    (data.variants as VariantType[]).filter((v) =>
-                      Object.keys(filter).every(
-                        (k) => v[k as keyof VariantType] === filter[k]
-                      )
-                    )[0]?._id ?? null,
-                  quantity: 1,
-                });
-              }}
-            >
-              Add to cart
-            </Button>
+            <div className="flex flex-col gap-2 w-full relative">
+              <h3 className="font-semibold">Quantity</h3>
+              <Input block />
+              <Button
+                block
+                loading={mutation.isLoading}
+                onClick={() => {
+                  mutation.mutate({
+                    product: data._id ?? "",
+                    variant:
+                      (data.variants as VariantType[]).filter((v) =>
+                        Object.keys(filter).every(
+                          (k) => v[k as keyof VariantType] === filter[k]
+                        )
+                      )[0]?._id ?? null,
+                    quantity: 1,
+                  });
+                }}
+              >
+                Add to cart
+              </Button>
+            </div>
           )}
 
-          <p className="text-[16px] font-semibold">{selected_variant?.price}</p>
+          <div className="flex items-center justify-end text-[16px] font-semibold">
+            <Icon
+              className="h-[16px] aspect-square text-[16px] text-foreground"
+              name={data.currency}
+            />
+            <p>{selected_variant?.price}</p>
+          </div>
         </div>
       )}
     </>
