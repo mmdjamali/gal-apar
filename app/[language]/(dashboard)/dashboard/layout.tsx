@@ -1,13 +1,15 @@
+import Link from "next/link";
+import React from "react";
+
+import Icon from "@/components/icon";
+import UserDropdownMenu from "@/components/user-dropdown-menu";
+import Button from "@/components/ui/button";
+
 import Footer from "@/components/footer";
-import { Icons } from "@/components/icons";
-import MainNav from "@/components/main-nav";
 import Navbar from "@/components/navbar";
 import NavbarMobile from "@/components/navbar-mobile";
-import SearchDrawer from "@/components/search-drawer";
-import Button from "@/components/ui/button";
-import UserDropdownMenu from "@/components/user-dropdown-menu";
+
 import { cn } from "@/lib/utils";
-import React from "react";
 
 interface DashboardLayoutProps {
   params: {
@@ -23,11 +25,18 @@ const DashboardLayout = ({ children, params }: DashboardLayoutProps) => {
         <header className="container px-4 sm:px-8 flex items-center justify-between py-2 max-w-[1300px] mx-auto">
           <NavbarMobile language={params.language} routes={routes} />
 
-          <MainNav language={params.language} />
+          <Link
+            href={`/${params.language}`}
+            className="flex items-center justify-center gap-1 text-primary"
+          >
+            <Icon name="Logo" className="text-[28px] h-[28px]" />
+
+            <Icon name="LogoPr" className="text-[21px] h-[21px]" />
+          </Link>
 
           <div className="flex items-center gap-4">
             <Button variant="text" color="foreground" className="p-2">
-              <Icons.Notification className="text-[21px]" />
+              <Icon name="Notification" className="text-[21px]" />
             </Button>
 
             <UserDropdownMenu language={params.language} />
