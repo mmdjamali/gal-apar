@@ -3,6 +3,7 @@
 import { cn } from "../../lib/utils";
 import React from "react";
 import { Icons } from "../icons";
+import Icon from "../icon";
 
 interface props extends React.ComponentPropsWithoutRef<"button"> {
   color?: "primary" | "foreground";
@@ -49,7 +50,7 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
       <button
         ref={ref}
         className={cn(
-          "flex items-center justify-center rounded transition-all",
+          "relative flex items-center justify-center rounded transition-all",
           "py-2 px-4 text-[14px]",
           block ? "w-full" : "",
           loading ? "opacity-75 pointer-events-none" : "",
@@ -60,11 +61,20 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
         onClick={loading ? () => {} : onClick}
         {...props}
       >
+        <div
+          className={cn(
+            "flex items-center justify-center gap-2",
+            loading ? "opacity-0" : ""
+          )}
+        >
+          {children}
+        </div>
         {loading ? (
-          <Icons.Spinner className="text-[21px] animate-spin repeat-infinite" />
-        ) : (
-          children
-        )}
+          <Icon
+            name="Spinner"
+            className="absolute inset-0 m-auto text-[21px] animate-spin repeat-infinite"
+          />
+        ) : null}
       </button>
     );
   }
