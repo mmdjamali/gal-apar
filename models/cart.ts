@@ -1,11 +1,12 @@
 import mongoose, { Schema, model } from "mongoose";
 import { ProductModel } from "./product";
 import { variantModel } from "./variant";
+import { UserModel } from "./user";
 
 const CartSchema = new Schema({
   owner: {
     type: mongoose.Types.ObjectId,
-    ref: "user",
+    ref: UserModel,
   },
   currency: {
     type: String,
