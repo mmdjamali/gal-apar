@@ -5,6 +5,7 @@ import {
   RiArrowDownSLine,
   RiArrowLeftLine,
   RiArrowLeftSLine,
+  RiArrowRightLine,
   RiArrowRightSLine,
   RiBankCardLine,
   RiBookmarkFill,
@@ -47,6 +48,7 @@ import {
   RiShakeHandsLine,
   RiShoppingBasket2Line,
   RiShoppingCartLine,
+  RiSmartphoneLine,
   RiSparkling2Line,
   RiStarLine,
   RiSubscript,
@@ -80,6 +82,7 @@ export const Icons: {
   Cart: RiShoppingCartLine,
   Dashboard: RiDashboardLine,
   ArrowLeft: RiArrowLeftLine,
+  ArrowRight: RiArrowRightLine,
   LineChart: RiLineChartLine,
   Box: RiBox3Line,
   FileList: RiFileList2Line,
@@ -108,6 +111,7 @@ export const Icons: {
   MapPinAdd: RiMapPinAddFill,
   ShoppingBasket: RiShoppingBasket2Line,
   ArrowDown: RiArrowDownSLine,
+  SmartPhone: RiSmartphoneLine,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}
