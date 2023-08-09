@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "../../lib/utils";
-import React from "react";
+import React, { useId } from "react";
 
 import ReactTextareaAutoSize from "react-textarea-autosize";
 
@@ -13,6 +13,7 @@ interface props
   block?: boolean;
   error?: boolean;
   success?: boolean;
+  label?: string;
 }
 
 const Textarea = React.forwardRef<
@@ -28,6 +29,8 @@ const Textarea = React.forwardRef<
       block = false,
       error = false,
       success = false,
+      label,
+      required,
       ...props
     },
     ref
@@ -44,26 +47,45 @@ const Textarea = React.forwardRef<
       },
     };
 
+    const ID = useId();
+
     return (
-      <div
-        className={cn(
-          "relative flex hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
-          block ? "w-full" : "",
-          variants[variant]["shared"],
-          variants[variant][color],
-          success ? variants[variant]["success"] : "",
-          error ? variants[variant]["error"] : "",
-          className
-        )}
-      >
-        <ReactTextareaAutoSize
-          ref={ref}
+      <div className="flex flex-col gap-1">
+        {label ? (
+          <label
+            htmlFor={ID}
+            className="text-[14px] font-semibold text-foreground"
+          >
+            {label}
+            {required ? (
+              <>
+                {" "}
+                <span className="text-error text-[12px]">{"*"}</span>
+              </>
+            ) : null}
+          </label>
+        ) : null}
+        <div
           className={cn(
-            "flex-shrink w-full outline-none text-foreground/75 bg-transparent",
-            inputClassName
+            "relative flex hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
+            block ? "w-full" : "",
+            variants[variant]["shared"],
+            variants[variant][color],
+            success ? variants[variant]["success"] : "",
+            error ? variants[variant]["error"] : "",
+            className
           )}
-          {...props}
-        />
+        >
+          <ReactTextareaAutoSize
+            required={required}
+            ref={ref}
+            className={cn(
+              "flex-shrink w-full outline-none text-foreground/75 bg-transparent",
+              inputClassName
+            )}
+            {...props}
+          />
+        </div>
       </div>
     );
   }

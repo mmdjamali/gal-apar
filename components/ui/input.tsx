@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "../../lib/utils";
-import React from "react";
+import React, { useId } from "react";
 interface props extends React.ComponentPropsWithoutRef<"input"> {
   inputClassName?: string;
   variant?: "outlined";
@@ -10,6 +10,7 @@ interface props extends React.ComponentPropsWithoutRef<"input"> {
   error?: boolean;
   success?: boolean;
   actions?: React.ReactNode[];
+  label?: string;
 }
 
 const Input = React.forwardRef<React.ElementRef<"input">, props>(
@@ -23,6 +24,8 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
       error = false,
       success = false,
       actions,
+      label,
+      required,
       ...props
     },
     ref
@@ -39,31 +42,52 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
       },
     };
 
+    const ID = useId();
+
     return (
-      <div
-        className={cn(
-          "relative flex items-center hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
-          block ? "w-full" : "",
-          variants[variant]["shared"],
-          variants[variant][color],
-          success ? variants[variant]["success"] : "",
-          error ? variants[variant]["error"] : "",
-          className
-        )}
-      >
-        <input
-          ref={ref}
+      <div className="flex flex-col gap-1">
+        {label ? (
+          <label
+            htmlFor={ID}
+            className="text-[14px] font-semibold text-foreground"
+          >
+            {label}
+            {required ? (
+              <>
+                {" "}
+                <span className="text-error text-[12px]">{"*"}</span>
+              </>
+            ) : null}
+          </label>
+        ) : null}
+
+        <div
           className={cn(
-            "flex-shrink w-full outline-none text-foreground/75 bg-transparent",
-            inputClassName
+            "relative flex items-center hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
+            block ? "w-full" : "",
+            variants[variant]["shared"],
+            variants[variant][color],
+            success ? variants[variant]["success"] : "",
+            error ? variants[variant]["error"] : "",
+            className
           )}
-          {...props}
-        />
-        {actions
-          ? actions.map((action, idx) => (
-              <React.Fragment key={idx}>{action}</React.Fragment>
-            ))
-          : ""}
+        >
+          <input
+            id={ID}
+            ref={ref}
+            required={required}
+            className={cn(
+              "flex-shrink w-full outline-none text-foreground/75 bg-transparent",
+              inputClassName
+            )}
+            {...props}
+          />
+          {actions
+            ? actions.map((action, idx) => (
+                <React.Fragment key={idx}>{action}</React.Fragment>
+              ))
+            : ""}
+        </div>
       </div>
     );
   }

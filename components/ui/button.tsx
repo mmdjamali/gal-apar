@@ -63,7 +63,7 @@ const Button = React.forwardRef<React.ElementRef<"button">, props>(
       >
         <div
           className={cn(
-            "flex items-center justify-center gap-2",
+            "flex items-center justify-center gap-1",
             loading ? "opacity-0" : ""
           )}
         >
