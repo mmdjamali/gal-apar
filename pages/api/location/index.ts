@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await LocationModel.create({
       user: user._id,
-      adress: body.adress,
+      address: body.address,
       lat: body.lat,
       lot: body.lot,
       receiver_name: body.receiver_name,

@@ -77,24 +77,26 @@ function Locations() {
                   idx < list.length - 1 ? "border-b border-border" : ""
                 )}
               >
-                <div className="flex flex-col w-full gap-1">
+                <div className="flex flex-col w-full gap-3">
                   <p className="text-[14px] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
                     {address}
                   </p>
 
-                  <p className="text-foreground/75 text-[14px]">
-                    {receiver_name + " " + receiver_last_name}
-                  </p>
-
-                  <div className="flex flex-col w-full gap-1 mt-1 text-foreground/75">
+                  <div className="flex flex-col w-full gap-2 text-foreground/75">
                     <div className="flex items-center gap-1">
                       <Icon name="SmartPhone" className="text-[18px]" />
                       <p className="text-[12px]">{receiver_phone_number}</p>
                     </div>
+                    <div className="flex items-center gap-1">
+                      <Icon name="User" className="text-[18px]" />
+                      <p className="text-[12px]">
+                        {receiver_name + " " + receiver_last_name}
+                      </p>
+                    </div>
                   </div>
 
-                  <button className="flex items-center gap-1 w-fit bg-transparent text-primary font-medium mt-2 group">
-                    Edit Location
+                  <button className="flex items-center gap-1 w-fit bg-transparent text-primary font-medium group">
+                    Edit
                     <Icon
                       name="RightArrow"
                       className="text-[21px] group-hover:translate-x-1 transition-transform"

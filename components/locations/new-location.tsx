@@ -55,9 +55,9 @@ function NewLocation({ language }: WithLanguageType) {
 
   const muatate = useMutation({
     mutationFn: async (data: {
-      reciver_name: string;
-      reciver_last_name: string;
-      reciver_phone_number: string;
+      receiver_name: string;
+      receiver_last_name: string;
+      receiver_phone_number: string;
       address: string;
       lat: number;
       lon: number;
@@ -223,9 +223,9 @@ function NewLocation({ language }: WithLanguageType) {
                     address,
                     lat: coordinates?.lat ?? 0,
                     lon: coordinates?.lon ?? 0,
-                    reciver_last_name: reciver.last_name,
-                    reciver_name: reciver.name,
-                    reciver_phone_number: reciver.phone_number,
+                    receiver_last_name: reciver.last_name,
+                    receiver_name: reciver.name,
+                    receiver_phone_number: reciver.phone_number,
                   });
                 }}
               >
