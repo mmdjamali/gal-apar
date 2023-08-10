@@ -45,7 +45,9 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
     const ID = useId();
 
     return (
-      <div className="flex flex-col gap-1">
+      <div
+        className={cn("relative flex flex-col gap-1", block ? "w-full" : "")}
+      >
         {label ? (
           <label
             htmlFor={ID}
@@ -63,8 +65,7 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
 
         <div
           className={cn(
-            "relative flex items-center hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
-            block ? "w-full" : "",
+            "relative flex items-center hover:border-foreground/50 w-full px-3 py-2 border-border border rounded text-[14px] transition-all",
             variants[variant]["shared"],
             variants[variant][color],
             success ? variants[variant]["success"] : "",
