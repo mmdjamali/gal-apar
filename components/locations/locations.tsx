@@ -5,7 +5,7 @@ import React from "react";
 import Icon from "../icon";
 import Button from "../ui/button";
 
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 
 import { cn } from "@/lib/utils";
@@ -18,6 +18,17 @@ function Locations() {
     isLoading,
   } = useQuery("locations", async () => {
     return (await axios.get("/api/location")).data;
+  });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (_id: string) => {
+      return (await axios.delete("/api/location/" + _id)).data;
+    },
+    onSuccess(data, variables, context) {
+      queryClient.setQueryData("locations", data);
+    },
   });
 
   if (isLoading)
@@ -78,9 +89,22 @@ function Locations() {
                 )}
               >
                 <div className="flex flex-col w-full gap-3">
-                  <p className="text-[14px] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
-                    {address}
-                  </p>
+                  <div className="flex items-center justify-between w-full gap-3 relative">
+                    <p className="text-[14px] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                      {address}
+                    </p>
+
+                    <Button
+                      loading={mutation.isLoading}
+                      variant="text"
+                      className="p-2 flex-shrink-0"
+                      onClick={() => {
+                        mutation.mutate(_id);
+                      }}
+                    >
+                      <Icon name="DeleteBin" className="text-[21px]" />
+                    </Button>
+                  </div>
 
                   <div className="flex flex-col w-full gap-2 text-foreground/75">
                     <div className="flex items-center gap-1">
