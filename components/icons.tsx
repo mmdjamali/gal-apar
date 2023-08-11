@@ -32,7 +32,6 @@ import {
   RiLogoutBoxLine,
   RiMacbookLine,
   RiMapPin3Fill,
-  RiMapPin3Line,
   RiMapPinAddFill,
   RiMapPinLine,
   RiMapPinUserLine,
@@ -41,7 +40,6 @@ import {
   RiMoreLine,
   RiNotification3Line,
   RiQuestionMark,
-  RiRulerFill,
   RiRulerLine,
   RiSearchLine,
   RiSettingsLine,
@@ -51,11 +49,11 @@ import {
   RiSmartphoneLine,
   RiSparkling2Line,
   RiStarLine,
-  RiSubscript,
-  RiSubscript2,
   RiSubtractLine,
   RiSunFoggyLine,
+  RiTruckLine,
   RiUserLine,
+  RiWallet3Line,
 } from "react-icons/ri";
 
 export const Icons: {
@@ -112,6 +110,8 @@ export const Icons: {
   ShoppingBasket: RiShoppingBasket2Line,
   ArrowDown: RiArrowDownSLine,
   SmartPhone: RiSmartphoneLine,
+  Truck: RiTruckLine,
+  Wallet: RiWallet3Line,
   Tooman: (props: IconBaseProps) => (
     <svg
       {...props}

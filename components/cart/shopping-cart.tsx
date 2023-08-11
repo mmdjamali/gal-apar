@@ -56,10 +56,6 @@ function ShoppingCart({ language }: WithLanguageType) {
 
               <span className="h-[16px] w-[80px] rounded bg-foreground/25 animate-pulse" />
             </div>
-
-            <Button variant="text" className="p-2" color="foreground">
-              <Icons.More className="text-[21px]" />
-            </Button>
           </div>
 
           {Array(4)
@@ -342,9 +338,14 @@ function ShoppingCart({ language }: WithLanguageType) {
           </p>
         </div>
 
-        <Button disabled={cart?.products ? !cart?.products.length : true}>
-          Complete Order
-        </Button>
+        <Link href={createUrl("/me/shipping")}>
+          <Button
+            block
+            disabled={cart?.products ? !cart?.products.length : true}
+          >
+            Complete Order
+          </Button>
+        </Link>
       </div>
     </div>
   );
