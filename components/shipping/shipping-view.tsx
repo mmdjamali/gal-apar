@@ -12,6 +12,7 @@ import { Icons } from "../icons";
 import { CartProductType } from "@/types/cart";
 import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
 import { LocationType } from "@/types/location";
+import { WithLanguageType } from "@/types/language";
 
 type ShippingContextType = {
   location: LocationType | null;
@@ -22,7 +23,7 @@ export const ShippingContext = createContext<ShippingContextType>(
   {} as ShippingContextType
 );
 
-function ShippingView() {
+function ShippingView({ language }: WithLanguageType) {
   const [location, setLocation] = useState<LocationType | null>(null);
   const { data, isLoading } = useGetCart();
 
@@ -55,7 +56,7 @@ function ShippingView() {
     >
       <div className="grid lg:grid-cols-[1fr_300px] gap-4 w-full relative text-foreground">
         <div className="w-full relative flex flex-col items-center justify-center gap-4">
-          <ShippingLocation />
+          <ShippingLocation language={language} />
 
           <div className="flex flex-col w-full relative rounded border border-border p-5"></div>
         </div>

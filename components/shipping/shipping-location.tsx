@@ -5,8 +5,10 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { LocationType } from "@/types/location";
 import { ShippingContext } from "./shipping-view";
+import NewLocation from "../locations/new-location";
+import { WithLanguageType } from "@/types/language";
 
-function ShippingLocation() {
+function ShippingLocation({ language }: WithLanguageType) {
   const { location, setLocation } = useContext(ShippingContext);
 
   const {
@@ -18,10 +20,10 @@ function ShippingLocation() {
   });
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || location) return;
 
     if (locations[0]) setLocation(locations[0] as LocationType);
-  }, [isLoading]);
+  }, [locations, isLoading]);
 
   if (isLoading)
     return (
@@ -47,8 +49,12 @@ function ShippingLocation() {
 
   return (
     <Layout>
-      <Icon name="MapPin" className="text-[35px]" />
-      <p className="">You have no predefined locations</p>
+      <div className="w-full flex flex-col items-center">
+        <Icon name="MapPin" className="text-[35px]" />
+        <p className="">You have no predefined locations</p>
+
+        <NewLocation language={language} />
+      </div>
     </Layout>
   );
 }

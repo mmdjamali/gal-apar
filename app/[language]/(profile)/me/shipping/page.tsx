@@ -39,7 +39,7 @@ function ShippingPage({ params }: PropsWithLanguage<{}>) {
       </div>
 
       <div>
-        <ShippingView />
+        <ShippingView language={params.language} />
       </div>
     </div>
   );
