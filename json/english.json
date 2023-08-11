@@ -1,0 +1,14 @@
+{
+  "usd": "United States Dollar (USD)",
+  "try": "Turkish Lira (TRY)",
+  "azn": "Azerbaijani manat (AZN)",
+  "eur": "Euro (EUR)",
+  "jpy": "Japanese Yen (JPY)",
+  "cad": "Canadian Dollar (CAD)",
+  "gbp": "British Pound Sterling (GBP)",
+  "aud": "Australian Dollar (AUD)",
+  "chf": "Swiss Franc (CHF)",
+  "irr": "Iranian Rial (IRR)",
+  "select-currency": "Select Currency",
+  "currency": "Currency"
+}

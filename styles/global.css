@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: Inter, "Noto Sans Arabic";
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+:root {
+  --foreground: 49 49 49;
+  --background: 255 255 255;
+  --border: 220 220 220;
+  --primary: 255 62 21;
+  /* --primary: 92 242 122; */
+
+  --success: 16 243 84;
+  --error: 239 38 38;
+  --warning: 244 187 32;
+}
+
+[data-theme="dark"] {
+  --background: 49 49 49;
+  --foreground: 255 255 255;
+  --border: 96 96 96;
+  --primary: 255 93 58;
+  --error: 239 38 38;
+  --warning: 244 187 32;
+}
