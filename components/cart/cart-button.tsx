@@ -35,7 +35,16 @@ function CartButton({ language }: WithLanguageType) {
     [data]
   );
 
-  if (isLoading)
+  if (session.status === "unauthenticated")
+    return (
+      <Link href={createUrl("/me/cart")}>
+        <Button className="p-2" variant="text" color="foreground">
+          <Icons.Cart className="text-[21px]" />
+        </Button>
+      </Link>
+    );
+
+  if (isLoading || session.status === "loading")
     return (
       <div className="flex rounded h-[37px] aspect-square bg-foreground/25 animate-pulse animate-infinite" />
     );
