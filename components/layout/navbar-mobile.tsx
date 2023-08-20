@@ -8,14 +8,14 @@ import {
   DrawerOverlay,
   DrawerPortal,
   DrawerTrigger,
-} from "./ui/drawer";
-import Button from "./ui/button";
-import { Icons } from "./icons";
+} from "../ui/drawer";
+import Button from "../ui/button";
+import { Icons } from "../icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn, createUrlInitilizer, isLtr } from "@/lib/utils";
 import { WithLanguageType } from "@/types/language";
-import Icon from "./icon";
+import Icon from "../icon";
 
 type NavbarProps = {
   routes: {

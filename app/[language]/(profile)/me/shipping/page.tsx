@@ -7,7 +7,7 @@ import React from "react";
 
 function ShippingPage({ params }: PropsWithLanguage<{}>) {
   return (
-    <div className="flex flex-col gap-4 py-6 w-full relative flex-shrink text-foreground">
+    <div className="flex flex-col gap-4 py-6 w-full relative flex-shrink text-foreground overflow-hidden">
       <div className="w-full relative flex flex-col items-center justify-center gap-4 rounded border border-border p-4 py-6 md:p-8 overflow-hidden">
         <Icon name="LogoPr" className="h-[42px] text-primary" />
 

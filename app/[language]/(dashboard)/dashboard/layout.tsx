@@ -7,7 +7,7 @@ import Button from "@/components/ui/button";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import NavbarMobile from "@/components/navbar-mobile";
+import NavbarMobile from "@/components/layout/navbar-mobile";
 
 import { cn } from "@/lib/utils";
 
