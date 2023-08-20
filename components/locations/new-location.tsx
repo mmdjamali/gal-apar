@@ -16,7 +16,7 @@ import Icon from "../icon";
 import { WithLanguageType } from "@/types/language";
 
 import dynamic from "next/dynamic";
-import Textarea from "../ui/textare";
+import Textarea from "../ui/textarea";
 import { isLtr } from "@/lib/utils";
 import {
   ScrollArea,

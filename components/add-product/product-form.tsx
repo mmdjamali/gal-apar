@@ -5,7 +5,7 @@ import axios from "axios";
 
 // ui
 import Input from "../ui/input";
-import Textarea from "../ui/textare";
+import Textarea from "../ui/textarea";
 import Button from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { Icons } from "../icons";
@@ -79,29 +79,25 @@ function ProductForm() {
     >
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 relative gap-6">
         <div className="flex flex-col gap-6 h-fit">
-          <div className="flex flex-col gap-2">
-            <p className="font-medium">Name</p>
-            <Input
-              value={product?.name}
-              onChange={(e) => {
-                setProduct((prev) => ({ ...prev, name: e.target.value }));
-              }}
-            />
-          </div>
+          <Input
+            label="Name"
+            value={product?.name}
+            onChange={(e) => {
+              setProduct((prev) => ({ ...prev, name: e.target.value }));
+            }}
+          />
 
-          <div className="flex flex-col gap-2">
-            <p className="font-medium">Description</p>
-            <Textarea
-              value={product?.description}
-              onChange={(e) => {
-                setProduct((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }));
-              }}
-              minRows={2}
-            />
-          </div>
+          <Textarea
+            label="Description"
+            value={product?.description}
+            onChange={(e) => {
+              setProduct((prev) => ({
+                ...prev,
+                description: e.target.value,
+              }));
+            }}
+            minRows={2}
+          />
 
           <ProductCategory
             category={product.category}
@@ -110,7 +106,7 @@ function ProductForm() {
             }}
           />
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <p className="font-medium">Currencies</p>
 
             <ProductCurrency
@@ -136,20 +132,17 @@ function ProductForm() {
                 }}
               />
 
-              <div className="flex flex-col gap-2">
-                <p className="font-medium">Quantity</p>
-
-                <Input
-                  value={product.quantity ? product.quantity.toString() : ""}
-                  onChange={(e) => {
-                    const v = e.target.value.replaceAll(/\D/g, "");
-                    setProduct((prev) => ({
-                      ...prev,
-                      quantity: v,
-                    }));
-                  }}
-                />
-              </div>
+              <Input
+                label="Quantity"
+                value={product.quantity ? product.quantity.toString() : ""}
+                onChange={(e) => {
+                  const v = e.target.value.replaceAll(/\D/g, "");
+                  setProduct((prev) => ({
+                    ...prev,
+                    quantity: v,
+                  }));
+                }}
+              />
             </>
           ) : (
             ""

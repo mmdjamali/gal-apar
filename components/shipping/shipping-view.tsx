@@ -13,6 +13,7 @@ import { CartProductType } from "@/types/cart";
 import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
 import { LocationType } from "@/types/location";
 import { WithLanguageType } from "@/types/language";
+import ShippingCart from "./shipping-cart";
 
 type ShippingContextType = {
   location: LocationType | null;
@@ -55,10 +56,10 @@ function ShippingView({ language }: WithLanguageType) {
       }}
     >
       <div className="grid lg:grid-cols-[1fr_300px] gap-4 w-full relative text-foreground">
-        <div className="w-full relative flex flex-col items-center justify-center gap-4">
+        <div className="w-full relative flex flex-col items-center justify-center gap-4 overflow-hidden">
           <ShippingLocation language={language} />
 
-          <div className="flex flex-col w-full relative rounded border border-border p-5"></div>
+          <ShippingCart language={language} />
         </div>
 
         <div className="flex lg:sticky lg:top-[69px] relative flex-col p-5 border border-border rounded w-full h-fit">
