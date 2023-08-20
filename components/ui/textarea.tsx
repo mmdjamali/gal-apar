@@ -11,8 +11,9 @@ interface props
   variant?: "outlined";
   color?: "primary" | "foreground";
   block?: boolean;
-  error?: boolean;
+  error?: boolean | string;
   success?: boolean;
+  actions?: React.ReactNode[];
   label?: string;
 }
 
@@ -29,6 +30,7 @@ const Textarea = React.forwardRef<
       block = false,
       error = false,
       success = false,
+      actions,
       label,
       required,
       ...props
@@ -50,11 +52,11 @@ const Textarea = React.forwardRef<
     const ID = useId();
 
     return (
-      <div className="flex flex-col gap-1">
+      <div className={cn("flex flex-col", block ? "w-full" : "")}>
         {label ? (
           <label
             htmlFor={ID}
-            className="text-[14px] font-semibold text-foreground"
+            className="text-[14px] font-medium text-foreground mb-1"
           >
             {label}
             {required ? (
@@ -65,6 +67,7 @@ const Textarea = React.forwardRef<
             ) : null}
           </label>
         ) : null}
+
         <div
           className={cn(
             "relative flex hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
@@ -77,6 +80,7 @@ const Textarea = React.forwardRef<
           )}
         >
           <ReactTextareaAutoSize
+            id={ID}
             required={required}
             ref={ref}
             className={cn(
@@ -86,6 +90,10 @@ const Textarea = React.forwardRef<
             {...props}
           />
         </div>
+
+        {error && typeof error === "string" ? (
+          <p className="text-error ">{error}</p>
+        ) : null}
       </div>
     );
   }

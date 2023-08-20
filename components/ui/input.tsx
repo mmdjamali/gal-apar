@@ -1,13 +1,13 @@
 "use client";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import React, { useId } from "react";
 interface props extends React.ComponentPropsWithoutRef<"input"> {
   inputClassName?: string;
   variant?: "outlined";
   color?: "primary" | "foreground";
   block?: boolean;
-  error?: boolean;
+  error?: boolean | string;
   success?: boolean;
   actions?: React.ReactNode[];
   label?: string;
@@ -45,13 +45,11 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
     const ID = useId();
 
     return (
-      <div
-        className={cn("relative flex flex-col gap-1", block ? "w-full" : "")}
-      >
+      <div className={cn("relative flex flex-col", block ? "w-full" : "")}>
         {label ? (
           <label
             htmlFor={ID}
-            className="text-[14px] font-semibold text-foreground"
+            className="text-[14px] font-medium text-foreground mb-1"
           >
             {label}
             {required ? (
@@ -89,6 +87,10 @@ const Input = React.forwardRef<React.ElementRef<"input">, props>(
               ))
             : ""}
         </div>
+
+        {error && typeof error === "string" ? (
+          <p className="text-error ">{error}</p>
+        ) : null}
       </div>
     );
   }
