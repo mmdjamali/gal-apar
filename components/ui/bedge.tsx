@@ -20,7 +20,7 @@ const Bedge = React.forwardRef<
         <div
           {...props}
           className={cn(
-            "flex z-[2] items-center pointer-events-none justify-center text-white font-semibold w-4 h-4 absolute top-0 right-0 text-[10px] rounded-[4px] aspect-square bg-primary",
+            "flex max-w-fit z-[2] items-center pointer-events-none justify-center text-white font-semibold w-4 h-4 absolute top-0 right-0 text-[10px] rounded-[4px] aspect-square bg-primary",
             className
           )}
         >

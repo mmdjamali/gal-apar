@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Children } from "react";
+import React from "react";
 import * as AccordionPrimitives from "@radix-ui/react-accordion";
 import { cn } from "@/lib/utils";
 import Icon from "../icon";
@@ -15,7 +15,7 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitives.Trigger
       ref={ref}
       className={cn(
-        "flex font-semibold items-center justify-between w-full group py-2",
+        "flex font-semibold text-[14px] items-center justify-between w-full group py-3 hover:underline",
         className
       )}
       {...props}
@@ -25,6 +25,8 @@ const AccordionTrigger = React.forwardRef<
     </AccordionPrimitives.Trigger>
   </AccordionPrimitives.Header>
 ));
+
+AccordionTrigger.displayName = "@radix-ui/react-accordion-trigger";
 
 const AccordionIcon = ({
   name = "ArrowDown",
@@ -41,6 +43,8 @@ const AccordionIcon = ({
   />
 );
 
+AccordionIcon.displayName = "@radix-ui/react-accordion-icon";
+
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitives.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitives.Item>
@@ -52,13 +56,15 @@ const AccordionItem = React.forwardRef<
   />
 ));
 
+AccordionItem.displayName = "@radix-ui/react-accordion-item";
+
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitives.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitives.Content>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitives.Content
     className={cn(
-      "flex data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden",
+      "transition-all text-[14px] data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden",
       className
     )}
     ref={ref}
@@ -67,6 +73,8 @@ const AccordionContent = React.forwardRef<
     <div className="pt-0 pb-4">{children}</div>
   </AccordionPrimitives.Content>
 ));
+
+AccordionContent.displayName = "@radix-ui/react-accordion-content";
 
 export {
   Accordion,
