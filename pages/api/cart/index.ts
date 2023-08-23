@@ -40,11 +40,9 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const new_cart = await CartModel.create({
         owner: user._id,
-        currency: product.currency,
         products: [
           {
             product: body?.product,
-            variant: body?.variant,
             quantity: body?.quantity,
           },
         ],
@@ -52,7 +50,6 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const cart = await CartModel.findOne({ _id: new_cart._id }).populate([
         "products.product",
-        "products.variant",
       ]);
 
       return res.json({ cart });
@@ -60,15 +57,13 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const product_exists = cart?.products.some(
       (p: { product: string; variant: string; quantity: number }) =>
-        p.product.toString() === body.product &&
-        (p.variant?.toString() ?? "") === (body?.variant ?? "")
+        p.product.toString() === body.product
     );
 
     if (product_exists) {
       const product = cart?.products.filter(
         (p: { product: string; variant: string; quantity: number }) =>
-          p.product.toString() === body.product &&
-          (p.variant?.toString() ?? "") === (body?.variant ?? "")
+          p.product.toString() === body.product
       )[0];
 
       await CartModel.updateOne(
@@ -86,7 +81,6 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const new_cart = await CartModel.findOne({ _id: cart._id }).populate([
         "products.product",
-        "products.variant",
       ]);
 
       return res.json({ cart: new_cart });
@@ -95,7 +89,6 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
         ...(cart?.products ?? []),
         {
           product: body.product,
-          variant: body.variant,
           quantity: body.quantity,
         },
       ];
@@ -104,7 +97,6 @@ const cart = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const new_cart = await CartModel.findOne({ _id: cart._id }).populate([
         "products.product",
-        "products.variant",
       ]);
 
       return res.json({ cart: new_cart });

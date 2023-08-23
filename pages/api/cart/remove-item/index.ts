@@ -29,7 +29,6 @@ const handleRemove = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const new_cart = await CartModel.findOne({ _id: cart._id }).populate([
       "products.product",
-      "products.variant",
     ]);
 
     return res.json({ cart: new_cart });

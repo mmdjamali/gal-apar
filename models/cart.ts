@@ -1,6 +1,5 @@
 import mongoose, { Schema, model } from "mongoose";
 import { ProductModel } from "./product";
-import { variantModel } from "./variant";
 import { UserModel } from "./user";
 
 const CartSchema = new Schema({
@@ -11,7 +10,6 @@ const CartSchema = new Schema({
   products: [
     {
       product: { type: mongoose.Types.ObjectId, ref: ProductModel },
-      variant: { type: mongoose.Types.ObjectId, ref: variantModel },
       quantity: { type: Number, require: true },
     },
   ],
