@@ -70,7 +70,7 @@ const Textarea = React.forwardRef<
 
         <div
           className={cn(
-            "relative flex hover:border-foreground/50 px-3 py-2 border-border border rounded text-[14px] transition-all",
+            "relative flex hover:border-foreground/50 px-3 py-2 border-foreground/10 border rounded text-[14px] transition-all shadow shadow-foreground/10",
             block ? "w-full" : "",
             variants[variant]["shared"],
             variants[variant][color],
