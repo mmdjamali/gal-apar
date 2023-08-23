@@ -146,51 +146,49 @@ const BuyProduct = ({ data }: BuyProductProps) => {
 
       <span className="inline-block w-full h-[1px] bg-border" />
 
-      {data?.currency === cart?.cart?.currency && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-4 w-full">
-          {in_cart ? (
-            <div className="w-[111px]">
-              <ProductQuantityButton
-                _id={in_cart?._id}
-                product={in_cart.product}
-                variant={in_cart.variant}
-                quantity={in_cart.quantity}
-              />
-            </div>
-          ) : (
-            <div className="flex flex-col gap-2 w-full relative">
-              <h3 className="font-semibold">Quantity</h3>
-              <Input block />
-              <Button
-                block
-                loading={mutation.isLoading}
-                onClick={() => {
-                  mutation.mutate({
-                    product: data._id ?? "",
-                    variant:
-                      (data.variants as VariantType[]).filter((v) =>
-                        Object.keys(filter).every(
-                          (k) => v[k as keyof VariantType] === filter[k]
-                        )
-                      )[0]?._id ?? null,
-                    quantity: 1,
-                  });
-                }}
-              >
-                Add to cart
-              </Button>
-            </div>
-          )}
-
-          <div className="flex items-center justify-end text-[16px] font-semibold">
-            <Icon
-              className="h-[16px] aspect-square text-[16px] text-foreground"
-              name={data.currency}
+      <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-4 w-full">
+        {in_cart ? (
+          <div className="w-[111px]">
+            <ProductQuantityButton
+              _id={in_cart?._id}
+              product={in_cart.product}
+              variant={in_cart.variant}
+              quantity={in_cart.quantity}
             />
-            <p>{selected_variant?.price}</p>
           </div>
+        ) : (
+          <div className="flex flex-col gap-2 w-full relative">
+            <h3 className="font-semibold">Quantity</h3>
+            <Input block />
+            <Button
+              block
+              loading={mutation.isLoading}
+              onClick={() => {
+                mutation.mutate({
+                  product: data._id ?? "",
+                  variant:
+                    (data.variants as VariantType[]).filter((v) =>
+                      Object.keys(filter).every(
+                        (k) => v[k as keyof VariantType] === filter[k]
+                      )
+                    )[0]?._id ?? null,
+                  quantity: 1,
+                });
+              }}
+            >
+              Add to cart
+            </Button>
+          </div>
+        )}
+
+        <div className="flex items-center justify-end text-[16px] font-semibold">
+          <Icon
+            className="h-[16px] aspect-square text-[16px] text-foreground"
+            name={"try"}
+          />
+          <p>{data.variants?.length ? selected_variant?.price : data.price}</p>
         </div>
-      )}
+      </div>
     </>
   );
 };

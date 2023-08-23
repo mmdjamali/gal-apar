@@ -9,7 +9,6 @@ export type VariantType = {
 export type ProductType = {
   name: string;
   images: string[];
-  currency: string;
   _id?: string;
   price?: number | null;
   base_prise: number;

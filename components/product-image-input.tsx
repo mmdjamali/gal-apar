@@ -38,7 +38,7 @@ function ProductImageInput({
     <div className="flex flex-col w-full relative gap-4">
       <label
         htmlFor={id}
-        className="flex items-center justify-center transition-all full aspect-video border border-dashed border-primary/50 cursor-pointer hover:bg-primary/5 hover:border-primary/50 hover:text-primary rounded"
+        className="flex items-center justify-center transition-all full aspect-video border border-foreground/10 hover:border-foreground/50  cursor-pointer hover:bg-foreground/10 rounded shadow shadow-foreground/10"
       >
         <input
           disabled={loading}
@@ -59,9 +59,11 @@ function ProductImageInput({
                 body: formData,
               });
 
-              const { url } = await res.json();
+              const body = await res.json();
 
-              setImages("http://localhost:3001/" + url);
+              console.log(body);
+
+              setImages(body?.file?.url);
               setLoading(false);
             } catch (err) {
               setLoading(false);
@@ -88,9 +90,12 @@ function ProductImageInput({
         {images.map((image, idx) => (
           <div
             key={image}
-            className="flex items-center p-2 justify-between w-full h-16 rounded border border-border "
+            className="flex items-center p-2 justify-between w-full h-16 rounded border border-foreground/10 shadow shadow-foreground/10"
           >
-            <img className="rounded h-full aspect-square" src={image} />
+            <img
+              className="rounded h-full aspect-square shadow-sm shadow-foreground/10"
+              src={image}
+            />
 
             <Dialog>
               <DialogTrigger asChild>

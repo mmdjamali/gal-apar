@@ -13,19 +13,15 @@ import "swiper/swiper-bundle.css";
 import { cn, createUrlInitilizer, isLtr, toPersianNumbers } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { WithLanguageType } from "@/types/language";
-import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
+import Icon from "../icon";
 
 function SpecialOfferProducts({ language }: WithLanguageType) {
   const createUrl = createUrlInitilizer(language);
 
-  const { currency } = useGetStoredCurrency(language);
-
   const { data, isLoading, isError } = useQuery(
-    ["special-offers", currency],
+    ["special-offers"],
     async () => {
-      if (!currency) return null;
-
-      const res = await axios.get(`/api/product?currency=${currency}`);
+      const res = await axios.get(`/api/product`);
 
       return res.data;
     }
@@ -61,7 +57,7 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
     };
   }, [swiper, isLoading, data]);
 
-  if (isLoading || !currency)
+  if (isLoading)
     return (
       <div className="flex rounded w-full h-[264px] bg-foreground/25 animate-pulse" />
     );
@@ -98,12 +94,10 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
                   images,
                   base_price,
                   _id,
-                  currency,
                 }: {
                   images: string[];
                   base_price: number;
                   _id: string;
-                  currency: string;
                 },
                 idx: number,
                 list: ProductType[]
@@ -141,8 +135,9 @@ function SpecialOfferProducts({ language }: WithLanguageType) {
 
                     <div className="flex w-full gap-1 items-center">
                       {(() => {
-                        const Icon = Icons[currency] ?? Icons["Circle"];
-                        return <Icon className="text-[14px] h-[14px]" />;
+                        return (
+                          <Icon name="try" className="text-[14px] h-[14px]" />
+                        );
                       })()}
                       <p className="font-bold text-foreground">
                         {(() => {

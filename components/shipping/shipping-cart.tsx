@@ -51,8 +51,8 @@ function ShippingCart({ language }: WithLanguageType) {
       <Layout>
         <div ref={container}>
           <Swiper
-            spaceBetween={2}
-            slidesPerView={(width ?? 142) / 142}
+            spaceBetween={8}
+            slidesPerView={(width ?? 148) / 148}
             className="w-full"
           >
             {cart.products.map(

@@ -10,10 +10,10 @@ import ShippingLocation from "./shipping-location";
 import { useGetCart } from "@/hooks/cart/use-get-cart";
 import { Icons } from "../icons";
 import { CartProductType } from "@/types/cart";
-import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
 import { LocationType } from "@/types/location";
 import { WithLanguageType } from "@/types/language";
 import ShippingCart from "./shipping-cart";
+import Icon from "../icon";
 
 type ShippingContextType = {
   location: LocationType | null;
@@ -27,8 +27,6 @@ export const ShippingContext = createContext<ShippingContextType>(
 function ShippingView({ language }: WithLanguageType) {
   const [location, setLocation] = useState<LocationType | null>(null);
   const { data, isLoading } = useGetCart();
-
-  const { currency } = useGetStoredCurrency("tr");
 
   const cart = useMemo(
     () =>
@@ -68,10 +66,12 @@ function ShippingView({ language }: WithLanguageType) {
 
             <p className="text-[16px] flex items-center justify-center font-semibold">
               {(() => {
-                const Icon =
-                  Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
-
-                return <Icon className="h-[14px] aspect-square text-[14px]" />;
+                return (
+                  <Icon
+                    name="try"
+                    className="h-[14px] aspect-square text-[14px]"
+                  />
+                );
               })()}
 
               {(() => {

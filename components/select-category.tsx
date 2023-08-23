@@ -30,25 +30,26 @@ function SelectCategory({ category, setCategory }: SelectCategoryProps) {
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full">
-        <Input
-          inputClassName="text-start text-ellipsis overflow-hidden"
-          value={value}
-          onChange={() => {}}
+      <DialogTrigger asChild>
+        <Button
+          variant="outlined"
+          color="foreground"
+          className="text-start text-ellipsis overflow-hidden justify-start shadow"
           placeholder="select-catrgory"
           block
-          actions={[
-            // <button className="flex-shrink-0">
-            <Icons.ExpandY className="text-[16px] flex-shrink-0" />,
-            // </button>,
-          ]}
-        />
+        >
+          {value ? (
+            value
+          ) : (
+            <p className="text-foreground/75">select-category</p>
+          )}
+        </Button>
       </DialogTrigger>
 
       <DialogOverlay />
 
       <DialogPortal>
-        <DialogContent className="flex text-foreground p-0 overflow-hidden border-none flex-col animate-slideInUp animate-duration-75 gap-2 h-96 w-[min(80%,600px)] bg-background">
+        <DialogContent className="flex text-foreground p-0 overflow-hidden flex-col animate-slideInUp animate-duration-75 gap-2 h-96 w-[min(80%,600px)] bg-background">
           <ScrollArea className="w-full h-96">
             <ScrollAreaViewport className="block w-full h-full pr-1.5">
               <div className="sticky top-0 p-3 border-b border-border flex gap-3 bg-background z-[2]">

@@ -14,7 +14,6 @@ import { Icons } from "../icons";
 import ProductCategory from "./product-category";
 import ProductImageInput from "../product-image-input";
 import ProductPrice from "./product-price";
-import ProductCurrency from "./product-currency";
 
 // types
 import { type VariantType } from "@/types/product";
@@ -25,7 +24,6 @@ interface ProductType {
   description: string;
   category: string;
   images: string[];
-  currency: string;
   price: string | number | null;
   quantity: null | string | number;
 }
@@ -40,7 +38,6 @@ function ProductForm() {
     description: "",
     category: "",
     images: [],
-    currency: "",
     price: null,
     quantity: null,
   });
@@ -106,20 +103,6 @@ function ProductForm() {
             }}
           />
 
-          <div className="flex flex-col gap-1">
-            <p className="font-medium">Currencies</p>
-
-            <ProductCurrency
-              currency={product.currency}
-              onChange={(v: string) => {
-                setProduct((prev) => ({
-                  ...prev,
-                  currency: v,
-                }));
-              }}
-            />
-          </div>
-
           {!variants?.length ? (
             <>
               <ProductPrice
@@ -172,69 +155,6 @@ function ProductForm() {
               }}
             />
           </div>
-        </div>
-      </div>
-
-      <div className="grid relative w-full gap-2">
-        <p className="font-medium">Variants</p>
-
-        {variants?.length ? (
-          <div className="grid w-full grid-cols-1 md:grid-cols-2 relative gap-6">
-            {variants.map((variant, idx) => (
-              <ProductVarinatForm
-                category={product.category}
-                variants={variants}
-                variant={variant}
-                name={`Variant ${idx + 1}`}
-                key={variant._id}
-                onChange={(key, value) => {
-                  setVariants((prev) => {
-                    const clone = [...prev];
-                    if (
-                      typeof clone[idx as number][key as keyof VariantType] !==
-                      undefined
-                    )
-                      clone[idx as number][key as keyof VariantType] = value;
-                    return clone;
-                  });
-                }}
-                onRemove={() => {
-                  setVariants((prev) => [...prev.filter((_, i) => i !== idx)]);
-                }}
-              />
-            ))}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <div className="flex items-start">
-          <Button
-            type="button"
-            variant="text"
-            onClick={() => {
-              if (!product.category)
-                return toast({
-                  title: "You must select a category",
-                  variant: "error",
-                });
-
-              setVariants((prev) => {
-                return [
-                  ...prev,
-                  {
-                    price: prev[prev.length - 1]
-                      ? prev[prev.length - 1].price
-                      : "",
-                    quantity: "",
-                    _id: new Date().toString(),
-                  },
-                ] as VariantType[];
-              });
-            }}
-          >
-            <Icons.Add className="text-[21px]" /> Add Variant
-          </Button>
         </div>
       </div>
 

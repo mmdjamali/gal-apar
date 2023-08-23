@@ -30,10 +30,3 @@ function ProductPrice({ value, onChange }: ProductPriceProps) {
 }
 
 export default ProductPrice;
-
-const CurrencyIcons: {
-  [k: string]: string;
-} = {
-  "us-dollar": "Dollar",
-  "iran-rial": "Rial",
-};

@@ -11,11 +11,9 @@ import ProductQuantityButton from "../product-quantity-button";
 import Link from "next/link";
 import { CartProductType } from "@/types/cart";
 import { WithLanguageType } from "@/types/language";
-import { useGetStoredCurrency } from "@/hooks/use-get-stored-currency";
+import Icon from "../icon";
 
 function ShoppingCart({ language }: WithLanguageType) {
-  const { currency } = useGetStoredCurrency(language);
-
   const { data, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
@@ -201,11 +199,11 @@ function ShoppingCart({ language }: WithLanguageType) {
                     <div className="flex items-center justify-center h-full w-fit">
                       <div className="flex items-center justify-center">
                         {(() => {
-                          const Icon =
-                            Icons[product?.currency] ?? Icons["Circle"];
-
                           return (
-                            <Icon className="h-[14px] aspect-square text-[14px] text-foreground" />
+                            <Icon
+                              name="try"
+                              className="h-[14px] aspect-square text-[14px] text-foreground"
+                            />
                           );
                         })()}
 
@@ -262,9 +260,12 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="text-[16px] flex items-center justify-center font-semibold text-foreground/75">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
-
-              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+              return (
+                <Icon
+                  name="try"
+                  className="h-[14px] aspect-square text-[14px]"
+                />
+              );
             })()}
 
             {(() => {
@@ -296,9 +297,12 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="text-[16px] flex items-center justify-center font-semibold">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
-
-              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+              return (
+                <Icon
+                  name="try"
+                  className="h-[14px] aspect-square text-[14px]"
+                />
+              );
             })()}
 
             {(() => {
@@ -330,9 +334,12 @@ function ShoppingCart({ language }: WithLanguageType) {
 
           <p className="flex items-center justify-center text-[16px] font-semibold">
             {(() => {
-              const Icon = Icons[cart?.currency] ?? Icons[currency ?? "Circle"];
-
-              return <Icon className="h-[14px] aspect-square text-[14px]" />;
+              return (
+                <Icon
+                  name="try"
+                  className="h-[14px] aspect-square text-[14px]"
+                />
+              );
             })()}
             0
           </p>

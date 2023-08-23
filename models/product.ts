@@ -10,10 +10,6 @@ const ProductSchema = new Schema({
     type: String,
     require: true,
   },
-  currency: {
-    type: String,
-    require: true,
-  },
   quantity: {
     type: Number,
     default: null,
